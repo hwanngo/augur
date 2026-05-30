@@ -1,0 +1,43 @@
+scenario_metadata:
+  scenario_id: "SCEN-LNX-009"
+  name: "Linux Curl Beacon with Token-Based C2 Communication"
+  description: "Adversary uses curl with a token header to beacon to a C2 server, repeating the call on a schedule."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0011", technique: "T1071.001" }
+  os_family: "linux"
+spatial_constraints:
+  applicable_zones: ["Internal_Server", "DMZ"]
+  critical_assets_only: false
+  required_log_sources: ["Linux_Auditd"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Shell_Init"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["bash", "sh"] }
+    - step_id: 2
+      name: "Curl_Token_Beacon"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["curl"] }
+        CommandLine: { regex: ".*token.*" }
+    - step_id: 3
+      name: "Curl_Repeat_Beacon"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["curl"] }
+        CommandLine: { regex: ".*beacon.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "Sigma"
+      query: |
+        title: Curl C2 Beacon
+        logsource: { product: linux, category: process_creation }
+        detection:
+          sel: { Image|endswith: '/curl', CommandLine|contains: 'token' }
+          condition: sel
+        level: high

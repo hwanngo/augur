@@ -1,0 +1,28 @@
+# HONESTY: single-step LOLBin command-line rule, validated on ONE real OTRF capture
+# (empire_schtasks_creation_execution_elevated_user). `schtasks /create /ru system` registering a
+# SYSTEM-run logon task is a real scheduled-task persistence + privilege primitive, but admins and
+# installers create SYSTEM tasks constantly — a production deployment MUST allowlist sanctioned task
+# names/paths. Demo-clean on this capture != production-tuned. scenarios_real/ only, never auto-merged.
+scenario_metadata:
+  scenario_id: "SCEN-REAL-WIN-T1053-005-001"
+  name: "Real Scheduled Task SYSTEM Persistence via schtasks (T1053.005)"
+  description: "schtasks /create registers a SYSTEM-run logon task that launches an obfuscated powershell payload — a scheduled-task persistence + escalation primitive. Validated end-to-end against a real OTRF Sysmon capture."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0003", technique: "T1053.005" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Schtasks_Create_RU_System"
+      matching_criteria:
+        Node_Type: "Process"
+        CommandLine: { regex: "(?i)schtasks(\\.exe)?\\W+.*/create.*/ru\\s+system" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'schtasks.exe' and ProcessCommandLine has_all ('/create','/ru','system')"

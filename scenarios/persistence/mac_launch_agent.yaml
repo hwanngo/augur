@@ -1,0 +1,36 @@
+scenario_metadata:
+  scenario_id: "SCEN-MAC-002"
+  name: "macOS LaunchAgent Persistence via osascript and launchctl"
+  description: "Adversary uses osascript to write a LaunchAgent plist via defaults, then loads it with launchctl for persistence."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0003", technique: "T1543.001" }
+  os_family: "macos"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint"]
+  critical_assets_only: false
+  required_log_sources: ["macOS_ESF"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Osascript_Trigger"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["osascript"] }
+    - step_id: 2
+      name: "Write_LaunchAgent_Plist"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["defaults"] }
+        CommandLine: { regex: ".*LaunchAgents.*" }
+    - step_id: 3
+      name: "Load_LaunchAgent"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["launchctl"] }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where InitiatingProcessFileName == 'osascript' and FileName in ('defaults','launchctl')"

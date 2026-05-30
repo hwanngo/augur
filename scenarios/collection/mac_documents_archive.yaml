@@ -1,0 +1,37 @@
+scenario_metadata:
+  scenario_id: "SCEN-MAC-006"
+  name: "macOS Document Collection and Archive"
+  description: "Adversary enumerates Documents directory with find and archives the content using zip or ditto for staging."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0009", technique: "T1119" }
+  os_family: "macos"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint"]
+  critical_assets_only: false
+  required_log_sources: ["macOS_ESF"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Find_Documents"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["find"] }
+        CommandLine: { regex: ".*Documents.*" }
+    - step_id: 2
+      name: "Archive_Files"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["zip", "ditto"] }
+    - step_id: 3
+      name: "Stage_Archive"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["mv", "cp"] }
+        CommandLine: { regex: ".*stage.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName in ('zip','ditto') and InitiatingProcessFileName == 'find'"

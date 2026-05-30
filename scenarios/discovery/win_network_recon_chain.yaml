@@ -1,0 +1,37 @@
+scenario_metadata:
+  scenario_id: "SCEN-WIN-009"
+  name: "Network Reconnaissance Chain: ipconfig, arp, route"
+  description: "Adversary runs a sequential network discovery chain using ipconfig, arp, and route to map the local network."
+  severity: "LOW"
+  mitre_mappings:
+    - { tactic: "TA0007", technique: "T1018" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Ipconfig"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["ipconfig.exe"] }
+    - step_id: 2
+      name: "Arp_Scan"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["arp.exe"] }
+        CommandLine: { regex: ".*-a.*" }
+    - step_id: 3
+      name: "Route_Print"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["route.exe"] }
+        CommandLine: { regex: ".*print.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName in ('ipconfig.exe','arp.exe','route.exe') | summarize count() by DeviceName, bin(Timestamp, 5m)"

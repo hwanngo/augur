@@ -1,0 +1,1140 @@
+{
+  "nav": {
+    "dashboard": "Bảng điều khiển",
+    "scenarios": "Kịch bản",
+    "topology": "Cấu trúc mạng",
+    "hostRisk": "Rủi ro máy chủ",
+    "coverageGaps": "Lỗ hổng phạm vi",
+    "attackPaths": "Đường tấn công",
+    "intel": "Tình báo mối đe dọa",
+    "campaign": "Kiểm định",
+    "handover": "Bàn giao",
+    "drill": "Diễn tập",
+    "hunts": "Săn tìm",
+    "account": "Tài khoản",
+    "sessions": "Phiên đăng nhập",
+    "users": "Người dùng",
+    "candidates": "Kịch bản sinh tự động",
+    "alerts": "Cảnh báo",
+    "audit": "Nhật ký kiểm tra",
+    "logout": "Đăng xuất",
+    "toggleLanguage": "Chuyển ngôn ngữ",
+    "openMenu": "Mở menu điều hướng",
+    "closeMenu": "Đóng menu điều hướng",
+    "appName": "Augur",
+    "pivot": "Đồ thị Xoay trục",
+    "stack": "Xếp chồng",
+    "incidents": "Sự cố",
+    "detectionHealth": "Tình trạng phát hiện",
+    "section": {
+      "operations": "Vận hành",
+      "investigate": "Điều tra",
+      "posture": "Phạm vi & Tư thế",
+      "validate": "Kiểm định",
+      "admin": "Quản trị & Tài khoản"
+    },
+    "tuning": "Tinh chỉnh"
+  },
+  "login": {
+    "title": "Bảng điều khiển săn lùng mối đe dọa",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "signIn": "Đăng nhập",
+    "signingIn": "Đang đăng nhập…",
+    "errors": {
+      "invalidCredentials": "Tên đăng nhập hoặc mật khẩu không hợp lệ.",
+      "lockedOut": "Quá nhiều lần thử thất bại. Vui lòng thử lại sau.",
+      "generic": "Đăng nhập thất bại ({{status}}). Vui lòng thử lại.",
+      "network": "Lỗi mạng. Vui lòng kiểm tra kết nối của bạn."
+    }
+  },
+  "dashboard": {
+    "title": "Phát hiện",
+    "realDatasetBanner": "DỮ LIỆU THẬT — các phát hiện được tính từ nguồn telemetry thật đã thu thập, không phải dữ liệu tổng hợp.",
+    "search": "Tìm theo tên, ID hoặc máy…",
+    "detectionCount_one": "{{count}} phát hiện tại ≥ {{proximity}} độ gần",
+    "detectionCount_other": "{{count}} phát hiện tại ≥ {{proximity}} độ gần",
+    "minProximity": "Độ gần tối thiểu",
+    "stepsAndQueries": "Các bước & truy vấn săn lùng",
+    "emptyState": "Không có kịch bản nào khớp với ngưỡng này.",
+    "loading": "Đang tải…",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "copyToClipboard": "Sao chép vào clipboard",
+    "openCase": "Xem hồ sơ",
+    "pivot": "Xoay trục",
+    "filters": {
+      "severity": "Mức độ",
+      "zone": "Vùng",
+      "allSeverities": "Tất cả mức độ",
+      "allZones": "Tất cả vùng"
+    },
+    "nextStep": "🎯 Tiếp theo: {{name}}",
+    "lookFor": "tìm {{criteria}}",
+    "whyStalled": "⚠ Vì sao dừng lại: {{reason}}",
+    "momentum": {
+      "rising": "đang tăng",
+      "flat": "ổn định",
+      "falling": "đang giảm",
+      "label": "Đà tiến độ gần: {{trend}}"
+    },
+    "playbook": {
+      "title": "Sổ tay ứng phó",
+      "standardLabel": "Mẫu chuẩn — suy ra từ chiến thuật & mức độ nghiêm trọng",
+      "contain": "Ngăn chặn",
+      "eradicate": "Loại bỏ",
+      "recover": "Khôi phục",
+      "validate": "Xác minh",
+      "dispatch": "Gửi đi",
+      "dispatched": "Đã gửi (xem trước)",
+      "previewTitle": "Sẽ gửi nội dung này tới SIEM/SOAR của bạn",
+      "dispatchFailed": "Gửi thất bại"
+    }
+  },
+  "users": {
+    "title": "Quản lý người dùng",
+    "newUser": "Người dùng mới",
+    "loading": "Đang tải người dùng",
+    "table": {
+      "id": "ID",
+      "username": "Tên đăng nhập",
+      "role": "Vai trò",
+      "status": "Trạng thái",
+      "created": "Ngày tạo",
+      "actions": "Hành động"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "disabled": "Vô hiệu hóa"
+    },
+    "actions": {
+      "enable": "Kích hoạt {{username}}",
+      "disable": "Vô hiệu hóa {{username}}",
+      "changeRole": "Thay đổi vai trò cho {{username}}",
+      "resetPassword": "Đặt lại mật khẩu cho {{username}}",
+      "delete": "Xóa {{username}}",
+      "role": "Vai trò"
+    },
+    "createTitle": "Tạo người dùng",
+    "deleteTitle": "Xóa người dùng",
+    "editRoleTitle": "Thay đổi vai trò — {{username}}",
+    "resetPasswordTitle": "Đặt lại mật khẩu — {{username}}",
+    "fields": {
+      "username": "Tên đăng nhập",
+      "password": "Mật khẩu",
+      "newPassword": "Mật khẩu mới",
+      "role": "Vai trò",
+      "passwordHint": "Cần tối thiểu 8 ký tự.",
+      "usernamePlaceholder": "tên đăng nhập",
+      "passwordPlaceholder": "tối thiểu 8 ký tự"
+    },
+    "confirmDelete": "Bạn có chắc chắn muốn xóa <strong>{{username}}</strong>? Hành động này không thể hoàn tác.",
+    "deleteConfirm": "Xóa người dùng \"{{name}}\"? Hành động này không thể hoàn tác.",
+    "empty": "Không tìm thấy người dùng nào.",
+    "toasts": {
+      "created": "Đã tạo người dùng \"{{username}}\"",
+      "deleted": "Đã xóa người dùng \"{{username}}\"",
+      "enabled": "Đã kích hoạt người dùng \"{{username}}\"",
+      "disabled": "Đã vô hiệu hóa người dùng \"{{username}}\"",
+      "roleUpdated": "Đã cập nhật vai trò thành {{role}}",
+      "passwordReset": "Đặt lại mật khẩu thành công",
+      "failedLoad": "Không tải được người dùng",
+      "failedCreate": "Không tạo được người dùng",
+      "failedDelete": "Không xóa được người dùng",
+      "failedUpdate": "Không cập nhật được người dùng",
+      "failedRole": "Không cập nhật được vai trò",
+      "failedReset": "Không đặt lại được mật khẩu"
+    }
+  },
+  "scenarios": {
+    "title": "Kịch bản",
+    "search": "Tìm theo ID, tên hoặc kỹ thuật…",
+    "table": {
+      "id": "ID",
+      "name": "Tên",
+      "severity": "Mức độ",
+      "steps": "Bước",
+      "mitre": "MITRE"
+    },
+    "empty": "Không tìm thấy kịch bản nào.",
+    "loading": "Đang tải kịch bản",
+    "failedLoad": "Không tải được kịch bản",
+    "ariaLabel": "Bảng kịch bản",
+    "detail": {
+      "open": "Xem chi tiết {{name}}",
+      "title": "{{name}}",
+      "severity": "Mức nghiêm trọng",
+      "osFamily": "Họ HĐH",
+      "applicableZones": "Vùng áp dụng",
+      "mitre": "MITRE ATT&CK",
+      "steps": "Các bước phát hiện",
+      "step": "Bước {{n}}",
+      "criteria": "Tiêu chí khớp",
+      "temporalLink": "Liên kết thời gian",
+      "loading": "Đang tải chi tiết kịch bản…",
+      "failed": "Không tải được chi tiết kịch bản"
+    },
+    "sigma": {
+      "heading": "Quy tắc Sigma",
+      "honesty": "Phát hiện theo từng bước do Augur tạo — mỗi quy tắc chỉ khớp MỘT bước kỹ thuật riêng lẻ. Phát hiện đầy đủ của Augur còn cần tương quan thời gian giữa các bước và kiểm soát vùng không gian mà một quy tắc Sigma phẳng không thể biểu diễn. Chuyển sang Splunk/Sentinel/Elastic bằng sigma-cli.",
+      "copy": "Sao chép",
+      "copied": "Đã sao chép",
+      "copyAriaLabel": "Sao chép YAML Sigma vào clipboard",
+      "download": "Tải .yml",
+      "downloadAriaLabel": "Tải xuống quy tắc Sigma dạng tệp YAML",
+      "loading": "Đang tạo quy tắc Sigma…",
+      "failed": "Không tạo được quy tắc Sigma",
+      "packFailed": "Không xuất được gói Sigma"
+    },
+    "exportPack": "Xuất gói Sigma"
+  },
+  "drill": {
+    "title": "Diễn tập Đội Tím",
+    "subtitle": "Tiêm một kịch bản vào máy chủ, chạy công cụ, chứng minh khả năng phát hiện.",
+    "selectScenario": "Kịch bản",
+    "selectHost": "Máy chủ mục tiêu",
+    "run": "Chạy diễn tập",
+    "running": "Đang chạy…",
+    "detectedAt": "Phát hiện ở mức {{pct}}%",
+    "notDetected": "Không phát hiện",
+    "feedSummary": "{{total}} sự kiện ({{baseline}} nền + {{injected}} đã tiêm)",
+    "proveScenario": "Chứng minh kịch bản này",
+    "noHostForOs": "Không có máy chủ phù hợp cho kịch bản này.",
+    "failed": "Diễn tập thất bại",
+    "replay": "Phát lại",
+    "replayRunning": "Đang phát lại…",
+    "replayNote": "Phát lại trên dữ liệu thực đã nạp — không tổng hợp.",
+    "replayMatchedOn": "Khớp trên {{hosts}}",
+    "replayNotPresent": "Kịch bản này không có trong bản ghi đã nạp.",
+    "replaySubtitle": "Kịch bản thực được phát lại trên bản ghi đã nạp; kịch bản tổng hợp được tiêm và chạy.",
+    "modeReplayBadge": "PHÁT LẠI",
+    "modeInjectBadge": "TIÊM"
+  },
+  "hunts": {
+    "title": "Bàn làm việc Giả thuyết Săn tìm",
+    "subtitle": "Nêu một giả thuyết về mối đe dọa, khoanh vùng phạm vi và xác thực bằng bằng chứng trực tiếp từ công cụ tất định.",
+    "loading": "Đang tải các cuộc săn tìm…",
+    "empty": "Chưa có cuộc săn tìm nào. Hãy nêu giả thuyết đầu tiên bên dưới.",
+    "failedLoad": "Không tải được các cuộc săn tìm",
+    "new": {
+      "title": "Cuộc săn tìm mới",
+      "hypothesis": "Giả thuyết",
+      "hypothesisPlaceholder": "ví dụ: Kẻ tấn công đang di chuyển ngang từ vùng DMZ vào vùng thiết bị người dùng.",
+      "scope": "Phạm vi",
+      "zone": "Vùng",
+      "host": "Máy chủ",
+      "tactic": "Chiến thuật",
+      "tacticPlaceholder": "ví dụ: TA0008",
+      "scenarios": "Kịch bản",
+      "anyZone": "Mọi vùng",
+      "anyHost": "Mọi máy chủ",
+      "submit": "Mở cuộc săn tìm",
+      "submitting": "Đang mở…",
+      "hypothesisRequired": "Bắt buộc phải có giả thuyết.",
+      "failed": "Không tạo được cuộc săn tìm"
+    },
+    "list": {
+      "title": "Các cuộc săn tìm",
+      "status": "Trạng thái",
+      "owner": "Chủ sở hữu",
+      "created": "Tạo lúc",
+      "filterStatus": "Lọc theo trạng thái",
+      "allStatuses": "Tất cả trạng thái",
+      "mine": "Của tôi",
+      "view": "Xem cuộc săn tìm {{id}}"
+    },
+    "status": {
+      "open": "Đang mở",
+      "investigating": "Đang điều tra",
+      "confirmed": "Đã xác nhận",
+      "refuted": "Đã bác bỏ",
+      "abandoned": "Đã bỏ"
+    },
+    "detail": {
+      "title": "Chi tiết cuộc săn tìm",
+      "hypothesis": "Giả thuyết",
+      "scopeResolved": "Phạm vi đã phân giải",
+      "liveEvidence": "Bằng chứng trực tiếp",
+      "noEvidence": "Không có phát hiện khớp trong phạm vi.",
+      "matched": "{{matched}}/{{total}} bước",
+      "verdictEvidence": "Bằng chứng tại thời điểm kết luận",
+      "verdictEvidenceAt": "Bằng chứng tại thời điểm kết luận (tính đến {{at}})",
+      "verdictEvidenceHint": "Ảnh chụp tại thời điểm ghi nhận kết luận — không phải hiện tại.",
+      "status": "Trạng thái",
+      "verdictNote": "Ghi chú kết luận",
+      "verdictNotePlaceholder": "Bắt buộc để xác nhận hoặc bác bỏ — tóm tắt bằng chứng.",
+      "verdictNoteRequired": "Cần ghi chú kết luận để xác nhận hoặc bác bỏ.",
+      "notes": "Ghi chú",
+      "notesPlaceholder": "Ghi chú làm việc (không bắt buộc).",
+      "saveVerdict": "Lưu",
+      "addComment": "Thêm bình luận",
+      "comment": "Bình luận",
+      "events": "Hoạt động",
+      "report": "Báo cáo",
+      "delete": "Xóa",
+      "deleteConfirm": "Xóa cuộc săn tìm này? Không thể hoàn tác.",
+      "deleted": "Đã xóa cuộc săn tìm",
+      "saved": "Đã cập nhật cuộc săn tìm",
+      "commented": "Đã thêm bình luận",
+      "failedSave": "Không cập nhật được cuộc săn tìm",
+      "failedComment": "Không thêm được bình luận",
+      "failedDelete": "Không xóa được cuộc săn tìm"
+    }
+  },
+  "topology": {
+    "title": "Cấu trúc mạng",
+    "search": "Tìm theo máy, IP, vùng hoặc vai trò…",
+    "loading": "Đang tải cấu trúc mạng…",
+    "failedLoad": "Không tải được cấu trúc mạng",
+    "empty": "Không tìm thấy tài sản nào.",
+    "table": {
+      "hostname": "Tên máy chủ",
+      "zone": "Vùng",
+      "criticality": "Mức nghiêm trọng",
+      "os": "Hệ điều hành",
+      "ip": "Địa chỉ IP",
+      "role": "Vai trò"
+    },
+    "ariaLabel": "Bảng tài sản",
+    "assetCount_one": "{{count}} tài sản",
+    "assetCount_other": "{{count}} tài sản",
+    "detail": {
+      "open": "Xem chi tiết {{name}}",
+      "title": "{{name}}",
+      "hostname": "Tên máy",
+      "zone": "Vùng",
+      "criticality": "Mức quan trọng",
+      "os": "Hệ điều hành",
+      "ip": "IP",
+      "role": "Vai trò"
+    },
+    "view": {
+      "graph": "Đồ thị",
+      "table": "Bảng"
+    },
+    "viewToggleLabel": "Chế độ xem topology",
+    "graphAria": "Bản đồ topology mạng: {{count}} tài sản trên {{zones}} vùng, tô màu theo mức nghiêm trọng.",
+    "legendFill": "Màu nền = mức nghiêm trọng của tài sản",
+    "honesty": "Vùng và mức nghiêm trọng lấy từ cấu hình topology. Máy chủ được nhóm theo vùng — đây KHÔNG phải bản đồ khả năng kết nối/liền kề mạng; topology không mô hình hóa liên kết máy-tới-máy."
+  },
+  "hostRisk": {
+    "title": "Bảng rủi ro máy chủ",
+    "search": "Tìm theo máy, vùng hoặc mức…",
+    "loading": "Đang tải rủi ro máy chủ…",
+    "failedLoad": "Không tải được rủi ro máy chủ",
+    "empty": "Không tìm thấy máy chủ nào.",
+    "ariaLabel": "Bảng rủi ro máy chủ",
+    "hostCount_one": "{{count}} máy chủ",
+    "hostCount_other": "{{count}} máy chủ",
+    "moreScenarios": "+{{count}} mục khác",
+    "table": {
+      "host": "Máy chủ",
+      "zone": "Vùng",
+      "criticality": "Mức nghiêm trọng",
+      "score": "Điểm",
+      "band": "Mức",
+      "detections": "Phát hiện",
+      "scenarios": "Kịch bản hàng đầu"
+    },
+    "bands": {
+      "CRITICAL": "Nghiêm trọng",
+      "HIGH": "Cao",
+      "WATCH": "Theo dõi",
+      "LOW": "Thấp",
+      "CLEAR": "Sạch"
+    },
+    "detail": {
+      "open": "Xem chi tiết {{name}}",
+      "title": "{{name}}",
+      "zone": "Vùng",
+      "criticality": "Mức quan trọng",
+      "score": "Điểm",
+      "band": "Dải",
+      "detections": "Phát hiện",
+      "maxProximity": "Độ gần tối đa",
+      "topSeverity": "Mức nghiêm trọng cao nhất",
+      "topScenarios": "Kịch bản hàng đầu",
+      "noScenarios": "Không có kịch bản đóng góp."
+    }
+  },
+  "coverageGaps": {
+    "title": "Ma trận lỗ hổng phạm vi",
+    "subtitle": "Phạm vi chiến thuật ATT&CK theo từng họ hệ điều hành đã triển khai",
+    "loading": "Đang tải ma trận phạm vi…",
+    "failedLoad": "Không tải được ma trận phạm vi",
+    "empty": "Không có dữ liệu phạm vi.",
+    "ariaLabel": "Ma trận lỗ hổng phạm vi",
+    "summary": "{{covered}} trên {{total}} ô được bao phủ ({{pct}}%) — {{gaps}} lỗ hổng",
+    "covered": "Đã bao phủ",
+    "gap": "Lỗ hổng",
+    "cloudNote": "Phạm vi của các kịch bản mô phỏng đám mây được gộp vào cột Windows/Linux thông qua telemetry điểm cuối, nên cố tình không có cột Cloud — các tài sản Cloud/SaaS trên trang Cấu trúc mạng là điều bình thường ở đây."
+  },
+  "account": {
+    "title": "Tài khoản của tôi",
+    "currentUser": "Đang đăng nhập với tư cách",
+    "changePassword": "Đổi mật khẩu",
+    "fields": {
+      "currentPassword": "Mật khẩu hiện tại",
+      "newPassword": "Mật khẩu mới",
+      "confirmPassword": "Xác nhận mật khẩu mới"
+    },
+    "placeholders": {
+      "currentPassword": "Mật khẩu hiện tại",
+      "newPassword": "Tối thiểu 12 ký tự",
+      "confirmPassword": "Nhập lại mật khẩu mới"
+    },
+    "hints": {
+      "minLength": "Tối thiểu 12 ký tự.",
+      "confirmMatch": "Mật khẩu không khớp.",
+      "newSame": "Mật khẩu mới phải khác mật khẩu hiện tại."
+    },
+    "submit": "Cập nhật mật khẩu",
+    "submitting": "Đang cập nhật…",
+    "toasts": {
+      "success": "Cập nhật mật khẩu thành công.",
+      "wrongCurrent": "Mật khẩu hiện tại không đúng.",
+      "weakPassword": "Mật khẩu không đáp ứng yêu cầu bảo mật.",
+      "failed": "Không cập nhật được mật khẩu."
+    }
+  },
+  "sessions": {
+    "title": "Phiên đăng nhập",
+    "loading": "Đang tải phiên đăng nhập…",
+    "failedLoad": "Không tải được phiên đăng nhập",
+    "empty": "Không tìm thấy phiên nào.",
+    "table": {
+      "created": "Ngày tạo",
+      "lastSeen": "Lần cuối hoạt động",
+      "expires": "Hết hạn",
+      "status": "Trạng thái",
+      "actions": "Hành động"
+    },
+    "current": "Hiện tại",
+    "revoke": "Thu hồi",
+    "revokeTitle": "Thu hồi phiên",
+    "revokeConfirm": "Bạn có chắc muốn thu hồi phiên này? Bạn sẽ bị đăng xuất nếu đây là phiên hiện tại.",
+    "toasts": {
+      "revoked": "Đã thu hồi phiên.",
+      "failed": "Không thu hồi được phiên."
+    }
+  },
+  "audit": {
+    "title": "Nhật ký kiểm tra",
+    "search": "Tìm sự kiện, người dùng hoặc chi tiết…",
+    "loading": "Đang tải nhật ký kiểm tra…",
+    "failedLoad": "Không tải được nhật ký kiểm tra",
+    "empty": "Không tìm thấy sự kiện nào.",
+    "limit": "Giới hạn",
+    "table": {
+      "timestamp": "Thời gian",
+      "event": "Sự kiện",
+      "username": "Người dùng",
+      "ip": "Địa chỉ IP",
+      "detail": "Chi tiết"
+    },
+    "ariaLabel": "Bảng nhật ký kiểm tra"
+  },
+  "candidates": {
+    "title": "Kịch bản sinh tự động",
+    "subtitle": "Các kịch bản biến thể do AI đề xuất, được kiểm duyệt bởi bộ lọc tất định. Cần phê duyệt thủ công trước khi đưa vào thư viện chính thức.",
+    "generate": "Sinh kịch bản",
+    "loading": "Đang tải danh sách",
+    "empty": "Chưa có kịch bản nào. Hãy sinh các biến thể từ một kịch bản hiện có.",
+    "filters": {
+      "all": "Tất cả",
+      "pending": "Chờ duyệt",
+      "approved": "Đã duyệt",
+      "rejected": "Đã từ chối"
+    },
+    "table": {
+      "scenarioId": "Mã kịch bản",
+      "category": "Danh mục",
+      "plausibility": "Độ hợp lý",
+      "status": "Trạng thái",
+      "seed": "Nguồn",
+      "createdBy": "Bởi",
+      "created": "Tạo lúc",
+      "actions": "Hành động"
+    },
+    "status": {
+      "pending": "Chờ duyệt",
+      "approved": "Đã duyệt",
+      "rejected": "Đã từ chối"
+    },
+    "actions": {
+      "view": "Xem kịch bản {{id}}",
+      "approve": "Phê duyệt",
+      "reject": "Từ chối"
+    },
+    "generateTitle": "Sinh kịch bản biến thể",
+    "detailTitle": "Kịch bản — {{id}}",
+    "rejectTitle": "Từ chối kịch bản",
+    "fields": {
+      "seed": "Mã kịch bản nguồn",
+      "seedPlaceholder": "SCEN-2026-001",
+      "category": "Danh mục (tùy chọn)",
+      "categoryPlaceholder": "chu_thuong_gach_duoi",
+      "count": "Số lượng",
+      "axes": "Trục biến thể (tùy chọn)",
+      "axesPlaceholder": "lolbin, zone, timing",
+      "reason": "Lý do (tùy chọn)",
+      "reasonPlaceholder": "Vì sao từ chối kịch bản này?"
+    },
+    "detail": {
+      "yaml": "Nội dung YAML",
+      "report": "Báo cáo kiểm duyệt",
+      "noNotes": "Không có ghi chú.",
+      "plausibility": "Độ hợp lý",
+      "axes": "Trục",
+      "seed": "Nguồn",
+      "reviewedBy": "Duyệt bởi {{user}}"
+    },
+    "summary": "{{passed}} trên {{requested}} kịch bản vượt qua bộ lọc.",
+    "toasts": {
+      "generated": "{{passed}}/{{requested}} kịch bản vượt qua bộ lọc",
+      "approved": "Đã phê duyệt {{id}} vào thư viện",
+      "rejected": "Đã từ chối kịch bản {{id}}",
+      "failedLoad": "Không tải được danh sách",
+      "failedGenerate": "Sinh kịch bản thất bại",
+      "failedApprove": "Phê duyệt thất bại",
+      "failedReject": "Từ chối thất bại"
+    }
+  },
+  "alerts": {
+    "title": "Cảnh báo",
+    "subtitle": "Các phát hiện đã gộp trùng, phân hạng, vượt ngưỡng cảnh báo. Xác nhận để xoá khỏi hàng đợi; việc xử lý sự cố nằm ở SIEM/SOAR của bạn.",
+    "loading": "Đang tải cảnh báo",
+    "empty": "Chưa có cảnh báo. Các phát hiện đạt hoặc vượt ngưỡng sẽ hiển thị ở đây.",
+    "newAlerts_one": "{{count}} cảnh báo mới",
+    "newAlerts_other": "{{count}} cảnh báo mới",
+    "filters": {
+      "open": "Đang mở",
+      "acknowledged": "Đã xác nhận",
+      "all": "Tất cả",
+      "allSeverities": "Mọi mức độ",
+      "inProgress": "Đang xử lý",
+      "resolved": "Đã giải quyết",
+      "closed": "Đã đóng",
+      "myQueue": "Hàng đợi của tôi"
+    },
+    "table": {
+      "severity": "Mức độ",
+      "scenario": "Kịch bản",
+      "band": "Hạng",
+      "proximity": "Độ khớp",
+      "hosts": "Máy bị ảnh hưởng",
+      "state": "Trạng thái",
+      "lastSeen": "Lần cuối",
+      "count": "Số lần",
+      "actions": "Hành động",
+      "assignee": "Người phụ trách",
+      "age": "Thời gian"
+    },
+    "status": {
+      "open": "Đang mở",
+      "acknowledged": "Đã xác nhận",
+      "resolved": "Đã giải quyết",
+      "in_progress": "Đang xử lý",
+      "closed": "Đã đóng"
+    },
+    "summary": {
+      "open": "Đang mở",
+      "acknowledged": "Đã xác nhận",
+      "inProgress": "Đang xử lý",
+      "resolved": "Đã giải quyết",
+      "closed": "Đã đóng",
+      "unassigned": "Chưa phân công"
+    },
+    "detailTitle": "Cảnh báo — {{id}}",
+    "detail": {
+      "matched": "Bước đã khớp",
+      "missing": "Bước còn thiếu",
+      "queries": "Truy vấn săn lùng",
+      "hosts": "Máy bị ảnh hưởng",
+      "zones": "Vùng",
+      "firstSeen": "Lần đầu",
+      "lastSeen": "Lần cuối",
+      "count": "Số lần xuất hiện",
+      "history": "Lịch sử trạng thái",
+      "noQueries": "Không có truy vấn.",
+      "assignee": "Người phụ trách",
+      "status": "Trạng thái",
+      "resolutionNote": "Ghi chú giải quyết",
+      "resolutionNoteRequired": "Cần ghi chú giải quyết để giải quyết hoặc đóng.",
+      "addComment": "Thêm bình luận",
+      "unassigned": "Chưa phân công",
+      "falsePositiveHint": "Lành tính? Ẩn hoặc giảm ưu tiên bằng một mục tinh chỉnh."
+    },
+    "actions": {
+      "view": "Xem cảnh báo {{id}}",
+      "assignToMe": "Giao cho tôi",
+      "assign": "Phân công",
+      "setStatus": "Đặt trạng thái",
+      "comment": "Thêm bình luận"
+    },
+    "ack": "Xác nhận",
+    "copy": "Sao chép",
+    "copied": "Đã chép",
+    "toasts": {
+      "acknowledged": "Đã xác nhận cảnh báo {{id}}",
+      "failedLoad": "Không tải được cảnh báo",
+      "failedAck": "Xác nhận thất bại",
+      "assigned": "Đã giao cảnh báo {{id}} cho {{assignee}}",
+      "selfAssigned": "Đã giao cảnh báo {{id}} cho bạn",
+      "statusChanged": "Cảnh báo {{id}} → {{status}}",
+      "commented": "Đã thêm bình luận",
+      "failedAssign": "Không phân công được cảnh báo",
+      "failedStatus": "Không cập nhật được trạng thái",
+      "failedComment": "Không thêm được bình luận",
+      "failedPropose": "Không tạo được đề xuất cho phép"
+    },
+    "sla": {
+      "label": "Đang mở {{duration}}",
+      "resolvedIn": "Giải quyết trong {{duration}}"
+    },
+    "bulk": {
+      "label": "Hành động hàng loạt",
+      "count": "Đã chọn {{count}}",
+      "selectAll": "Chọn tất cả cảnh báo",
+      "selectRow": "Chọn cảnh báo {{id}}",
+      "acknowledge": "Xác nhận",
+      "assignToMe": "Giao cho tôi",
+      "resolve": "Giải quyết",
+      "clear": "Bỏ chọn",
+      "notePlaceholder": "Ghi chú giải quyết",
+      "done_one": "Đã cập nhật {{count}} cảnh báo",
+      "done_other": "Đã cập nhật {{count}} cảnh báo",
+      "partial": "Đã cập nhật {{ok}}, thất bại {{fail}}",
+      "failed": "Hành động hàng loạt thất bại"
+    },
+    "deepLink": {
+      "banner": "Đang hiển thị 1 hồ sơ liên kết",
+      "clear": "Xóa",
+      "open": "Mở cảnh báo",
+      "noCase": "Chưa có hồ sơ cảnh báo cho phát hiện này."
+    },
+    "proposeAllowlist": "Đề xuất cho phép (FP)"
+  },
+  "savedFilters": {
+    "recall": "Bộ lọc đã lưu",
+    "none": "Bộ lọc đã lưu…",
+    "save": "Lưu bộ lọc",
+    "namePlaceholder": "Tên bộ lọc",
+    "saved": "Đã lưu bộ lọc \"{{name}}\"",
+    "deleted": "Đã xóa bộ lọc",
+    "delete": "Xóa bộ lọc đã lưu \"{{name}}\"",
+    "deleteConfirm": "Xóa bộ lọc đã lưu \"{{name}}\"? Hành động này không thể hoàn tác.",
+    "confirmName": "Lưu",
+    "cancel": "Hủy"
+  },
+  "shortcuts": {
+    "title": "Phím tắt",
+    "hint": "? để xem phím tắt",
+    "navDown": "Cảnh báo tiếp theo",
+    "navUp": "Cảnh báo trước",
+    "ack": "Xác nhận cảnh báo",
+    "resolve": "Mở giải quyết",
+    "focusFilters": "Lấy nét bộ lọc",
+    "help": "Bật/tắt trợ giúp này",
+    "close": "Đóng"
+  },
+  "common": {
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "create": "Tạo",
+    "delete": "Xóa",
+    "confirm": "Xác nhận",
+    "reset": "Đặt lại",
+    "select": "Chọn…",
+    "noOptions": "Không có lựa chọn",
+    "deleteConfirmTitle": "Xác nhận xóa",
+    "loading": "Đang tải…",
+    "exportCsv": "Xuất CSV",
+    "exportAttackLayer": "Xuất lớp ATT&CK",
+    "closeDialog": "Đóng hộp thoại",
+    "forbidden": "Bạn không có quyền xem trang này.",
+    "errorFallback": "Đã xảy ra lỗi. Vui lòng làm mới trang.",
+    "search": "Tìm kiếm",
+    "clearSearch": "Xóa tìm kiếm",
+    "pagination": "Phân trang",
+    "previous": "Trước",
+    "next": "Sau",
+    "pageRange": "{{start}}–{{end}} trên {{total}}",
+    "pageOf": "Trang {{page}} / {{pageCount}}",
+    "allSeverities": "Tất cả mức độ",
+    "allZones": "Tất cả vùng",
+    "noMatches": "Không có kết quả khớp với bộ lọc hiện tại.",
+    "updateAvailable": "Đã có phiên bản Augur mới.",
+    "reload": "Tải lại",
+    "later": "Để sau",
+    "timeRange": {
+      "label": "Khoảng thời gian",
+      "all": "Mọi lúc",
+      "last24h": "24 giờ qua",
+      "last7d": "7 ngày qua",
+      "last30d": "30 ngày qua",
+      "custom": "Tùy chỉnh",
+      "from": "Từ",
+      "to": "Đến"
+    }
+  },
+  "dashboard.filters": {
+    "allSeverities": "Tất cả mức độ",
+    "allZones": "Tất cả vùng",
+    "severity": "Mức độ",
+    "zone": "Vùng"
+  },
+  "handover": {
+    "title": "Bàn giao ca trực",
+    "subtitle": "Những thay đổi trên bảng giữa hai mốc ca trực.",
+    "loading": "Đang tính khác biệt bàn giao…",
+    "failedLoad": "Không tải được khác biệt bàn giao.",
+    "empty": "Không có thay đổi trên bảng trong khoảng đã chọn.",
+    "basisNote": "Theo cửa sổ corpus · tất định · chỉ đọc (không đụng tới đường tính điểm).",
+    "export": "Xuất CSV",
+    "window": {
+      "from": "Bắt đầu ca",
+      "to": "Kết thúc ca"
+    },
+    "summary": "+{{new}} mới · {{escalated}} leo thang · {{decayed}} suy giảm · {{gone}} biến mất · {{hostsEntered}} máy vào bảng",
+    "sections": {
+      "new": "Phát hiện mới",
+      "escalated": "Leo thang",
+      "decayed": "Suy giảm",
+      "gone": "Biến mất",
+      "hostsEntered": "Máy vào bảng rủi ro",
+      "hostsLeft": "Máy rời bảng rủi ro",
+      "hostMovement": "Biến động rủi ro máy"
+    },
+    "col": {
+      "scenario": "Kịch bản",
+      "prior": "Trước",
+      "current": "Hiện tại",
+      "delta": "Δ",
+      "host": "Máy",
+      "score": "Điểm"
+    },
+    "none": "—",
+    "triage": {
+      "title": "Hoạt động phân loại của đội",
+      "clockNote": "Giờ thực của người trực — khác với khác biệt bảng phía trên (giờ sự kiện corpus).",
+      "loading": "Đang tải hoạt động phân loại…",
+      "failedLoad": "Không tải được hoạt động phân loại.",
+      "emptyNoData": "Chưa ghi nhận hoạt động phân loại nào.",
+      "emptyWindow": "Không có giao việc hay xử lý trong khoảng này.",
+      "export": "Xuất CSV phân loại",
+      "sections": {
+        "newAlerts": "Cảnh báo mới",
+        "assigned": "Đã giao",
+        "resolved": "Đã xử lý",
+        "reopened": "Mở lại"
+      },
+      "col": {
+        "scenario": "Kịch bản",
+        "severity": "Mức độ",
+        "assignee": "Người nhận",
+        "status": "Trạng thái",
+        "when": "Thời điểm"
+      }
+    }
+  },
+  "attackPaths": {
+    "title": "Đường kỹ thuật tới tài sản trọng yếu",
+    "subtitle": "Tiến trình kỹ thuật hợp lý tới tài sản CRITICAL — mỗi chuỗi đã đi được tới đâu.",
+    "loading": "Đang tính đường kỹ thuật…",
+    "failedLoad": "Không tải được đường kỹ thuật.",
+    "empty": "Không có mục tiêu CRITICAL hoặc đường nào để hiển thị.",
+    "realized": "đạt {{pct}}%",
+    "entry": "Điểm vào",
+    "observed": "đã quan sát",
+    "hypothetical": "giả định",
+    "noCoverage": "(chưa có kỹ thuật trong thư viện)",
+    "export": "Xuất CSV",
+    "viewToggleLabel": "Xem dạng đồ thị hoặc bảng",
+    "view": {
+      "graph": "Đồ thị",
+      "table": "Bảng"
+    },
+    "legend": "Chú giải",
+    "legendRealized": "đã đạt / đã quan sát",
+    "legendHypothetical": "giả định",
+    "legendTarget": "Mục tiêu CRITICAL",
+    "legendStop": "điểm dừng theo vùng",
+    "graphAria": "Đồ thị đường tấn công: {{targets}} mục tiêu, {{observed}} điểm đã quan sát"
+  },
+  "intel": {
+    "title": "Lớp phủ tình báo mối đe dọa",
+    "subtitle": "Đối chiếu IOC với sự kiện đã thu thập và thư viện kịch bản.",
+    "inputLabel": "IOC — mỗi dòng một IOC, dạng type:value",
+    "placeholder": "command:Invoke-kerberoast\nprocess_name:rundll32.exe\nip:203.0.113.10\ntechnique:T1003.001",
+    "validTypes": "Loại hợp lệ: process_name, image, command, hash, domain, ip, cidr, ipv6, technique.",
+    "unsupportedNote": "hash/domain/ip/cidr/ipv6 khớp telemetry endpoint/DNS/kết nối tổng hợp trên Windows, Linux và macOS (DNS/kết nối trên Linux/macOS qua lớp phủ agent/EDR). IPv4 dùng dải RFC 5737, IPv6 dùng dải RFC 3849 2001:db8::/32; CIDR kiểm tra thành viên mạng và IPv6 so sánh ở dạng chuẩn. dest_port chỉ là ngữ cảnh.",
+    "run": "Kiểm tra nguồn",
+    "running": "Đang kiểm tra…",
+    "failed": "Đối chiếu IOC thất bại.",
+    "summary": "{{matched}} trên {{total}} IOC khớp · {{hosts}} máy chủ liên quan",
+    "matched": "khớp",
+    "noMatch": "không khớp",
+    "hits": "{{count}} lượt khớp",
+    "truncated": "Hiển thị 200 trên {{total}} lượt khớp.",
+    "eventHits": {
+      "host": "Máy chủ",
+      "time": "Thời gian",
+      "label": "Sự kiện",
+      "field": "Trường khớp",
+      "snippet": "Trích đoạn"
+    },
+    "techniqueSection": "Phạm vi kỹ thuật",
+    "techniqueNote": "Đối chiếu với thư viện kịch bản / phát hiện, không phải sự kiện thô.",
+    "covered": "có phủ",
+    "notCovered": "chưa phủ",
+    "fired": {
+      "scenario": "Kịch bản",
+      "name": "Tên",
+      "proximity": "Mức tiệm cận",
+      "hosts": "Máy chủ ảnh hưởng"
+    },
+    "hostsSection": "Máy chủ liên quan",
+    "hostsTable": {
+      "host": "Máy chủ",
+      "zone": "Vùng",
+      "criticality": "Mức trọng yếu",
+      "iocCount": "IOC",
+      "types": "Loại"
+    },
+    "export": "Xuất CSV",
+    "mode": {
+      "manual": "Danh sách thủ công",
+      "paste": "Dán báo cáo"
+    },
+    "extract": {
+      "inputLabel": "Dán báo cáo mối đe dọa, khuyến cáo hoặc email — văn bản thuần",
+      "placeholder": "Dán báo cáo CTI vào đây. Hỗ trợ chỉ báo đã làm vô hại (hxxp://, 1[.]2[.]3[.]4).",
+      "run": "Trích xuất IOC",
+      "running": "Đang trích xuất…",
+      "failed": "Trích xuất IOC thất bại.",
+      "matchableSection": "Đối sánh được ở đây ({{count}})",
+      "unmatchableSection": "Trích xuất cho công cụ khác của bạn ({{count}})",
+      "push": "Thêm IOC đối sánh được vào danh sách",
+      "honesty": "{{matchable}} chỉ báo này có thể đối sánh với telemetry endpoint, DNS và kết nối mạng tổng hợp của Augur trên Windows, Linux và macOS (bao gồm hash, domain, IPv4, IPv6 — và host của URL được trích xuất thành domain). {{unmatchable}} chỉ báo (URL đầy đủ / email / CVE / registry) được trích xuất cho công cụ khác — kho dữ liệu Augur không có trường hỗ trợ cho chúng, nên không thể truy tìm ở đây.",
+      "truncated": "Hiển thị {{count}} chỉ báo đầu tiên đã trích xuất.",
+      "cols": {
+        "type": "Loại",
+        "value": "Giá trị",
+        "category": "Danh mục",
+        "confidence": "Độ tin cậy",
+        "defanged": "Dạng vô hại",
+        "reason": "Lý do"
+      },
+      "noneMatchable": "Không tìm thấy chỉ báo đối sánh được.",
+      "noneUnmatchable": "Không trích xuất chỉ báo nào khác."
+    }
+  },
+  "stack": {
+    "title": "Độ hiếm / Xếp chồng tần suất",
+    "subtitle": "Săn tìm theo tần suất xuất hiện thấp nhất — soi phần đuôi hiếm",
+    "dimension": "Chiều",
+    "dim": {
+      "process": "Tệp thực thi hiếm (tiến trình)",
+      "parent_child": "Quan hệ hiếm (cha → con)",
+      "host_binary": "Phân bố bất thường (máy × tệp)"
+    },
+    "maxCount": "Số đếm tối đa",
+    "limit": "Giới hạn",
+    "honesty": "Đây là MANH MỐI, không phải phát hiện. Phần lớn hoạt động hiếm là lành tính — công cụ quản trị, cài đặt một lần, một script hợp lệ. \"Lần đầu thấy\" nghĩa là lần đầu trong tập dữ liệu này, không phải lần đầu tiên từng có. Giá trị hiếm trên máy CRITICAL là manh mối mạnh hơn nhưng vẫn cần con người xem xét.",
+    "summary": "Hiển thị {{returned}} trong {{rare}} giá trị hiếm (tổng {{total}}).",
+    "truncated": "Đã cắt bớt — {{rare}} giá trị hiếm vượt giới hạn.",
+    "export": "Xuất CSV",
+    "empty": "Không có giá trị hiếm ở ngưỡng này.",
+    "failed": "Không tải được độ hiếm.",
+    "cols": {
+      "value": "Giá trị",
+      "occurrences": "Số lần",
+      "hostCount": "Số máy",
+      "hosts": "Máy mẫu",
+      "flags": "Cờ",
+      "firstSeen": "Lần đầu thấy",
+      "lastSeen": "Lần cuối thấy",
+      "moreHosts": "+{{n}} thêm",
+      "inspectRow": "Xem chi tiết {{value}}"
+    },
+    "flag": {
+      "single": "một-máy",
+      "unique": "duy nhất"
+    },
+    "drawer": {
+      "hosts": "Máy",
+      "samples": "Sự kiện mẫu",
+      "host": "Máy",
+      "time": "Thời gian",
+      "command": "Lệnh",
+      "count": "Số lần",
+      "criticality": "Mức nghiêm trọng",
+      "hostsTruncated": "Đang hiển thị {{shown}} trong {{total}} máy đầu tiên",
+      "samplesTruncated": "Đang hiển thị {{shown}} mẫu đầu tiên"
+    }
+  },
+  "incidents": {
+    "title": "Sự cố",
+    "subtitle": "Các phát hiện được nhóm thành chiến dịch theo host chung, kỹ thuật chung, hoặc liền kề thời gian",
+    "honesty": "Một sự cố là một TƯƠNG QUAN xác định trên kho dữ liệu NÀY — các phát hiện được nhóm vì chúng dùng chung host hoặc dùng chung kỹ thuật MITRE; sự liền kề theo thời gian của kho dữ liệu được hiển thị như ngữ cảnh nhưng không bao giờ tự nó nhóm các phát hiện. Đây KHÔNG phải là một chiến dịch đối thủ đã xác nhận, KHÔNG phải quy kết nhân quả, và KHÔNG phải tuyên bố về khả năng tiếp cận mạng hay di chuyển ngang.",
+    "failed": "Không tải được sự cố.",
+    "loading": "Đang tải sự cố…",
+    "empty": "Không có sự cố nào trên kho dữ liệu này.",
+    "rollup": {
+      "incidents": "{{n}} sự cố",
+      "largest": "lớn nhất {{n}}",
+      "singletons": "{{n}} đơn lẻ",
+      "total": "{{n}} phát hiện",
+      "truncated": "đầu vào bị giới hạn — xem ghi chú trung thực"
+    },
+    "card": {
+      "size": "{{n}} thành viên",
+      "score": "điểm {{score}}",
+      "span": "{{from}} → {{to}}",
+      "spanEmpty": "không có khoảng thời gian kho dữ liệu",
+      "membersTruncated": "hiển thị {{shown}} trong {{total}} thành viên"
+    },
+    "relation": {
+      "shared_host": "host chung",
+      "shared_technique": "kỹ thuật chung",
+      "temporal_adjacency": "liền kề thời gian"
+    },
+    "expand": "Mở rộng sự cố {{id}}",
+    "member": {
+      "scenario": "Kịch bản",
+      "severity": "Mức độ",
+      "proximity": "Độ gần",
+      "hosts": "Host bị ảnh hưởng",
+      "latestTs": "Sự kiện gần nhất",
+      "inspect": "Kiểm tra thành viên {{id}}"
+    }
+  },
+  "incidentResponse": {
+    "tab": "Ứng phó",
+    "title": "Kế hoạch ứng phó hợp nhất",
+    "open": "Xem ứng phó",
+    "drawerTitle": "Ứng phó — {{id}}",
+    "derivedFrom": "Chiến thuật chủ đạo",
+    "scopedHosts": "Host trong phạm vi",
+    "fromScenarios": "từ",
+    "loading": "Đang tải kế hoạch ứng phó…",
+    "failed": "Không tải được kế hoạch ứng phó.",
+    "empty": "Không có kế hoạch ứng phó cho sự cố này.",
+    "unresolved": "Kịch bản chưa khớp (đã bỏ qua): {{ids}}",
+    "section": {
+      "contain": "Khống chế",
+      "eradicate": "Loại bỏ",
+      "recover": "Khôi phục",
+      "validate": "Kiểm chứng"
+    },
+    "csv": {
+      "export": "Xuất CSV",
+      "section": "Phần",
+      "action": "Hành động",
+      "fromScenarios": "Từ kịch bản"
+    }
+  },
+  "incidentReport": {
+    "open": "Xem báo cáo",
+    "drawerTitle": "Báo cáo sau sự cố — {{id}}",
+    "header": "Tiêu đề",
+    "affectedAssets": "Tài sản bị ảnh hưởng",
+    "techniques": "Phạm vi kỹ thuật MITRE",
+    "detectionSummary": "Tóm tắt phát hiện",
+    "consolidatedResponse": "Phản ứng hợp nhất",
+    "membersTruncated": "Hiển thị {{shown}} trong {{total}} thành viên",
+    "download": "Tải .md",
+    "failed": "Không tải được báo cáo.",
+    "fields": {
+      "topSeverity": "Mức nghiêm trọng cao nhất",
+      "score": "Điểm",
+      "maxProximity": "Độ gần tối đa",
+      "members": "Thành viên",
+      "hosts": "Máy chủ",
+      "techniques": "Kỹ thuật",
+      "span": "Khoảng thời gian corpus"
+    }
+  },
+  "detectionHealth": {
+    "title": "Tình trạng phát hiện",
+    "subtitle": "Kịch bản nào đang kích hoạt, một phần, im lặng hay chưa từng kích hoạt trên tập dữ liệu này",
+    "honesty": "Tình trạng được tính trên CHỈ tập dữ liệu đã nạp này. SILENT/NEVER nghĩa là kịch bản không kích hoạt trong dữ liệu này — KHÔNG phải phát hiện bị hỏng trong môi trường thật. \"Lần cuối kích hoạt\" là mốc thời gian trong tập dữ liệu, không phải thời gian thực. Đây là tín hiệu sống còn, không phải số lượng cảnh báo hay tuyên bố hiệu quả thực tế.",
+    "failed": "Không tải được tình trạng phát hiện.",
+    "empty": "Chưa nạp kịch bản nào.",
+    "loading": "Đang tải tình trạng phát hiện…",
+    "states": {
+      "FIRING": "Đang kích hoạt",
+      "PARTIAL": "Một phần",
+      "SILENT": "Im lặng",
+      "NEVER": "Chưa bao giờ"
+    },
+    "stateAria": {
+      "SILENT": "Vắng mặt trong tập dữ liệu này — không phải tuyên bố hỏng trong môi trường thật",
+      "NEVER": "Vắng mặt trong tập dữ liệu này — không phải tuyên bố hỏng trong môi trường thật"
+    },
+    "summary": "{{total}} kịch bản — {{firing}} kích hoạt, {{partial}} một phần, {{silent}} im lặng, {{never}} chưa bao giờ",
+    "span": "Khoảng dữ liệu: {{from}} → {{to}}",
+    "spanEmpty": "Tập dữ liệu rỗng",
+    "cols": {
+      "scenario": "Kịch bản",
+      "state": "Trạng thái",
+      "proximity": "Độ gần tối đa",
+      "fireCount": "Số lần kích hoạt",
+      "lastFired": "Lần cuối kích hoạt (giờ dữ liệu)",
+      "hosts": "Máy",
+      "severity": "Mức nghiêm trọng",
+      "os": "Hệ điều hành"
+    },
+    "inspectRow": "Xem chi tiết {{id}}",
+    "drawer": {
+      "tactics": "Chiến thuật",
+      "fireCount": "Số lần kích hoạt (cửa sổ)",
+      "lastFired": "Lần cuối kích hoạt (giờ dữ liệu)",
+      "maxProximity": "Độ gần tối đa",
+      "hosts": "Máy bị ảnh hưởng",
+      "never": "Chưa từng kích hoạt trong tập dữ liệu này"
+    }
+  },
+  "pivot": {
+    "title": "Đồ thị Xoay trục Điều tra",
+    "subtitle": "Nhấp vào một nút để mở rộng các nút lân cận từ đồ thị tri thức.",
+    "noDetection": "Mở một vụ việc từ Bảng điều khiển để xoay trục từ một phát hiện.",
+    "loading": "Đang tải đồ thị…",
+    "failedLoad": "Không tải được đồ thị xoay trục",
+    "nodes": "nút",
+    "edges": "cạnh",
+    "hops": "Bước nhảy",
+    "layout": "Bố cục",
+    "legend": "Chú giải",
+    "process": "Tiến trình",
+    "file": "Tệp",
+    "host": "Máy chủ",
+    "export": "Xuất CSV",
+    "truncated": "Hiển thị {{shown}} trên {{total}} nút (đã giới hạn để dễ đọc).",
+    "edgesTruncated": "Hiển thị {{shown}} trên {{total}} cạnh (đã giới hạn để dễ đọc).",
+    "hideModules": "Ẩn mô-đun",
+    "showModules": "Hiện {{count}} mô-đun",
+    "fillCrit": "Màu nền = mức nghiêm trọng của tài sản",
+    "seedNode": "Nút gốc",
+    "spawned": "Sinh tiến trình",
+    "exhibited": "Hành vi",
+    "runsOn": "Chạy trên",
+    "pickPrompt": "Chọn một phát hiện để xoay trục:",
+    "noDetectionsYet": "Chưa có phát hiện nào trong kho dữ liệu hiện tại."
+  },
+  "timeline": {
+    "title": "Dòng thời gian vụ việc",
+    "subtitle": "Các bước kịch bản khớp trong bối cảnh thời gian.",
+    "loading": "Đang tải dòng thời gian…",
+    "failedLoad": "Không tải được dòng thời gian.",
+    "empty": "Không có sự kiện nào để hiển thị cho vụ việc này.",
+    "matchedStep": "Bước",
+    "context": "bối cảnh",
+    "band": "Khoảng",
+    "truncated": "Hiển thị {{shown}} trong {{total}} sự kiện bối cảnh.",
+    "export": "Xuất CSV",
+    "col": {
+      "timestamp": "Thời gian",
+      "host": "Máy chủ",
+      "label": "Sự kiện"
+    }
+  },
+  "campaign": {
+    "title": "Bảng điểm kiểm định Đội Tím",
+    "subtitle": "Phát lại từng kịch bản qua động cơ và chấm điểm xem có phát hiện được không — một lượt kiểm định tất định, không phải tấn công thật.",
+    "osFamily": "Họ hệ điều hành",
+    "osAny": "Mọi HĐH",
+    "tactic": "Chiến thuật",
+    "minProximity": "Độ gần tối thiểu",
+    "run": "Chạy kiểm định",
+    "running": "Đang chạy…",
+    "failedLoad": "Không chạy được kiểm định.",
+    "empty": "Không có kịch bản nào khớp phạm vi hiện tại.",
+    "ariaLabel": "Bảng điểm kiểm định",
+    "export": "Xuất CSV",
+    "pctDetected": "phát hiện {{pct}}%",
+    "detected": "{{n}} phát hiện",
+    "missed": "{{n}} bỏ sót",
+    "noHost": "{{n}} không có máy chủ phù hợp",
+    "status": {
+      "detected": "đã phát hiện",
+      "missed": "bỏ sót",
+      "no_eligible_host": "không có máy chủ phù hợp",
+      "error": "lỗi"
+    },
+    "col": {
+      "scenario": "Kịch bản",
+      "name": "Tên",
+      "tactic": "Chiến thuật",
+      "host": "Máy chủ",
+      "status": "Trạng thái",
+      "proximity": "Độ gần",
+      "steps": "Số bước"
+    },
+    "gaps": {
+      "title": "Lỗ hổng cấu trúc mạng / phạm vi",
+      "note": "Không có máy chủ phù hợp trong cấu trúc mạng hiện tại — đây là lỗ hổng phạm vi/lập kế hoạch, không phải bỏ sót phát hiện.",
+      "noHostHeading": "Không có máy chủ phù hợp"
+    },
+    "detail": {
+      "open": "Xem chi tiết {{name}}",
+      "title": "{{name}}",
+      "technique": "Kỹ thuật",
+      "osFamily": "Họ HĐH",
+      "host": "Máy",
+      "status": "Trạng thái",
+      "proximity": "Độ gần",
+      "steps": "Bước khớp",
+      "feed": "Nguồn tiêm vào",
+      "feedTotal": "Tổng sự kiện",
+      "feedBaseline": "Sự kiện nền",
+      "feedInjected": "Sự kiện tiêm",
+      "note": "Ghi chú"
+    }
+  },
+  "errorBoundary": {
+    "title": "Đã xảy ra lỗi",
+    "message": "Trang này gặp lỗi không mong muốn. Phần còn lại của bảng điều khiển không bị ảnh hưởng — bạn có thể tải lại để khôi phục.",
+    "reload": "Tải lại trang",
+    "details": "Chi tiết lỗi"
+  },
+  "tuning": {
+    "title": "Tinh chỉnh Phát hiện",
+    "subtitle": "Ẩn hoặc hạ cấp các phát hiện đã biết là lành tính. Tất định, có kiểm toán đầy đủ — engine vẫn phát hiện mọi thứ.",
+    "newEntry": "Mục mới",
+    "cancel": "Hủy",
+    "save": "Lưu mục",
+    "saving": "Đang lưu…",
+    "created": "Đã tạo mục cho phép",
+    "createFailed": "Không tạo được mục",
+    "action": "Hành động",
+    "downgradeTo": "Hạ xuống",
+    "suppress": "Ẩn",
+    "downgrade": "Hạ cấp",
+    "scenarioId": "Mã kịch bản",
+    "host": "Máy chủ",
+    "zone": "Vùng",
+    "technique": "Kỹ thuật",
+    "processRegex": "Regex tiến trình",
+    "commandRegex": "Regex dòng lệnh",
+    "reason": "Lý do",
+    "reasonPlaceholder": "Vì sao đây là lành tính? (bắt buộc, có kiểm toán)",
+    "predicateHint": "Cung cấp ít nhất một điều kiện. Tất cả điều kiện phải khớp (AND).",
+    "entries": "Các mục cho phép",
+    "noEntries": "Chưa có mục cho phép nào.",
+    "by": "bởi {{author}}",
+    "hits": "{{count}} lần khớp",
+    "hits_other": "{{count}} lần khớp",
+    "hitCountTitle": "Số phát hiện mục này đang ẩn",
+    "enable": "Bật",
+    "disable": "Tắt",
+    "delete": "Xóa mục",
+    "tunedOut": "Đã tinh chỉnh ẩn",
+    "suppressedN": "đã ẩn",
+    "downgradedN": "đã hạ cấp",
+    "nothingTuned": "Hiện không có gì bị ẩn — mọi phát hiện hiển thị đúng như engine xếp hạng.",
+    "baselineHint": "Mức nền: {{process}} đã chạy {{occurrences}} lần trên {{hosts}} máy chủ trong kho dữ liệu này.",
+    "baselineSingleHost": "Chỉ một máy chủ — mẫu hiếm hơn; hãy cẩn trọng khi cho phép."
+  }
+}

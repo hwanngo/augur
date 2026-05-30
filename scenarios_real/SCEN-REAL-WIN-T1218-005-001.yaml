@@ -1,0 +1,28 @@
+# HONESTY: single-step LOLBin command-line rule, validated on ONE real OTRF capture
+# (cmd_mshta_vbscript_execute_psh). `mshta vbscript:` inline-executing a script that spawns powershell
+# is a real signed-binary-proxy-execution primitive, but mshta is a signed Windows binary and some
+# legacy LOB apps still ship HTAs — a production deployment SHOULD allowlist known HTA apps (mshta is
+# increasingly deprecated). Demo-clean on this capture != production-tuned. scenarios_real/ only.
+scenario_metadata:
+  scenario_id: "SCEN-REAL-WIN-T1218-005-001"
+  name: "Real Signed-Binary Proxy Execution via mshta vbscript: (T1218.005)"
+  description: "mshta.exe inline-executes a vbscript: payload that launches powershell — a classic mshta proxy-execution / defense-evasion primitive. Validated end-to-end against a real OTRF Sysmon capture."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0005", technique: "T1218.005" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Mshta_Vbscript_Inline"
+      matching_criteria:
+        Node_Type: "Process"
+        CommandLine: { regex: "(?i)mshta(\\.exe)?\\s+vbscript:" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'mshta.exe' and ProcessCommandLine has 'vbscript:'"

@@ -1,0 +1,38 @@
+scenario_metadata:
+  scenario_id: "SCEN-MAC-008"
+  name: "macOS Data Exfiltration via curl Upload to External Host"
+  description: "Adversary collects staged data and exfiltrates it via curl POST/PUT upload to an external cloud storage endpoint."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0010", technique: "T1567.002" }
+  os_family: "macos"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint"]
+  critical_assets_only: false
+  required_log_sources: ["macOS_ESF"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Stage_Data"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["zip", "tar"] }
+        CommandLine: { regex: ".*data.*" }
+    - step_id: 2
+      name: "Curl_Upload"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["curl"] }
+        CommandLine: { regex: ".*upload.*" }
+    - step_id: 3
+      name: "Cleanup"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["rm"] }
+        CommandLine: { regex: ".*stage.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'curl' and ProcessCommandLine has 'upload'"

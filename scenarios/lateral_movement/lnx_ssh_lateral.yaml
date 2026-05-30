@@ -1,0 +1,44 @@
+scenario_metadata:
+  scenario_id: "SCEN-LNX-008"
+  name: "Lateral Movement via SSH with StrictHostKeyChecking Disabled"
+  description: "Adversary uses SSH with StrictHostKeyChecking=no to move laterally without prompts, then executes bash on the target."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0008", technique: "T1021.004" }
+  os_family: "linux"
+spatial_constraints:
+  applicable_zones: ["Internal_Server", "DMZ"]
+  critical_assets_only: false
+  required_log_sources: ["Linux_Auditd"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "SSH_No_Strict_Checking"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["ssh"] }
+        CommandLine: { regex: ".*StrictHostKeyChecking.*" }
+    - step_id: 2
+      name: "Remote_Shell"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["bash", "sh"] }
+        ParentProcessName: { in: ["ssh", "sshd"] }
+    - step_id: 3
+      name: "Remote_Recon"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["id", "whoami"] }
+        ParentProcessName: { in: ["bash", "sh"] }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "Sigma"
+      query: |
+        title: SSH Lateral Movement
+        logsource: { product: linux, category: process_creation }
+        detection:
+          sel: { Image|endswith: '/ssh', CommandLine|contains: 'StrictHostKeyChecking' }
+          condition: sel
+        level: high

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Augur">
+  <!-- Shield (accent green) -->
+  <path d="M256 28 L470 96 L470 270 C470 372 392 452 256 492 C120 452 42 372 42 270 L42 96 Z" fill="#3fb950"/>
+  <!-- Center scan-slit (keyhole) in the dark theme color -->
+  <rect x="236" y="150" width="40" height="212" rx="20" fill="#0d1117"/>
+</svg>

@@ -1,0 +1,38 @@
+scenario_metadata:
+  scenario_id: "SCEN-WIN-002"
+  name: "Domain Account Enumeration via net.exe and nltest.exe"
+  description: "Adversary runs net.exe domain queries and nltest for domain recon, followed by whoami /groups to understand current privileges."
+  severity: "MEDIUM"
+  mitre_mappings:
+    - { tactic: "TA0043", technique: "T1087.002" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server", "Active_Directory"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Net_Domain_Enum"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["net.exe", "net1.exe"] }
+        CommandLine: { regex: ".*user.*" }
+    - step_id: 2
+      name: "Nltest_Domain_Enum"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["nltest.exe"] }
+        CommandLine: { regex: ".*dclist.*" }
+    - step_id: 3
+      name: "Whoami_Groups"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["whoami.exe"] }
+        CommandLine: { regex: ".*groups.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName in ('net.exe','nltest.exe','whoami.exe') and ProcessCommandLine has_any ('user','dclist','groups')"

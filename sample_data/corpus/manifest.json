@@ -1,0 +1,31 @@
+{
+  "seed": 2026,
+  "events": 13936,
+  "injections": [
+    {
+      "scenario_id": "SCEN-WIN-001",
+      "host": "HR_User_PC",
+      "start_offset_seconds": 1800
+    },
+    {
+      "scenario_id": "SCEN-LNX-001",
+      "host": "CORP-JENKINS01",
+      "start_offset_seconds": 3600
+    },
+    {
+      "scenario_id": "SCEN-MAC-001",
+      "host": "DESIGN-MBP-07",
+      "start_offset_seconds": 5400
+    },
+    {
+      "scenario_id": "SCEN-CLD-001",
+      "host": "DMZ-WEB02",
+      "start_offset_seconds": 7200
+    },
+    {
+      "scenario_id": "SCEN-WIN-014",
+      "host": "File_Server_01",
+      "start_offset_seconds": 9000
+    }
+  ]
+}

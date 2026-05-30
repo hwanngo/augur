@@ -1,0 +1,18 @@
+# OTRF Wave-1 combined capture topology. Declares every host that appears in a Wave-1 malicious EID-1
+# event across the 6 captures, so Topology.enrich can authoritatively assign zone/criticality and each
+# scenario's applicable_zones is evaluable. Short-name and FQDN forms of WORKSTATION5 are DISTINCT
+# strings (OTRF captures are inconsistent) and BOTH are declared. The gate is NOT weakened — the
+# operator simply declared their real assets. Superset of topology_otrf_theshire.yaml (keeps the 3
+# theshire hosts so the existing T1003.001 detection still fires under the suite). Lives beside the
+# datasets (NOT under src/) so it never pollutes the synthetic default topology.
+zones: [DMZ, Internal_Server, User_Endpoint, Cloud_SaaS, Active_Directory]
+assets:
+  - { hostname: WORKSTATION5,                 zone: User_Endpoint,    criticality: MEDIUM,   os: "Windows 10",          ip: 0.0.0.0, role: workstation }   # sam/mshta/bitsadmin
+  - { hostname: WORKSTATION5.theshire.local,  zone: User_Endpoint,    criticality: MEDIUM,   os: "Windows 10",          ip: 0.0.0.0, role: workstation }   # fodhelper/schtasks (+ existing T1003.001)
+  - { hostname: WORKSTATION6.theshire.local,  zone: User_Endpoint,    criticality: MEDIUM,   os: "Windows 10",          ip: 0.0.0.0, role: workstation }
+  - { hostname: MORDORDC.theshire.local,      zone: Active_Directory, criticality: CRITICAL, os: "Windows Server 2019", ip: 0.0.0.0, role: dc }
+  - { hostname: DC01.pandalab.com,            zone: Active_Directory, criticality: CRITICAL, os: "Windows Server 2019", ip: 0.0.0.0, role: dc }             # ntdsutil
+  # ── Wave 2: mordor.local hosts (process injection T1055 + Run-key persistence T1547.001) ──
+  - { hostname: WORKSTATION5.mordor.local,    zone: User_Endpoint,    criticality: MEDIUM,   os: "Windows 10",          ip: 0.0.0.0, role: workstation }   # injection + run-key persistence
+  - { hostname: WORKSTATION6.mordor.local,    zone: User_Endpoint,    criticality: MEDIUM,   os: "Windows 10",          ip: 0.0.0.0, role: workstation }
+  - { hostname: MORDORDC.mordor.local,        zone: Active_Directory, criticality: CRITICAL, os: "Windows Server 2019", ip: 0.0.0.0, role: dc }

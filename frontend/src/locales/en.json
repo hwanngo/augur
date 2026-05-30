@@ -1,0 +1,1140 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "scenarios": "Scenarios",
+    "topology": "Topology",
+    "hostRisk": "Host Risk",
+    "coverageGaps": "Coverage Gaps",
+    "attackPaths": "Attack Paths",
+    "intel": "Threat Intel",
+    "campaign": "Validation",
+    "handover": "Handover",
+    "drill": "Drill",
+    "hunts": "Hunts",
+    "account": "Account",
+    "sessions": "Sessions",
+    "users": "Users",
+    "candidates": "Generated",
+    "alerts": "Alerts",
+    "audit": "Audit Log",
+    "logout": "Log out",
+    "toggleLanguage": "Toggle language",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "appName": "Augur",
+    "pivot": "Pivot Graph",
+    "stack": "Stacking",
+    "incidents": "Incidents",
+    "detectionHealth": "Detection Health",
+    "section": {
+      "operations": "Operations",
+      "investigate": "Investigate",
+      "posture": "Coverage & Posture",
+      "validate": "Validate",
+      "admin": "Admin & Account"
+    },
+    "tuning": "Tuning"
+  },
+  "login": {
+    "title": "Threat Hunting Console",
+    "username": "Username",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signingIn": "Signing in…",
+    "errors": {
+      "invalidCredentials": "Invalid username or password.",
+      "lockedOut": "Too many failed attempts. Please try again later.",
+      "generic": "Login failed ({{status}}). Please try again.",
+      "network": "Network error. Please check your connection."
+    }
+  },
+  "dashboard": {
+    "title": "Detections",
+    "realDatasetBanner": "REAL DATASET — live detections are computed from a real captured telemetry feed, not synthetic data.",
+    "search": "Search by name, ID, or host…",
+    "detectionCount_one": "{{count}} detection at ≥ {{proximity}} proximity",
+    "detectionCount_other": "{{count}} detections at ≥ {{proximity}} proximity",
+    "minProximity": "Min proximity",
+    "stepsAndQueries": "Steps & hunting queries",
+    "emptyState": "No scenarios matched at this threshold.",
+    "loading": "Loading…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyToClipboard": "Copy to clipboard",
+    "openCase": "View case",
+    "pivot": "Pivot",
+    "filters": {
+      "severity": "Severity",
+      "zone": "Zone",
+      "allSeverities": "All severities",
+      "allZones": "All zones"
+    },
+    "nextStep": "🎯 Next: {{name}}",
+    "lookFor": "look for {{criteria}}",
+    "whyStalled": "⚠ Why it stalled: {{reason}}",
+    "momentum": {
+      "rising": "rising",
+      "flat": "flat",
+      "falling": "falling",
+      "label": "Proximity momentum: {{trend}}"
+    },
+    "playbook": {
+      "title": "Response playbook",
+      "standardLabel": "Standard template — derived from tactic & severity",
+      "contain": "Contain",
+      "eradicate": "Eradicate",
+      "recover": "Recover",
+      "validate": "Validate",
+      "dispatch": "Dispatch",
+      "dispatched": "Dispatched (preview)",
+      "previewTitle": "Would send this to your SIEM/SOAR",
+      "dispatchFailed": "Dispatch failed"
+    }
+  },
+  "users": {
+    "title": "User Management",
+    "newUser": "New User",
+    "loading": "Loading users",
+    "table": {
+      "id": "ID",
+      "username": "Username",
+      "role": "Role",
+      "status": "Status",
+      "created": "Created",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "disabled": "Disabled"
+    },
+    "actions": {
+      "enable": "Enable {{username}}",
+      "disable": "Disable {{username}}",
+      "changeRole": "Change role for {{username}}",
+      "resetPassword": "Reset password for {{username}}",
+      "delete": "Delete {{username}}",
+      "role": "Role"
+    },
+    "createTitle": "Create User",
+    "deleteTitle": "Delete User",
+    "editRoleTitle": "Change Role — {{username}}",
+    "resetPasswordTitle": "Reset Password — {{username}}",
+    "fields": {
+      "username": "Username",
+      "password": "Password",
+      "newPassword": "New Password",
+      "role": "Role",
+      "passwordHint": "Minimum 8 characters required.",
+      "usernamePlaceholder": "username",
+      "passwordPlaceholder": "min 8 characters"
+    },
+    "confirmDelete": "Are you sure you want to delete <strong>{{username}}</strong>? This action cannot be undone.",
+    "deleteConfirm": "Delete user \"{{name}}\"? This cannot be undone.",
+    "empty": "No users found.",
+    "toasts": {
+      "created": "User \"{{username}}\" created",
+      "deleted": "User \"{{username}}\" deleted",
+      "enabled": "User \"{{username}}\" enabled",
+      "disabled": "User \"{{username}}\" disabled",
+      "roleUpdated": "Role updated to {{role}}",
+      "passwordReset": "Password reset successfully",
+      "failedLoad": "Failed to load users",
+      "failedCreate": "Failed to create user",
+      "failedDelete": "Failed to delete user",
+      "failedUpdate": "Failed to update user",
+      "failedRole": "Failed to update role",
+      "failedReset": "Failed to reset password"
+    }
+  },
+  "scenarios": {
+    "title": "Scenarios",
+    "search": "Search by ID, name, or technique…",
+    "table": {
+      "id": "ID",
+      "name": "Name",
+      "severity": "Severity",
+      "steps": "Steps",
+      "mitre": "MITRE"
+    },
+    "empty": "No scenarios found.",
+    "loading": "Loading scenarios",
+    "failedLoad": "Failed to load scenarios",
+    "ariaLabel": "Scenarios table",
+    "detail": {
+      "open": "View details for {{name}}",
+      "title": "{{name}}",
+      "severity": "Severity",
+      "osFamily": "OS family",
+      "applicableZones": "Applicable zones",
+      "mitre": "MITRE ATT&CK",
+      "steps": "Detection steps",
+      "step": "Step {{n}}",
+      "criteria": "Matching criteria",
+      "temporalLink": "Temporal link",
+      "loading": "Loading scenario detail…",
+      "failed": "Failed to load scenario detail"
+    },
+    "sigma": {
+      "heading": "Sigma rule(s)",
+      "honesty": "Augur-derived per-step detection — each rule matches ONE technique step in isolation. Augur's full detection also requires cross-step temporal correlation and spatial zone gating that a flat Sigma rule cannot express. Convert to Splunk/Sentinel/Elastic with sigma-cli.",
+      "copy": "Copy",
+      "copied": "Copied",
+      "copyAriaLabel": "Copy Sigma YAML to clipboard",
+      "download": "Download .yml",
+      "downloadAriaLabel": "Download Sigma rules as YAML file",
+      "loading": "Generating Sigma rules…",
+      "failed": "Failed to generate Sigma rules",
+      "packFailed": "Failed to export Sigma pack"
+    },
+    "exportPack": "Export Sigma pack"
+  },
+  "drill": {
+    "title": "Purple-Team Drill",
+    "subtitle": "Inject a scenario onto a host, run the engine, prove the detection.",
+    "selectScenario": "Scenario",
+    "selectHost": "Target host",
+    "run": "Run drill",
+    "running": "Running…",
+    "detectedAt": "Detected at {{pct}}%",
+    "notDetected": "Not detected",
+    "feedSummary": "{{total}} events ({{baseline}} baseline + {{injected}} injected)",
+    "proveScenario": "Prove this scenario",
+    "noHostForOs": "No eligible host for this scenario.",
+    "failed": "Drill failed",
+    "replay": "Replay",
+    "replayRunning": "Replaying…",
+    "replayNote": "Replayed against loaded real telemetry — not synthesized.",
+    "replayMatchedOn": "Matched on {{hosts}}",
+    "replayNotPresent": "This scenario is not present in the loaded capture.",
+    "replaySubtitle": "Real scenarios are replayed against the loaded capture; synthetic scenarios are injected and run.",
+    "modeReplayBadge": "REPLAY",
+    "modeInjectBadge": "INJECT"
+  },
+  "hunts": {
+    "title": "Hunt Hypothesis Workbench",
+    "subtitle": "State a threat hypothesis, scope it, and validate it against live deterministic engine evidence.",
+    "loading": "Loading hunts…",
+    "empty": "No hunts yet. State your first hypothesis below.",
+    "failedLoad": "Failed to load hunts",
+    "new": {
+      "title": "New hunt",
+      "hypothesis": "Hypothesis",
+      "hypothesisPlaceholder": "e.g. An attacker is moving laterally from the DMZ into the user endpoint zone.",
+      "scope": "Scope",
+      "zone": "Zone",
+      "host": "Host",
+      "tactic": "Tactic",
+      "tacticPlaceholder": "e.g. TA0008",
+      "scenarios": "Scenarios",
+      "anyZone": "Any zone",
+      "anyHost": "Any host",
+      "submit": "Open hunt",
+      "submitting": "Opening…",
+      "hypothesisRequired": "A hypothesis is required.",
+      "failed": "Failed to create hunt"
+    },
+    "list": {
+      "title": "Hunts",
+      "status": "Status",
+      "owner": "Owner",
+      "created": "Created",
+      "filterStatus": "Filter by status",
+      "allStatuses": "All statuses",
+      "mine": "My hunts",
+      "view": "View hunt {{id}}"
+    },
+    "status": {
+      "open": "Open",
+      "investigating": "Investigating",
+      "confirmed": "Confirmed",
+      "refuted": "Refuted",
+      "abandoned": "Abandoned"
+    },
+    "detail": {
+      "title": "Hunt detail",
+      "hypothesis": "Hypothesis",
+      "scopeResolved": "Resolved scope",
+      "liveEvidence": "Live evidence",
+      "noEvidence": "No matching detections in scope.",
+      "matched": "{{matched}}/{{total}} steps",
+      "verdictEvidence": "Evidence at time of verdict",
+      "verdictEvidenceAt": "Evidence at time of verdict (as of {{at}})",
+      "verdictEvidenceHint": "Snapshot captured when the verdict was recorded — not current.",
+      "status": "Status",
+      "verdictNote": "Verdict note",
+      "verdictNotePlaceholder": "Required to confirm or refute — summarise the evidence.",
+      "verdictNoteRequired": "A verdict note is required to confirm or refute.",
+      "notes": "Notes",
+      "notesPlaceholder": "Working notes (optional).",
+      "saveVerdict": "Save",
+      "addComment": "Add a comment",
+      "comment": "Comment",
+      "events": "Activity",
+      "report": "Report",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this hunt? This cannot be undone.",
+      "deleted": "Hunt deleted",
+      "saved": "Hunt updated",
+      "commented": "Comment added",
+      "failedSave": "Failed to update hunt",
+      "failedComment": "Failed to add comment",
+      "failedDelete": "Failed to delete hunt"
+    }
+  },
+  "topology": {
+    "title": "Network Topology",
+    "search": "Search by host, IP, zone, or role…",
+    "loading": "Loading topology…",
+    "failedLoad": "Failed to load topology",
+    "empty": "No assets found.",
+    "table": {
+      "hostname": "Hostname",
+      "zone": "Zone",
+      "criticality": "Criticality",
+      "os": "OS",
+      "ip": "IP",
+      "role": "Role"
+    },
+    "ariaLabel": "Assets table",
+    "assetCount_one": "{{count}} asset",
+    "assetCount_other": "{{count}} assets",
+    "detail": {
+      "open": "View details for {{name}}",
+      "title": "{{name}}",
+      "hostname": "Hostname",
+      "zone": "Zone",
+      "criticality": "Criticality",
+      "os": "OS",
+      "ip": "IP",
+      "role": "Role"
+    },
+    "view": {
+      "graph": "Graph",
+      "table": "Table"
+    },
+    "viewToggleLabel": "Topology view",
+    "graphAria": "Network topology map: {{count}} assets across {{zones}} zones, colored by criticality.",
+    "legendFill": "Fill = asset criticality",
+    "honesty": "Zones and criticality come from the topology config. Hosts are grouped by zone — this is NOT a network-reachability or adjacency map; the topology models no host-to-host links."
+  },
+  "hostRisk": {
+    "title": "Host Risk Board",
+    "search": "Search by host, zone, or band…",
+    "loading": "Loading host risk…",
+    "failedLoad": "Failed to load host risk",
+    "empty": "No hosts found.",
+    "ariaLabel": "Host risk table",
+    "hostCount_one": "{{count}} host",
+    "hostCount_other": "{{count}} hosts",
+    "moreScenarios": "+{{count}} more",
+    "table": {
+      "host": "Host",
+      "zone": "Zone",
+      "criticality": "Criticality",
+      "score": "Score",
+      "band": "Band",
+      "detections": "Detections",
+      "scenarios": "Top Scenarios"
+    },
+    "bands": {
+      "CRITICAL": "Critical",
+      "HIGH": "High",
+      "WATCH": "Watch",
+      "LOW": "Low",
+      "CLEAR": "Clear"
+    },
+    "detail": {
+      "open": "View details for {{name}}",
+      "title": "{{name}}",
+      "zone": "Zone",
+      "criticality": "Criticality",
+      "score": "Score",
+      "band": "Band",
+      "detections": "Detections",
+      "maxProximity": "Max proximity",
+      "topSeverity": "Top severity",
+      "topScenarios": "Top scenarios",
+      "noScenarios": "No contributing scenarios."
+    }
+  },
+  "coverageGaps": {
+    "title": "Coverage Gap Matrix",
+    "subtitle": "ATT&CK tactic coverage per deployed OS family",
+    "loading": "Loading coverage matrix…",
+    "failedLoad": "Failed to load coverage matrix",
+    "empty": "No coverage data.",
+    "ariaLabel": "Coverage gap matrix",
+    "summary": "{{covered}} of {{total}} cells covered ({{pct}}%) — {{gaps}} gaps",
+    "covered": "Covered",
+    "gap": "Gap",
+    "cloudNote": "Cloud-stub scenario coverage is folded into the Windows/Linux columns via endpoint telemetry, so there is intentionally no Cloud column — Cloud/SaaS assets on the Topology page are expected here."
+  },
+  "account": {
+    "title": "My Account",
+    "currentUser": "Signed in as",
+    "changePassword": "Change Password",
+    "fields": {
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password"
+    },
+    "placeholders": {
+      "currentPassword": "Current password",
+      "newPassword": "Min 12 characters",
+      "confirmPassword": "Repeat new password"
+    },
+    "hints": {
+      "minLength": "Minimum 12 characters.",
+      "confirmMatch": "Passwords do not match.",
+      "newSame": "New password must differ from current."
+    },
+    "submit": "Update Password",
+    "submitting": "Updating…",
+    "toasts": {
+      "success": "Password updated successfully.",
+      "wrongCurrent": "Current password is incorrect.",
+      "weakPassword": "Password does not meet policy requirements.",
+      "failed": "Failed to update password."
+    }
+  },
+  "sessions": {
+    "title": "Active Sessions",
+    "loading": "Loading sessions…",
+    "failedLoad": "Failed to load sessions",
+    "empty": "No sessions found.",
+    "table": {
+      "created": "Created",
+      "lastSeen": "Last Seen",
+      "expires": "Expires",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "current": "Current",
+    "revoke": "Revoke",
+    "revokeTitle": "Revoke Session",
+    "revokeConfirm": "Are you sure you want to revoke this session? You will be logged out if it is your current session.",
+    "toasts": {
+      "revoked": "Session revoked.",
+      "failed": "Failed to revoke session."
+    }
+  },
+  "audit": {
+    "title": "Audit Log",
+    "search": "Search events, users, or detail…",
+    "loading": "Loading audit log…",
+    "failedLoad": "Failed to load audit log",
+    "empty": "No audit events found.",
+    "limit": "Limit",
+    "table": {
+      "timestamp": "Timestamp",
+      "event": "Event",
+      "username": "Username",
+      "ip": "IP",
+      "detail": "Detail"
+    },
+    "ariaLabel": "Audit log table"
+  },
+  "candidates": {
+    "title": "Generated Scenarios",
+    "subtitle": "AI-proposed mutation candidates, gated by the deterministic gauntlet. Human approval required before any candidate enters the live library.",
+    "generate": "Generate",
+    "loading": "Loading candidates",
+    "empty": "No candidates yet. Generate mutation candidates from an existing scenario.",
+    "filters": {
+      "all": "All",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "table": {
+      "scenarioId": "Scenario ID",
+      "category": "Category",
+      "plausibility": "Plausibility",
+      "status": "Status",
+      "seed": "Seed",
+      "createdBy": "By",
+      "created": "Created",
+      "actions": "Actions"
+    },
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "actions": {
+      "view": "View candidate {{id}}",
+      "approve": "Approve",
+      "reject": "Reject"
+    },
+    "generateTitle": "Generate Candidates",
+    "detailTitle": "Candidate — {{id}}",
+    "rejectTitle": "Reject Candidate",
+    "fields": {
+      "seed": "Seed scenario ID",
+      "seedPlaceholder": "SCEN-2026-001",
+      "category": "Category (optional)",
+      "categoryPlaceholder": "lowercase_with_underscores",
+      "count": "Count",
+      "axes": "Mutation axes (optional)",
+      "axesPlaceholder": "lolbin, zone, timing",
+      "reason": "Reason (optional)",
+      "reasonPlaceholder": "Why is this candidate being rejected?"
+    },
+    "detail": {
+      "yaml": "Scenario YAML",
+      "report": "Gauntlet report",
+      "noNotes": "No notes.",
+      "plausibility": "Plausibility",
+      "axes": "Axes",
+      "seed": "Seed",
+      "reviewedBy": "Reviewed by {{user}}"
+    },
+    "summary": "{{passed}} of {{requested}} candidates passed the gauntlet.",
+    "toasts": {
+      "generated": "{{passed}}/{{requested}} candidates passed the gauntlet",
+      "approved": "Approved {{id}} into the library",
+      "rejected": "Candidate {{id}} rejected",
+      "failedLoad": "Failed to load candidates",
+      "failedGenerate": "Generation failed",
+      "failedApprove": "Failed to approve candidate",
+      "failedReject": "Failed to reject candidate"
+    }
+  },
+  "alerts": {
+    "title": "Alerts",
+    "subtitle": "Deduplicated, banded detections that crossed the alert threshold. Acknowledge to clear from the open queue; case management lives in your SIEM/SOAR.",
+    "loading": "Loading alerts",
+    "empty": "No alerts. Detections at or above the alert threshold will appear here.",
+    "newAlerts_one": "{{count}} new alert",
+    "newAlerts_other": "{{count}} new alerts",
+    "filters": {
+      "open": "Open",
+      "acknowledged": "Acknowledged",
+      "all": "All",
+      "allSeverities": "All severities",
+      "inProgress": "In progress",
+      "resolved": "Resolved",
+      "closed": "Closed",
+      "myQueue": "My queue"
+    },
+    "table": {
+      "severity": "Severity",
+      "scenario": "Scenario",
+      "band": "Band",
+      "proximity": "Proximity",
+      "hosts": "Affected hosts",
+      "state": "State",
+      "lastSeen": "Last seen",
+      "count": "Count",
+      "actions": "Actions",
+      "assignee": "Assignee",
+      "age": "Age"
+    },
+    "status": {
+      "open": "Open",
+      "acknowledged": "Acknowledged",
+      "resolved": "Resolved",
+      "in_progress": "In progress",
+      "closed": "Closed"
+    },
+    "summary": {
+      "open": "Open",
+      "acknowledged": "Acknowledged",
+      "inProgress": "In progress",
+      "resolved": "Resolved",
+      "closed": "Closed",
+      "unassigned": "Unassigned"
+    },
+    "detailTitle": "Alert — {{id}}",
+    "detail": {
+      "matched": "Matched steps",
+      "missing": "Missing steps",
+      "queries": "Hunting queries",
+      "hosts": "Affected hosts",
+      "zones": "Zones",
+      "firstSeen": "First seen",
+      "lastSeen": "Last seen",
+      "count": "Times seen",
+      "history": "State history",
+      "noQueries": "No hunting queries.",
+      "assignee": "Assignee",
+      "status": "Status",
+      "resolutionNote": "Resolution note",
+      "resolutionNoteRequired": "A resolution note is required to resolve or close.",
+      "addComment": "Add a comment",
+      "unassigned": "Unassigned",
+      "falsePositiveHint": "Known-good? Mute or de-prioritize it via a tuning entry."
+    },
+    "actions": {
+      "view": "View alert {{id}}",
+      "assignToMe": "Assign to me",
+      "assign": "Assign",
+      "setStatus": "Set status",
+      "comment": "Add comment"
+    },
+    "ack": "Acknowledge",
+    "copy": "Copy",
+    "copied": "Copied",
+    "toasts": {
+      "acknowledged": "Alert {{id}} acknowledged",
+      "failedLoad": "Failed to load alerts",
+      "failedAck": "Failed to acknowledge alert",
+      "assigned": "Alert {{id}} assigned to {{assignee}}",
+      "selfAssigned": "Alert {{id}} assigned to you",
+      "statusChanged": "Alert {{id}} → {{status}}",
+      "commented": "Comment added",
+      "failedAssign": "Failed to assign alert",
+      "failedStatus": "Failed to update status",
+      "failedComment": "Failed to add comment",
+      "failedPropose": "Failed to build allowlist proposal"
+    },
+    "sla": {
+      "label": "Open for {{duration}}",
+      "resolvedIn": "Resolved in {{duration}}"
+    },
+    "bulk": {
+      "label": "Bulk actions",
+      "count": "{{count}} selected",
+      "selectAll": "Select all alerts",
+      "selectRow": "Select alert {{id}}",
+      "acknowledge": "Acknowledge",
+      "assignToMe": "Assign to me",
+      "resolve": "Resolve",
+      "clear": "Clear selection",
+      "notePlaceholder": "Resolution note",
+      "done_one": "{{count}} alert updated",
+      "done_other": "{{count}} alerts updated",
+      "partial": "{{ok}} updated, {{fail}} failed",
+      "failed": "Bulk action failed"
+    },
+    "deepLink": {
+      "banner": "Showing 1 linked case",
+      "clear": "Clear",
+      "open": "Open alert",
+      "noCase": "No alert case exists for this detection yet."
+    },
+    "proposeAllowlist": "Propose allowlist (FP)"
+  },
+  "savedFilters": {
+    "recall": "Saved filters",
+    "none": "Saved filters…",
+    "save": "Save filter",
+    "namePlaceholder": "Filter name",
+    "saved": "Saved filter \"{{name}}\"",
+    "deleted": "Filter deleted",
+    "delete": "Delete saved filter \"{{name}}\"",
+    "deleteConfirm": "Delete the saved filter \"{{name}}\"? This cannot be undone.",
+    "confirmName": "Save",
+    "cancel": "Cancel"
+  },
+  "shortcuts": {
+    "title": "Keyboard shortcuts",
+    "hint": "? for shortcuts",
+    "navDown": "Next alert",
+    "navUp": "Previous alert",
+    "ack": "Acknowledge alert",
+    "resolve": "Open resolve",
+    "focusFilters": "Focus filters",
+    "help": "Toggle this help",
+    "close": "Close"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "create": "Create",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "reset": "Reset",
+    "select": "Select…",
+    "noOptions": "No options",
+    "deleteConfirmTitle": "Confirm deletion",
+    "loading": "Loading…",
+    "exportCsv": "Export CSV",
+    "exportAttackLayer": "Export ATT&CK Layer",
+    "closeDialog": "Close dialog",
+    "forbidden": "You don't have permission to view this page.",
+    "errorFallback": "Something went wrong. Please refresh the page.",
+    "search": "Search",
+    "clearSearch": "Clear search",
+    "pagination": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "pageRange": "{{start}}–{{end}} of {{total}}",
+    "pageOf": "Page {{page}} / {{pageCount}}",
+    "allSeverities": "All severities",
+    "allZones": "All zones",
+    "noMatches": "No matches for the current filters.",
+    "updateAvailable": "A new version of Augur is available.",
+    "reload": "Reload",
+    "later": "Later",
+    "timeRange": {
+      "label": "Time range",
+      "all": "All time",
+      "last24h": "Last 24 hours",
+      "last7d": "Last 7 days",
+      "last30d": "Last 30 days",
+      "custom": "Custom",
+      "from": "From",
+      "to": "To"
+    }
+  },
+  "dashboard.filters": {
+    "allSeverities": "All severities",
+    "allZones": "All zones",
+    "severity": "Severity",
+    "zone": "Zone"
+  },
+  "handover": {
+    "title": "Shift Handover",
+    "subtitle": "What changed on the board between the two shift boundaries.",
+    "loading": "Computing handover diff…",
+    "failedLoad": "Failed to load handover diff.",
+    "empty": "No change on the board for the selected window.",
+    "basisNote": "Corpus-windowed · deterministic · read-only (the scoring path is untouched).",
+    "export": "Export CSV",
+    "window": {
+      "from": "Shift start",
+      "to": "Shift end"
+    },
+    "summary": "+{{new}} new · {{escalated}} escalated · {{decayed}} decayed · {{gone}} gone · {{hostsEntered}} hosts entered",
+    "sections": {
+      "new": "New detections",
+      "escalated": "Escalated",
+      "decayed": "Decayed",
+      "gone": "Gone",
+      "hostsEntered": "Hosts entered the board",
+      "hostsLeft": "Hosts left the board",
+      "hostMovement": "Host risk movement"
+    },
+    "col": {
+      "scenario": "Scenario",
+      "prior": "Prior",
+      "current": "Now",
+      "delta": "Δ",
+      "host": "Host",
+      "score": "Score"
+    },
+    "none": "—",
+    "triage": {
+      "title": "Team triage activity",
+      "clockNote": "Operator wall-clock — distinct from the board diff above (corpus event time).",
+      "loading": "Loading triage activity…",
+      "failedLoad": "Failed to load triage activity.",
+      "emptyNoData": "No triage activity recorded yet.",
+      "emptyWindow": "No assignments or resolutions in this window.",
+      "export": "Export triage CSV",
+      "sections": {
+        "newAlerts": "New alerts",
+        "assigned": "Assigned",
+        "resolved": "Resolved",
+        "reopened": "Reopened"
+      },
+      "col": {
+        "scenario": "Scenario",
+        "severity": "Severity",
+        "assignee": "Assignee",
+        "status": "Status",
+        "when": "When"
+      }
+    }
+  },
+  "attackPaths": {
+    "title": "Crown-Jewel Technique Paths",
+    "subtitle": "Plausible technique progressions to CRITICAL assets — how far along each chain already is.",
+    "loading": "Computing technique paths…",
+    "failedLoad": "Failed to load technique paths.",
+    "empty": "No CRITICAL targets or paths to show.",
+    "realized": "{{pct}}% realized",
+    "entry": "Entry",
+    "observed": "observed",
+    "hypothetical": "hypothetical",
+    "noCoverage": "(no library coverage)",
+    "export": "Export CSV",
+    "viewToggleLabel": "View as graph or table",
+    "view": {
+      "graph": "Graph",
+      "table": "Table"
+    },
+    "legend": "Legend",
+    "legendRealized": "realized / observed",
+    "legendHypothetical": "hypothetical",
+    "legendTarget": "CRITICAL target",
+    "legendStop": "zone stop",
+    "graphAria": "Attack-path graph: {{targets}} targets, {{observed}} observed stops"
+  },
+  "intel": {
+    "title": "Threat-Intel Overlay",
+    "subtitle": "Check IOCs against ingested events and the scenario library.",
+    "inputLabel": "IOCs — one per line, type:value",
+    "placeholder": "command:Invoke-kerberoast\nprocess_name:rundll32.exe\nip:203.0.113.10\ntechnique:T1003.001",
+    "validTypes": "Valid types: process_name, image, command, hash, domain, ip, cidr, ipv6, technique.",
+    "unsupportedNote": "hash/domain/ip/cidr/ipv6 match synthetic endpoint/DNS/connection telemetry across Windows, Linux, and macOS (DNS/connection on Linux/macOS via agent/EDR overlay). IPv4 uses RFC 5737 ranges, IPv6 the RFC 3849 2001:db8::/32 range; CIDR tests network membership and IPv6 compares canonically. dest_port is context-only.",
+    "run": "Check feed",
+    "running": "Checking…",
+    "failed": "IOC match failed.",
+    "summary": "{{matched}} of {{total}} IOCs matched · {{hosts}} hosts touched",
+    "matched": "matched",
+    "noMatch": "no match",
+    "hits": "{{count}} hits",
+    "truncated": "Showing 200 of {{total}} hits.",
+    "eventHits": {
+      "host": "Host",
+      "time": "Time",
+      "label": "Event",
+      "field": "Matched field",
+      "snippet": "Snippet"
+    },
+    "techniqueSection": "Technique coverage",
+    "techniqueNote": "Matches the scenario library / detections, not raw events.",
+    "covered": "covered",
+    "notCovered": "not covered",
+    "fired": {
+      "scenario": "Scenario",
+      "name": "Name",
+      "proximity": "Proximity",
+      "hosts": "Affected hosts"
+    },
+    "hostsSection": "Hosts touched",
+    "hostsTable": {
+      "host": "Host",
+      "zone": "Zone",
+      "criticality": "Criticality",
+      "iocCount": "IOCs",
+      "types": "Types"
+    },
+    "export": "Export CSV",
+    "mode": {
+      "manual": "Manual watchlist",
+      "paste": "Paste report"
+    },
+    "extract": {
+      "inputLabel": "Paste a threat report, advisory, or email — plain text",
+      "placeholder": "Paste a CTI report here. Defanged indicators (hxxp://, 1[.]2[.]3[.]4) are supported.",
+      "run": "Extract IOCs",
+      "running": "Extracting…",
+      "failed": "IOC extraction failed.",
+      "matchableSection": "Matchable here ({{count}})",
+      "unmatchableSection": "Extracted for your other tools ({{count}})",
+      "push": "Add matchable to watchlist",
+      "honesty": "These {{matchable}} indicators are matchable against Augur's synthetic Windows, Linux, and macOS endpoint, DNS, and network-connection telemetry (hashes, domains, IPv4, IPv6 — and a URL's host extracted as a domain). These {{unmatchable}} (full URL / email / CVE / registry) are extracted for your other tools — Augur's corpus carries no backing fields for them, so it cannot hunt them here.",
+      "truncated": "Showing first {{count}} of the extracted indicators.",
+      "cols": {
+        "type": "Type",
+        "value": "Value",
+        "category": "Category",
+        "confidence": "Confidence",
+        "defanged": "Defanged from",
+        "reason": "Reason"
+      },
+      "noneMatchable": "No matchable indicators found.",
+      "noneUnmatchable": "No other indicators extracted."
+    }
+  },
+  "stack": {
+    "title": "Rarity / Frequency Stacking",
+    "subtitle": "Least-frequency-of-occurrence hunting — inspect the rare long tail",
+    "dimension": "Dimension",
+    "dim": {
+      "process": "Rare binary (process)",
+      "parent_child": "Rare lineage (parent → child)",
+      "host_binary": "Anomalous spread (host × binary)"
+    },
+    "maxCount": "Max count",
+    "limit": "Limit",
+    "honesty": "These are LEADS, not detections. Most rare activity is benign — admin tools, one-off installs, a single legitimate script. \"First seen\" means first in this loaded corpus, not first ever. A rare value on a CRITICAL host is a stronger lead but still needs human triage.",
+    "summary": "Showing {{returned}} of {{rare}} rare values ({{total}} total).",
+    "truncated": "Truncated — {{rare}} rare values exceed the limit.",
+    "export": "Export CSV",
+    "empty": "No rare values at this threshold.",
+    "failed": "Failed to load rarity.",
+    "cols": {
+      "value": "Value",
+      "occurrences": "Occurrences",
+      "hostCount": "Hosts",
+      "hosts": "Sample hosts",
+      "flags": "Flags",
+      "firstSeen": "First seen",
+      "lastSeen": "Last seen",
+      "moreHosts": "+{{n}} more",
+      "inspectRow": "Inspect {{value}}"
+    },
+    "flag": {
+      "single": "single-host",
+      "unique": "unique"
+    },
+    "drawer": {
+      "hosts": "Hosts",
+      "samples": "Sample events",
+      "host": "Host",
+      "time": "Time",
+      "command": "Command",
+      "count": "Count",
+      "criticality": "Criticality",
+      "hostsTruncated": "Showing first {{shown}} of {{total}} hosts",
+      "samplesTruncated": "Showing first {{shown}} samples"
+    }
+  },
+  "incidents": {
+    "title": "Incidents",
+    "subtitle": "Detections grouped into campaigns by shared host, shared technique, or temporal adjacency",
+    "honesty": "An incident is a deterministic CORRELATION over THIS corpus — detections grouped because they share a host or share a MITRE technique; corpus-time adjacency is shown as context but never groups detections on its own. It is NOT a confirmed adversary campaign, NOT a causal attribution, and NOT a network-reachability or lateral-movement claim.",
+    "failed": "Failed to load incidents.",
+    "loading": "Loading incidents…",
+    "empty": "No incidents over this corpus.",
+    "rollup": {
+      "incidents": "{{n}} incidents",
+      "largest": "largest {{n}}",
+      "singletons": "{{n}} singletons",
+      "total": "{{n}} detections",
+      "truncated": "input capped — see honesty note"
+    },
+    "card": {
+      "size": "{{n}} members",
+      "score": "score {{score}}",
+      "span": "{{from}} → {{to}}",
+      "spanEmpty": "no corpus-time span",
+      "membersTruncated": "showing {{shown}} of {{total}} members"
+    },
+    "relation": {
+      "shared_host": "shared host",
+      "shared_technique": "shared technique",
+      "temporal_adjacency": "temporal adjacency"
+    },
+    "expand": "Expand incident {{id}}",
+    "member": {
+      "scenario": "Scenario",
+      "severity": "Severity",
+      "proximity": "Proximity",
+      "hosts": "Affected hosts",
+      "latestTs": "Latest event",
+      "inspect": "Inspect member {{id}}"
+    }
+  },
+  "incidentResponse": {
+    "tab": "Response",
+    "title": "Consolidated response plan",
+    "open": "View response",
+    "drawerTitle": "Response — {{id}}",
+    "derivedFrom": "Driving tactics",
+    "scopedHosts": "Scoped hosts",
+    "fromScenarios": "from",
+    "loading": "Loading response plan…",
+    "failed": "Failed to load response plan.",
+    "empty": "No response plan for this incident.",
+    "unresolved": "Unresolved scenarios (skipped): {{ids}}",
+    "section": {
+      "contain": "Contain",
+      "eradicate": "Eradicate",
+      "recover": "Recover",
+      "validate": "Validate"
+    },
+    "csv": {
+      "export": "Export CSV",
+      "section": "Section",
+      "action": "Action",
+      "fromScenarios": "From scenarios"
+    }
+  },
+  "incidentReport": {
+    "open": "View report",
+    "drawerTitle": "Post-incident report — {{id}}",
+    "header": "Header",
+    "affectedAssets": "Affected assets",
+    "techniques": "MITRE technique coverage",
+    "detectionSummary": "Detection summary",
+    "consolidatedResponse": "Consolidated response",
+    "membersTruncated": "{{shown}} of {{total}} members shown",
+    "download": "Download .md",
+    "failed": "Failed to load report.",
+    "fields": {
+      "topSeverity": "Top severity",
+      "score": "Score",
+      "maxProximity": "Max proximity",
+      "members": "Members",
+      "hosts": "Hosts",
+      "techniques": "Techniques",
+      "span": "Corpus window"
+    }
+  },
+  "detectionHealth": {
+    "title": "Detection Health",
+    "subtitle": "Which scenarios are firing, partial, silent, or never fired over this corpus",
+    "honesty": "Health is computed over THIS loaded corpus only. SILENT/NEVER means the scenario did not fire in this data — NOT that the detection is broken in production. \"Last fired\" is a corpus timestamp, not wall-clock. This is a liveness signal, not an alert volume or a production-efficacy claim.",
+    "failed": "Failed to load detection health.",
+    "empty": "No scenarios loaded.",
+    "loading": "Loading detection health…",
+    "states": {
+      "FIRING": "Firing",
+      "PARTIAL": "Partial",
+      "SILENT": "Silent",
+      "NEVER": "Never"
+    },
+    "stateAria": {
+      "SILENT": "Absent from this corpus — not a production-broken claim",
+      "NEVER": "Absent from this corpus — not a production-broken claim"
+    },
+    "summary": "{{total}} scenarios — {{firing}} firing, {{partial}} partial, {{silent}} silent, {{never}} never",
+    "span": "Corpus span: {{from}} → {{to}}",
+    "spanEmpty": "Empty corpus",
+    "cols": {
+      "scenario": "Scenario",
+      "state": "State",
+      "proximity": "Max proximity",
+      "fireCount": "Fire count",
+      "lastFired": "Last fired (corpus time)",
+      "hosts": "Hosts",
+      "severity": "Severity",
+      "os": "OS"
+    },
+    "inspectRow": "Inspect {{id}}",
+    "drawer": {
+      "tactics": "Tactics",
+      "fireCount": "Fire count (windows)",
+      "lastFired": "Last fired (corpus time)",
+      "maxProximity": "Max proximity",
+      "hosts": "Affected hosts",
+      "never": "Never fired in this corpus"
+    }
+  },
+  "pivot": {
+    "title": "Investigation Pivot Graph",
+    "subtitle": "Click a node to expand its neighbors from the knowledge graph.",
+    "noDetection": "Open a case from the Dashboard to pivot from a detection.",
+    "loading": "Loading graph…",
+    "failedLoad": "Failed to load pivot graph",
+    "nodes": "nodes",
+    "edges": "edges",
+    "hops": "Hops",
+    "layout": "Layout",
+    "legend": "Legend",
+    "process": "Process",
+    "file": "File",
+    "host": "Host",
+    "export": "Export CSV",
+    "truncated": "Showing {{shown}} of {{total}} nodes (capped for readability).",
+    "edgesTruncated": "Showing {{shown}} of {{total}} edges (capped for readability).",
+    "hideModules": "Hide modules",
+    "showModules": "Show {{count}} modules",
+    "fillCrit": "Fill = asset criticality",
+    "seedNode": "Seed",
+    "spawned": "Spawned",
+    "exhibited": "Exhibited",
+    "runsOn": "Runs on",
+    "pickPrompt": "Pick a detection to pivot from:",
+    "noDetectionsYet": "No detections in the current corpus yet."
+  },
+  "timeline": {
+    "title": "Case Timeline",
+    "subtitle": "Matched scenario steps in temporal context.",
+    "loading": "Loading timeline…",
+    "failedLoad": "Failed to load timeline.",
+    "empty": "No events to show for this case.",
+    "matchedStep": "Step",
+    "context": "context",
+    "band": "Window",
+    "truncated": "Showing {{shown}} of {{total}} context events.",
+    "export": "Export CSV",
+    "col": {
+      "timestamp": "Time",
+      "host": "Host",
+      "label": "Event"
+    }
+  },
+  "campaign": {
+    "title": "Purple-Team Validation Scorecard",
+    "subtitle": "Replay each scenario through the engine and score whether it is detected — a deterministic validation pass, not a live attack.",
+    "osFamily": "OS family",
+    "osAny": "Any OS",
+    "tactic": "Tactic",
+    "minProximity": "Min proximity",
+    "run": "Run validation",
+    "running": "Running…",
+    "failedLoad": "Failed to run validation.",
+    "empty": "No scenarios match the current scope.",
+    "ariaLabel": "Validation scorecard",
+    "export": "Export CSV",
+    "pctDetected": "{{pct}}% detected",
+    "detected": "{{n}} detected",
+    "missed": "{{n}} missed",
+    "noHost": "{{n}} no eligible host",
+    "status": {
+      "detected": "detected",
+      "missed": "missed",
+      "no_eligible_host": "no eligible host",
+      "error": "error"
+    },
+    "col": {
+      "scenario": "Scenario",
+      "name": "Name",
+      "tactic": "Tactic",
+      "host": "Host",
+      "status": "Status",
+      "proximity": "Proximity",
+      "steps": "Steps"
+    },
+    "gaps": {
+      "title": "Topology / coverage gaps",
+      "note": "No eligible host in the current topology — a coverage/planning gap, not a detection miss.",
+      "noHostHeading": "No eligible host"
+    },
+    "detail": {
+      "open": "View details for {{name}}",
+      "title": "{{name}}",
+      "technique": "Technique",
+      "osFamily": "OS family",
+      "host": "Host",
+      "status": "Status",
+      "proximity": "Proximity",
+      "steps": "Steps matched",
+      "feed": "Injected feed",
+      "feedTotal": "Total events",
+      "feedBaseline": "Baseline events",
+      "feedInjected": "Injected events",
+      "note": "Note"
+    }
+  },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "message": "This page hit an unexpected error. The rest of the console is unaffected — you can reload to recover.",
+    "reload": "Reload page",
+    "details": "Error details"
+  },
+  "tuning": {
+    "title": "Detection Tuning",
+    "subtitle": "Suppress or downgrade known-good detections. Deterministic, fully audited — the engine still detects everything.",
+    "newEntry": "New entry",
+    "cancel": "Cancel",
+    "save": "Save entry",
+    "saving": "Saving…",
+    "created": "Allowlist entry created",
+    "createFailed": "Failed to create entry",
+    "action": "Action",
+    "downgradeTo": "Downgrade to",
+    "suppress": "Suppress",
+    "downgrade": "Downgrade",
+    "scenarioId": "Scenario ID",
+    "host": "Host",
+    "zone": "Zone",
+    "technique": "Technique",
+    "processRegex": "Process regex",
+    "commandRegex": "Command regex",
+    "reason": "Reason",
+    "reasonPlaceholder": "Why is this known-good? (required, audited)",
+    "predicateHint": "Provide at least one predicate. All predicates must match (AND).",
+    "entries": "Allowlist entries",
+    "noEntries": "No allowlist entries yet.",
+    "by": "by {{author}}",
+    "hits": "{{count}} hit",
+    "hits_other": "{{count}} hits",
+    "hitCountTitle": "Detections this entry currently mutes",
+    "enable": "Enable",
+    "disable": "Disable",
+    "delete": "Delete entry",
+    "tunedOut": "Tuned out",
+    "suppressedN": "suppressed",
+    "downgradedN": "downgraded",
+    "nothingTuned": "Nothing is currently tuned out — every detection is shown as the engine ranked it.",
+    "baselineHint": "Baseline: {{process}} ran {{occurrences}} times across {{hosts}} host(s) in this corpus.",
+    "baselineSingleHost": "Only one host — a rarer pattern; allowlist with care."
+  }
+}

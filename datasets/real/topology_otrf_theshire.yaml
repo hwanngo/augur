@@ -1,0 +1,12 @@
+# OTRF Security-Datasets capture topology (empire_mimikatz_logonpasswords).
+# Declares the three real hosts in the theshire.local capture so Topology.enrich can authoritatively
+# assign zone/criticality. The malicious EID-10 LSASS access is on WORKSTATION5.theshire.local; it
+# must land in an applicable_zone so the spatial gate is evaluable and passes legitimately. Unknown
+# hosts still enrich to Unknown/UNKNOWN and fail the gate — the gate is NOT weakened, the operator
+# simply declared their real assets. Lives beside the dataset (NOT under src/) so it never pollutes
+# the synthetic default topology.
+zones: [DMZ, Internal_Server, User_Endpoint, Cloud_SaaS, Active_Directory]
+assets:
+  - { hostname: WORKSTATION5.theshire.local, zone: User_Endpoint,    criticality: MEDIUM,   os: "Windows 10",          ip: 0.0.0.0, role: workstation }
+  - { hostname: WORKSTATION6.theshire.local, zone: User_Endpoint,    criticality: MEDIUM,   os: "Windows 10",          ip: 0.0.0.0, role: workstation }
+  - { hostname: MORDORDC.theshire.local,     zone: Active_Directory, criticality: CRITICAL, os: "Windows Server 2019", ip: 0.0.0.0, role: dc }

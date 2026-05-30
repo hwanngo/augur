@@ -1,0 +1,43 @@
+# Dependabot config — scopes, schedules, and GROUPS updates so we get a handful of
+# batched PRs on a predictable cadence instead of many uncontrolled security-update jobs.
+# Security updates still fire on their own when an advisory lands; grouping keeps the noise low.
+version: 2
+updates:
+  # Python (uv ecosystem — reads pyproject.toml + uv.lock at repo root)
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 5
+    groups:
+      python-deps:
+        patterns: ["*"]
+
+  # Frontend (pnpm/npm — frontend/package.json + pnpm-lock.yaml)
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 5
+    groups:
+      frontend-deps:
+        patterns: ["*"]
+
+  # GitHub Actions used by the CI workflow
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 5
+    groups:
+      actions:
+        patterns: ["*"]

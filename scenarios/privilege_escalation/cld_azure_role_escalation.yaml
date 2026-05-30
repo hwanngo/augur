@@ -1,0 +1,38 @@
+scenario_metadata:
+  scenario_id: "SCEN-CLD-006"
+  name: "Cloud-stub: Azure RBAC Owner Role Assignment via az CLI"
+  description: "Endpoint-telemetry approximation of Azure privilege escalation: adversary assigns Owner role to themselves or a backdoor app via az CLI. (Approximates Azure Activity Log RoleAssignments/write events via endpoint telemetry.)"
+  severity: "CRITICAL"
+  mitre_mappings:
+    - { tactic: "TA0004", technique: "T1098.003" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Az_Login"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["az"] }
+        CommandLine: { regex: ".*login.*" }
+    - step_id: 2
+      name: "Role_Assignment_Create"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["az"] }
+        CommandLine: { regex: ".*role assignment create.*" }
+    - step_id: 3
+      name: "Owner_Role_Grant"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["az"] }
+        CommandLine: { regex: ".*Owner.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'az' and ProcessCommandLine has 'role assignment create'"

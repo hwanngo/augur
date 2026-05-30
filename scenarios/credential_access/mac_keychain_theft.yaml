@@ -1,0 +1,38 @@
+scenario_metadata:
+  scenario_id: "SCEN-MAC-003"
+  name: "macOS Keychain Credential Theft via security Command"
+  description: "Adversary uses the security command to extract generic passwords from the macOS Keychain, then exfiltrates via curl."
+  severity: "CRITICAL"
+  mitre_mappings:
+    - { tactic: "TA0006", technique: "T1555.001" }
+  os_family: "macos"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint"]
+  critical_assets_only: false
+  required_log_sources: ["macOS_ESF"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Keychain_Dump"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["security"] }
+        CommandLine: { regex: ".*find-generic-password.*" }
+    - step_id: 2
+      name: "Output_Capture"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["grep", "awk"] }
+        CommandLine: { regex: ".*password.*" }
+    - step_id: 3
+      name: "Exfil_Credentials"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["curl"] }
+        CommandLine: { regex: ".*upload.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'security' and ProcessCommandLine has 'find-generic-password'"

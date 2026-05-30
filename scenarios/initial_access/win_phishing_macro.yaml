@@ -1,0 +1,38 @@
+scenario_metadata:
+  scenario_id: "SCEN-WIN-004"
+  name: "Phishing Macro: Outlook to Word to PowerShell Stager"
+  description: "A phishing email opened in Outlook spawns Word with a malicious macro that launches PowerShell with an encoded command."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0001", technique: "T1566.001" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Outlook_Opens"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["OUTLOOK.EXE"] }
+    - step_id: 2
+      name: "Word_Child"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["WINWORD.EXE"] }
+        ParentProcessName: { in: ["OUTLOOK.EXE"] }
+    - step_id: 3
+      name: "PowerShell_Encoded"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["powershell.exe"] }
+        ParentProcessName: { in: ["WINWORD.EXE"] }
+        CommandLine: { regex: ".*-enc.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where InitiatingProcessFileName == 'WINWORD.EXE' and FileName == 'powershell.exe' and ProcessCommandLine has '-enc'"

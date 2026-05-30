@@ -1,0 +1,29 @@
+# HONESTY: single-step LOLBin command-line rule, validated on ONE real OTRF capture
+# (cmd_dumping_ntds_dit_file_ntdsutil). ntdsutil "ifm create full" on a DC is a real NTDS.dit theft
+# primitive, but ntdsutil IS a legitimate DC administration tool — a production deployment MUST
+# allowlist sanctioned DC-promotion / IFM-backup maintenance windows + operators. Demo-clean on this
+# capture != production-tuned. Lives in scenarios_real/ (NOT scenarios/) so it is NEVER auto-merged
+# into default_scenarios() (which would break test_scenario_library_v2's synth gate). Loaded explicitly.
+scenario_metadata:
+  scenario_id: "SCEN-REAL-WIN-T1003-003-001"
+  name: "Real NTDS.dit Theft via ntdsutil IFM (T1003.003)"
+  description: "ntdsutil creates a full IFM install-media set, exfiltrating NTDS.dit + SYSTEM hive offline. Validated end-to-end against a real OTRF Sysmon capture on a domain controller."
+  severity: "CRITICAL"
+  mitre_mappings:
+    - { tactic: "TA0006", technique: "T1003.003" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["Active_Directory"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Ntdsutil_IFM_Create_Full"
+      matching_criteria:
+        Node_Type: "Process"
+        CommandLine: { regex: "(?i)ntdsutil.*\\bifm\\b.*create\\s+full" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'ntdsutil.exe' and ProcessCommandLine has_all ('ifm','create','full')"

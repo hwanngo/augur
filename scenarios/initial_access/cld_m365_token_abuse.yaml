@@ -1,0 +1,38 @@
+scenario_metadata:
+  scenario_id: "SCEN-CLD-002"
+  name: "Cloud-stub: M365 Token Abuse via PowerShell Connect-MgGraph"
+  description: "Endpoint-telemetry approximation of M365 token abuse: adversary uses PowerShell to authenticate to Microsoft Graph and enumerate users. (Approximates Azure AD sign-in logs via endpoint telemetry.)"
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0001", technique: "T1078.004" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Connect_MgGraph"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["powershell.exe"] }
+        CommandLine: { regex: ".*Connect-MgGraph.*" }
+    - step_id: 2
+      name: "Enumerate_Users"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["powershell.exe"] }
+        CommandLine: { regex: ".*Get-MgUser.*" }
+    - step_id: 3
+      name: "Enumerate_Groups"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["powershell.exe"] }
+        CommandLine: { regex: ".*Get-MgGroup.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'powershell.exe' and ProcessCommandLine has 'Connect-MgGraph'"

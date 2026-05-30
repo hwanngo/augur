@@ -1,0 +1,168 @@
+name: CI
+
+# Minute-saving triggers:
+# - push only on main/tags (a PR from a branch no longer double-runs as push + pull_request)
+# - docs-only changes skip CI entirely (paths-ignore)
+# - weekly schedule keeps the dependency audit fresh even without pushes
+# - workflow_dispatch lets you run it on demand
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+    paths-ignore: ['**.md', 'docs/**', 'LICENSE']
+  pull_request:
+    paths-ignore: ['**.md', 'docs/**', 'LICENSE']
+  schedule:
+    - cron: '0 6 * * 1'   # Mondays 06:00 UTC
+  workflow_dispatch:
+
+# Cancel an in-progress run for the same ref when you push again (no wasted minutes on stale runs).
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Opt the JS actions (setup-node, pnpm/action-setup) onto Node 24 now — Node 20 is being deprecated
+# on the runners; this silences the warning and is the forward-compatible default.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  test:
+    name: Test (Python 3.14, uv)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          python-version: "3.14"
+          enable-cache: true
+
+      - name: Sync dependencies
+        run: uv sync
+
+      # Per-push speed trim: skip the heaviest full-corpus sweeps (-m "not slow") and the coverage
+      # gate. -n auto parallelizes across cores; --disable-warnings keeps the log compact. The FULL
+      # gated suite runs in the test-full job (weekly schedule + manual dispatch).
+      - name: Run test suite (fast subset, parallel)
+        run: uv run pytest -q -n auto -m "not slow" --disable-warnings
+
+      - name: Engine smoke test
+        run: uv run python -m augur.demo --no-serve
+
+  # Full suite + 85% coverage gate (incl. the `slow` corpus sweeps). Runs on the weekly schedule and
+  # on-demand (workflow_dispatch) — not on every push/PR — so day-to-day CI stays fast and cheap.
+  test-full:
+    name: Test — full suite + coverage gate
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          python-version: "3.14"
+          enable-cache: true
+      - name: Sync dependencies
+        run: uv sync
+      - name: Run full suite (with coverage gate)
+        run: uv run pytest -q -n auto --disable-warnings --cov=augur --cov-report=term:skip-covered --cov-fail-under=85
+      - name: Engine smoke test
+        run: uv run python -m augur.demo --no-serve
+
+  frontend:
+    name: Frontend (Node 22, pnpm)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: "10"
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        working-directory: frontend
+        run: pnpm lint
+
+      - name: Type-check
+        working-directory: frontend
+        run: pnpm typecheck
+
+      - name: Run tests
+        working-directory: frontend
+        run: pnpm test
+
+      - name: Build
+        working-directory: frontend
+        run: pnpm build
+
+  # The heavy jobs (image build + audits) skip PRs and run on main pushes, the weekly
+  # schedule, and manual dispatch — they validate the merged result without costing minutes
+  # on every PR iteration.
+  dependency-audit:
+    name: Dependency audit (Python + JS)
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          python-version: "3.14"
+          enable-cache: true
+
+      - name: Export locked requirements
+        run: uv export --frozen --format requirements-txt --no-emit-project --all-extras -o requirements.txt
+
+      - name: Audit Python dependencies (pip-audit)
+        run: uvx pip-audit --requirement requirements.txt
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: "10"
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Audit JS dependencies (pnpm)
+        working-directory: frontend
+        run: pnpm audit --audit-level high --prod
+
+  docker-build:
+    name: Docker image build + compose validate
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+
+      - name: Build image
+        run: docker build -t augur:ci .
+
+      - name: Validate compose config
+        env:
+          AUGUR_SECRET_KEY: ci-dummy-secret-key-not-used
+          AUGUR_ADMIN_PASSWORD: ci-dummy-admin-password
+          NEO4J_PASSWORD: ci-dummy-neo4j-password
+        run: docker compose config -q

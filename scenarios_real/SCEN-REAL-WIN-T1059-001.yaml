@@ -1,0 +1,37 @@
+# HONESTY: single-step PowerShell ScriptBlock (EID 4104) behavior rule, validated on a real capture
+# (OTRF empire_uac_shellapi_fodhelper). The rule keys on a script block that reflects into
+# System.Management.Automation.Utils — the standard AMSI / ScriptBlock-logging BYPASS that Empire and
+# obfuscated loaders patch before running their payload. That reflection is a near-zero-FP malicious
+# signal (legitimate code essentially never reaches into Utils to disable logging). The script text is
+# matched directly (the 4104 ScriptBlockText), not a process attribute.
+#
+# LINKAGE CAVEAT (honest): EID 4104 carries NO Sysmon ProcessGuid, so the normalizer anchors the
+# behavior on a SYNTHETIC per-(host,PID) PowerShell node — the detection is "a malicious script block
+# was logged on this host", NOT a process-tree / spawn-chain claim. A raw "any base64/IEX" rule would be
+# FP-prone; production needs a script-content allowlist + the host process context. Validated on one
+# capture, not a general PowerShell detector. Lives in scenarios_real/ (never auto-merged).
+scenario_metadata:
+  scenario_id: "SCEN-REAL-WIN-T1059-001"
+  name: "Real Malicious PowerShell ScriptBlock (T1059.001 AMSI/logging bypass reflection)"
+  description: "A PowerShell ScriptBlock (Sysmon-adjacent EID 4104) reflects into System.Management.Automation.Utils — the Empire/obfuscator AMSI & script-block-logging bypass. Validated end-to-end against a real OTRF Empire fodhelper capture."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0002", technique: "T1059.001" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server", "Active_Directory"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_PowerShell"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "ScriptBlock_AMSI_Bypass_Reflection"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { regex: "(?i)powershell" }
+        Behavior_Markers: ["PowerShellScriptBlock"]
+        TargetProcess: { regex: "(?i)System\\.Management\\.Automation\\.Utils" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceEvents | where ActionType == 'PowerShellCommand' and AdditionalFields contains 'System.Management.Automation.Utils'"

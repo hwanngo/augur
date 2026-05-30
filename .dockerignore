@@ -1,0 +1,48 @@
+# VCS / CI
+.git
+.gitignore
+.github
+
+# Local virtualenv & caches (the image builds its own)
+.venv
+venv
+__pycache__/
+*.pyc
+.pytest_cache
+.ruff_cache
+.mypy_cache
+.coverage
+*.tsbuildinfo
+
+# Docs & internal artifacts — not needed at runtime
+docs/
+*.md
+!README.md
+
+# Runtime state & data — NEVER bake into the image (sqlite DBs, hunt output)
+data/
+*.db
+out/
+
+# Real public attack datasets — large + licensed, fetched at runtime, not part of the image
+datasets/
+
+# Node: built on a separate stage; never copy host artifacts in
+node_modules
+frontend/node_modules
+frontend/dist
+
+# AI coding tool state / local overrides (also gitignored)
+.claude/
+CLAUDE.local.md
+.mcp.json
+.gstack/
+.codex/
+.cursor/
+.idea/
+.vscode/
+
+# Local-only / OS
+original_conversation.md
+.DS_Store
+._*

@@ -1,0 +1,33 @@
+# HONESTY: single-step CreateRemoteThread behavior rule, validated on ONE real capture
+# (OTRF empire_dllinjection_LoadLibrary_CreateRemoteThread). The rule keys on a remote thread created
+# by powershell INTO a user application (notepad) — the actual malicious instance in this dataset
+# (powershell.exe -> LoadLibraryA -> notepad.exe). It deliberately does NOT fire on benign OS thread
+# creation (e.g. csrss.exe -> svchost.exe CtrlRoutine), which targets system services, not notepad,
+# and whose source is not powershell. A raw "any CreateRemoteThread" rule would be FP-prone; production
+# needs a source/target allowlist. The detection is real and validated on one capture, not claimed as a
+# general injection detector. Lives in scenarios_real/ (never auto-merged into default_scenarios()).
+scenario_metadata:
+  scenario_id: "SCEN-REAL-WIN-T1055-001"
+  name: "Real Process Injection via CreateRemoteThread (T1055 LoadLibrary into notepad)"
+  description: "powershell.exe creates a remote thread (Sysmon EID 8, StartFunction LoadLibraryA) inside notepad.exe — classic DLL injection. Validated end-to-end against a real OTRF Empire DLL-injection Sysmon capture."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0005", technique: "T1055" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server", "Active_Directory"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Remote_Thread_Into_Notepad"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { regex: "(?i)powershell\\.exe" }
+        Behavior_Markers: ["CreateRemoteThread"]
+        TargetProcess: { regex: "(?i)notepad\\.exe" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceEvents | where ActionType == 'CreateRemoteThreadApiCall' and InitiatingProcessFileName =~ 'powershell.exe' and FileName =~ 'notepad.exe'"

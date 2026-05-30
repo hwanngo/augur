@@ -1,0 +1,38 @@
+scenario_metadata:
+  scenario_id: "SCEN-WIN-014"
+  name: "VSS Shadow Copy Deletion for Ransomware Impact"
+  description: "Adversary deletes Volume Shadow Copies via vssadmin.exe and wbadmin to prevent recovery before ransomware encryption."
+  severity: "CRITICAL"
+  mitre_mappings:
+    - { tactic: "TA0040", technique: "T1490" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Vssadmin_Delete_Shadows"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["vssadmin.exe"] }
+        CommandLine: { regex: ".*delete.*" }
+    - step_id: 2
+      name: "Wbadmin_Delete_Catalog"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["wbadmin.exe"] }
+        CommandLine: { regex: ".*delete.*" }
+    - step_id: 3
+      name: "Bcdedit_Recovery_Disable"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["bcdedit.exe"] }
+        CommandLine: { regex: ".*recoveryenabled.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName in ('vssadmin.exe','wbadmin.exe','bcdedit.exe') and ProcessCommandLine has 'delete'"

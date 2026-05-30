@@ -1,0 +1,38 @@
+scenario_metadata:
+  scenario_id: "SCEN-WIN-012"
+  name: "BITSAdmin C2 Transfer and Dropped Executable"
+  description: "Adversary uses bitsadmin.exe /transfer to download a payload, which then appears as an unsigned dropped executable on disk."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0011", technique: "T1197" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "BITSAdmin_Transfer"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["bitsadmin.exe"] }
+        CommandLine: { regex: ".*/transfer.*" }
+    - step_id: 2
+      name: "Dropped_Unsigned_Exe"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "File"
+        Extension: ".exe"
+        IsSigned: false
+    - step_id: 3
+      name: "Execute_Payload"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["cmd.exe"] }
+        CommandLine: { regex: ".*execute.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'bitsadmin.exe' and ProcessCommandLine has '/transfer'"

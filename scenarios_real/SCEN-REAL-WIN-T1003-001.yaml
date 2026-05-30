@@ -1,0 +1,33 @@
+# HONESTY: single-step GrantedAccess-mask behavior rule, validated on ONE real capture
+# (OTRF empire_mimikatz_logonpasswords). The mask allowlist cleanly separates the malicious
+# powershell->lsass access (0x1010, VM_READ bit 0x10 set) from benign svchost (0x1000/0x2000) on
+# THIS dataset. A raw GrantedAccess allowlist is NOT production-grade on its own — legitimate tools
+# (AV/EDR/backup/Defender) also open lsass with VM_READ; production needs a process/path/signature
+# allowlist layered on top. The detection is real and the 0-FP result is real, but it is validated
+# on one capture, not claimed as a general LSASS-access detector.
+# Lives in scenarios_real/ (NOT scenarios/) so it is NEVER auto-merged into default_scenarios()
+# (which would break test_scenario_library_v2's synth gate). Loaded explicitly.
+scenario_metadata:
+  scenario_id: "SCEN-REAL-WIN-T1003-001"
+  name: "Real LSASS Credential Dump (T1003.001 ProcessAccess VM_READ)"
+  description: "A process opens lsass.exe with a VM_READ-bearing GrantedAccess mask (e.g. mimikatz sekurlsa::logonpasswords). Validated end-to-end against a real OTRF Empire+mimikatz Sysmon capture."
+  severity: "CRITICAL"
+  mitre_mappings:
+    - { tactic: "TA0006", technique: "T1003.001" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server", "Active_Directory"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "LSASS_VM_READ_Access"
+      matching_criteria:
+        Node_Type: "Process"
+        TargetProcess: "lsass.exe"
+        GrantedAccess: { in: ["0x1010", "0x1410", "0x1438", "0x143a", "0x1fffff"] }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceEvents | where ActionType == 'ProcessAccess' and FileName == 'lsass.exe' and GrantedAccess in ('0x1010','0x1410','0x1438','0x143a','0x1fffff')"

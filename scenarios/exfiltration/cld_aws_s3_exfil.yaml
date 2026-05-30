@@ -1,0 +1,38 @@
+scenario_metadata:
+  scenario_id: "SCEN-CLD-005"
+  name: "Cloud-stub: AWS S3 Data Exfiltration to External Bucket"
+  description: "Endpoint-telemetry approximation of S3 exfiltration: adversary uses aws s3 cp to transfer sensitive data to an attacker-controlled bucket. (Approximates CloudTrail PutObject events via endpoint telemetry.)"
+  severity: "CRITICAL"
+  mitre_mappings:
+    - { tactic: "TA0010", technique: "T1537" }
+  os_family: "linux"
+spatial_constraints:
+  applicable_zones: ["Internal_Server", "DMZ"]
+  critical_assets_only: false
+  required_log_sources: ["Linux_Auditd"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Stage_Data"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["tar", "gzip"] }
+        CommandLine: { regex: ".*archive.*" }
+    - step_id: 2
+      name: "S3_Copy_Exfil"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["aws"] }
+        CommandLine: { regex: ".*s3 cp.*" }
+    - step_id: 3
+      name: "Verify_Upload"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["aws"] }
+        CommandLine: { regex: ".*s3 ls.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'aws' and ProcessCommandLine has 's3 cp'"

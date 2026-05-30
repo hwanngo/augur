@@ -1,0 +1,36 @@
+# HONESTY: 2-step parent-lineage rule, validated on ONE real OTRF capture (empire_uac_shellapi_fodhelper).
+# fodhelper.exe auto-elevates and reads a hijacked HKCU registry command — a real UAC-bypass primitive.
+# fodhelper's OWN command line is bare, so the discriminator is the powershell.exe -> fodhelper.exe
+# lineage (the registry-hijack trampoline). fodhelper has rare legit Settings invocations; the lineage
+# is what separates attack from noise. The matcher links the two steps by same-host + temporal gate.
+# Demo-clean on this capture != production-tuned. scenarios_real/ only, never auto-merged.
+scenario_metadata:
+  scenario_id: "SCEN-REAL-WIN-T1548-002-001"
+  name: "Real UAC Bypass via fodhelper Registry Hijack (T1548.002)"
+  description: "powershell.exe hijacks the fodhelper HKCU shell\\open\\command key, then fodhelper.exe auto-elevates and proxies execution — a fileless UAC-bypass primitive. The powershell->fodhelper lineage is the discriminator. Validated end-to-end against a real OTRF Sysmon capture."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0004", technique: "T1548.002" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "PowerShell_UAC_Trampoline"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { regex: "(?i)\\\\powershell\\.exe$" }
+    - step_id: 2
+      name: "Fodhelper_AutoElevate"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { regex: "(?i)\\\\fodhelper\\.exe$" }
+        ParentProcessName: { regex: "(?i)\\\\powershell\\.exe$" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'fodhelper.exe' and InitiatingProcessFileName == 'powershell.exe'"

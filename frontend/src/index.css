@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Augur dark design tokens ─────────────────────────────────────── */
+:root {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --border: #30363d;
+  --fg: #e6edf3;
+  --muted: #8b949e;
+  --accent: #3fb950;
+  --focus: #3898ec;
+
+  /* Severity chips */
+  --sev-critical-bg: #71221c;
+  --sev-critical-fg: #ffb4ab;
+  --sev-high-bg: #7a4a00;
+  --sev-high-fg: #ffd28a;
+  --sev-medium-bg: #39402a;
+  --sev-medium-fg: #d8e08a;
+  --sev-low-bg: #23364a;
+  --sev-low-fg: #9fc7ef;
+}
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+html, body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: DM Sans, ui-sans-serif, system-ui, -apple-system, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ── Focus rings ─────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Drawer slide-in (DetailDrawer); neutralized by reduced-motion above) ──── */
+@keyframes drawerIn {
+  from { transform: translateX(16px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* ── Scrollbar (dark) ────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ── Range input styling ─────────────────────────────────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  transition: background 150ms;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #56d068;
+}
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+
+/* Hide the native search clear button — SearchInput provides its own. */
+input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+
+/* ── Utility classes ─────────────────────────────────────────────────────── */
+@layer utilities {
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium
+           transition-colors duration-150 cursor-pointer
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply btn bg-[var(--accent)] text-[#0d1117] hover:bg-[#56d068];
+  }
+  .btn-secondary {
+    @apply btn bg-[var(--panel)] text-[var(--fg)] border border-[var(--border)] hover:bg-[#21262d];
+  }
+  .btn-danger {
+    @apply btn bg-[#7a1a1a] text-[#ffb4ab] border border-[#a02020] hover:bg-[#9b2020];
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--panel)];
+  }
+}

@@ -1,0 +1,37 @@
+scenario_metadata:
+  scenario_id: "SCEN-MAC-001"
+  name: "macOS osascript Shell Stager to Remote Download"
+  description: "osascript runs a 'do shell script' payload that spawns a child shell which downloads a second-stage tool."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0002", technique: "T1059.002" }
+  os_family: "macos"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint"]
+  critical_assets_only: false
+  required_log_sources: ["macOS_ESF"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Osascript_Do_Shell_Script"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["osascript"] }
+        CommandLine: { regex: ".*shell.*" }
+    - step_id: 2
+      name: "Child_Shell"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["sh", "bash"] }
+    - step_id: 3
+      name: "Remote_Download"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["curl", "nscurl"] }
+        CommandLine: { regex: ".*download.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where InitiatingProcessFileName == 'osascript'"

@@ -1,0 +1,44 @@
+scenario_metadata:
+  scenario_id: "SCEN-LNX-007"
+  name: "Linux Network Scan via nmap and netstat"
+  description: "Adversary performs network discovery using nmap for port scanning and netstat to enumerate active connections."
+  severity: "MEDIUM"
+  mitre_mappings:
+    - { tactic: "TA0007", technique: "T1046" }
+  os_family: "linux"
+spatial_constraints:
+  applicable_zones: ["Internal_Server", "DMZ"]
+  critical_assets_only: false
+  required_log_sources: ["Linux_Auditd"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Nmap_Port_Scan"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["nmap"] }
+        CommandLine: { regex: ".*-z.*" }
+    - step_id: 2
+      name: "Netstat_Connections"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["netstat", "ss"] }
+        CommandLine: { regex: ".*-an.*" }
+    - step_id: 3
+      name: "Additional_Recon"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["nmap", "nc"] }
+        CommandLine: { regex: ".*scan.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "Sigma"
+      query: |
+        title: Linux Network Scanner Activity
+        logsource: { product: linux, category: process_creation }
+        detection:
+          sel: { Image|endswith: '/nmap' }
+          condition: sel
+        level: medium

@@ -1,0 +1,37 @@
+scenario_metadata:
+  scenario_id: "SCEN-WIN-011"
+  name: "Data Staging via 7zip Password-Protected Archive"
+  description: "Adversary uses 7z.exe with a password flag to compress and archive a staging directory before exfiltration."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0009", technique: "T1560.001" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Archive_With_Password"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["7z.exe"] }
+        CommandLine: { regex: ".*-p.*" }
+    - step_id: 2
+      name: "Archive_Output_File"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "File"
+        Extension: ".7z"
+    - step_id: 3
+      name: "Move_Archive"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["cmd.exe"] }
+        CommandLine: { regex: ".*move.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName in ('7z.exe','rar.exe') and ProcessCommandLine has '-p'"

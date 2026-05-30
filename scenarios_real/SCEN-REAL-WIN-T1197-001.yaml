@@ -1,0 +1,28 @@
+# HONESTY: single-step LOLBin command-line rule, validated on ONE real OTRF capture
+# (cmd_bitsadmin_download_psh_script). `bitsadmin /transfer /download` of a remote script is a real
+# ingress-tool-transfer / BITS-job primitive, but BITS is heavily used by Windows Update, telemetry,
+# and patch tooling — a production deployment MUST allowlist known update sources and tighten the
+# URL/destination predicate. Demo-clean on this capture != production-tuned. scenarios_real/ only.
+scenario_metadata:
+  scenario_id: "SCEN-REAL-WIN-T1197-001"
+  name: "Real BITS Ingress Tool Transfer via bitsadmin (T1197)"
+  description: "bitsadmin /transfer downloads a remote payload script over a BITS job — an ingress-tool-transfer / defense-evasion primitive. Validated end-to-end against a real OTRF Sysmon capture."
+  severity: "MEDIUM"
+  mitre_mappings:
+    - { tactic: "TA0005", technique: "T1197" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Bitsadmin_Transfer_Download"
+      matching_criteria:
+        Node_Type: "Process"
+        CommandLine: { regex: "(?i)bitsadmin(\\.exe)?\\s+.*/transfer.*/(download|priority)" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'bitsadmin.exe' and ProcessCommandLine has '/transfer'"

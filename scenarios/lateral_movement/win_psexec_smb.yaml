@@ -1,0 +1,38 @@
+scenario_metadata:
+  scenario_id: "SCEN-WIN-010"
+  name: "Lateral Movement via SMB Admin Share and PsExec-Style Service"
+  description: "Adversary maps to ADMIN$ share via cmd.exe, then creates a remote service in a PsExec-style lateral movement pattern."
+  severity: "CRITICAL"
+  mitre_mappings:
+    - { tactic: "TA0008", technique: "T1021.002" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server", "Active_Directory"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "SMB_Share_Access"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["cmd.exe"] }
+        CommandLine: { regex: ".*ADMIN.*" }
+    - step_id: 2
+      name: "Service_Create"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["sc.exe"] }
+        CommandLine: { regex: ".*create.*" }
+    - step_id: 3
+      name: "Service_Start"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["sc.exe"] }
+        CommandLine: { regex: ".*start.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'sc.exe' and ProcessCommandLine has 'create'"

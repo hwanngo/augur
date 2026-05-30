@@ -1,0 +1,38 @@
+scenario_metadata:
+  scenario_id: "SCEN-WIN-001"
+  name: "LSASS Credential Dump via comsvcs.dll MiniDump"
+  description: "Adversary spawns a LOLBin chain (rundll32 -> comsvcs.dll MiniDump) to dump LSASS memory for offline credential extraction."
+  severity: "CRITICAL"
+  mitre_mappings:
+    - { tactic: "TA0006", technique: "T1003.001" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon", "EDR_Telemetry"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Rundll32_Launch"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["rundll32.exe"] }
+        CommandLine: { regex: ".*comsvcs.*" }
+    - step_id: 2
+      name: "MiniDump_CommandLine"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 60 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["rundll32.exe"] }
+        CommandLine: { regex: ".*MiniDump.*" }
+    - step_id: 3
+      name: "LSASS_Access_Behavior"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 120 }
+      matching_criteria:
+        Node_Type: "Process"
+        TargetProcess: "lsass.exe"
+        GrantedAccess: "0x1410"
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'rundll32.exe' and ProcessCommandLine has 'comsvcs' and ProcessCommandLine has 'MiniDump'"

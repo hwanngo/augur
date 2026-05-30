@@ -1,0 +1,45 @@
+scenario_metadata:
+  scenario_id: "SCEN-LNX-001"
+  name: "Linux Cron Persistence via Dropped Reverse-Shell Script"
+  description: "A web/CI service spawns a shell that downloads a payload and installs a cron job for persistence."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0003", technique: "T1053.003" }
+  os_family: "linux"
+spatial_constraints:
+  applicable_zones: ["Internal_Server", "DMZ"]
+  critical_assets_only: false
+  required_log_sources: ["Linux_Auditd"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Service_Spawns_Shell"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["bash", "sh"] }
+        ParentProcessName: { in: ["java", "nginx", "node"] }
+    - step_id: 2
+      name: "Download_Payload"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ParentProcessName: { in: ["bash", "sh"] }
+        ProcessName: { in: ["curl", "wget"] }
+        CommandLine: { regex: ".*payload.*" }
+    - step_id: 3
+      name: "Crontab_Install"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ParentProcessName: { in: ["bash", "sh"] }
+        ProcessName: { in: ["crontab"] }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "Sigma"
+      query: |
+        title: Linux Service Shell to Crontab Persistence
+        logsource: { product: linux, category: process_creation }
+        detection:
+          sel: { ParentImage|endswith: ['/java','/nginx','/node'], Image|endswith: ['/bash','/sh'] }
+          condition: sel
+        level: high

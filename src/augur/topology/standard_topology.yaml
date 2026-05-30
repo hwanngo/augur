@@ -1,0 +1,51 @@
+zones: [DMZ, Internal_Server, User_Endpoint, Cloud_SaaS, Active_Directory]
+assets:
+  - { hostname: Web_Server_01,     zone: DMZ,               criticality: HIGH,     os: "Windows Server 2019", ip: 10.0.1.10, role: web }
+  - { hostname: Reverse_Proxy_01,  zone: DMZ,               criticality: MEDIUM,   os: "Linux",               ip: 10.0.1.11, role: proxy }
+  - { hostname: Domain_Controller, zone: Active_Directory,  criticality: CRITICAL, os: "Windows Server 2022", ip: 10.0.5.10, role: dc }
+  - { hostname: File_Server_01,    zone: Internal_Server,   criticality: HIGH,     os: "Windows Server 2019", ip: 10.0.3.10, role: fileserver }
+  - { hostname: Jump_Host,         zone: Internal_Server,   criticality: HIGH,     os: "Windows Server 2019", ip: 10.0.3.20, role: jump }
+  - { hostname: App_Server_01,     zone: Internal_Server,   criticality: HIGH,     os: "Windows Server 2019", ip: 10.0.3.30, role: app }
+  - { hostname: HR_User_PC,        zone: User_Endpoint,     criticality: MEDIUM,   os: "Windows 11",          ip: 10.0.9.10, role: workstation }
+  - { hostname: Finance_User_PC,   zone: User_Endpoint,     criticality: MEDIUM,   os: "Windows 11",          ip: 10.0.9.11, role: workstation }
+  - { hostname: IT_Admin_PC,       zone: User_Endpoint,     criticality: HIGH,     os: "Windows 11",          ip: 10.0.9.12, role: admin_workstation }
+  - { hostname: M365_Tenant,       zone: Cloud_SaaS,        criticality: HIGH,     os: "SaaS",                ip: 0.0.0.0,   role: saas }
+
+  # ── Active Directory ──────────────────────────────────────────────────
+  - { hostname: CORP-DC02,         zone: Active_Directory,  criticality: CRITICAL, os: "Windows Server 2022", ip: 10.0.5.11, role: dc }
+  - { hostname: CORP-ADCS01,       zone: Active_Directory,  criticality: CRITICAL, os: "Windows Server 2022", ip: 10.0.5.20, role: adcs }
+  - { hostname: CORP-ADFS01,       zone: Active_Directory,  criticality: HIGH,     os: "Windows Server 2019", ip: 10.0.5.30, role: adfs }
+
+  # ── Internal Servers ──────────────────────────────────────────────────
+  - { hostname: CORP-SQL01,        zone: Internal_Server,   criticality: CRITICAL, os: "Windows Server 2019", ip: 10.0.3.40, role: database }
+  - { hostname: CORP-SQL02,        zone: Internal_Server,   criticality: HIGH,     os: "Windows Server 2019", ip: 10.0.3.41, role: database }
+  - { hostname: CORP-EXCH01,       zone: Internal_Server,   criticality: CRITICAL, os: "Windows Server 2019", ip: 10.0.3.50, role: exchange }
+  - { hostname: CORP-SCCM01,       zone: Internal_Server,   criticality: HIGH,     os: "Windows Server 2019", ip: 10.0.3.60, role: sccm }
+  - { hostname: CORP-BACKUP01,     zone: Internal_Server,   criticality: CRITICAL, os: "Windows Server 2019", ip: 10.0.3.70, role: backup }
+  - { hostname: CORP-FILE02,       zone: Internal_Server,   criticality: HIGH,     os: "Windows Server 2019", ip: 10.0.3.11, role: fileserver }
+  - { hostname: CORP-APP02,        zone: Internal_Server,   criticality: HIGH,     os: "Linux",               ip: 10.0.3.31, role: app }
+  - { hostname: CORP-JENKINS01,    zone: Internal_Server,   criticality: HIGH,     os: "Linux",               ip: 10.0.3.80, role: cicd }
+  - { hostname: CORP-VCENTER01,    zone: Internal_Server,   criticality: CRITICAL, os: "Linux",               ip: 10.0.3.90, role: hypervisor }
+
+  # ── DMZ ───────────────────────────────────────────────────────────────
+  - { hostname: DMZ-WEB02,         zone: DMZ,               criticality: HIGH,     os: "Linux",               ip: 10.0.1.12, role: web }
+  - { hostname: DMZ-MAIL01,        zone: DMZ,               criticality: HIGH,     os: "Linux",               ip: 10.0.1.20, role: mailgw }
+  - { hostname: DMZ-VPN01,         zone: DMZ,               criticality: HIGH,     os: "Linux",               ip: 10.0.1.30, role: vpn }
+
+  # ── User Endpoints ────────────────────────────────────────────────────
+  - { hostname: DESIGN-MBP-07,     zone: User_Endpoint,     criticality: MEDIUM,   os: "macOS 14",            ip: 10.0.9.40, role: workstation }
+  - { hostname: CORP-WKS-0421,     zone: User_Endpoint,     criticality: MEDIUM,   os: "Windows 11",          ip: 10.0.9.21, role: workstation }
+  - { hostname: CORP-WKS-0588,     zone: User_Endpoint,     criticality: MEDIUM,   os: "Windows 11",          ip: 10.0.9.22, role: workstation }
+  - { hostname: CORP-WKS-0733,     zone: User_Endpoint,     criticality: MEDIUM,   os: "Windows 10",          ip: 10.0.9.23, role: workstation }
+  - { hostname: Sales_User_PC,     zone: User_Endpoint,     criticality: MEDIUM,   os: "Windows 11",          ip: 10.0.9.24, role: workstation }
+  - { hostname: Legal_User_PC,     zone: User_Endpoint,     criticality: MEDIUM,   os: "Windows 11",          ip: 10.0.9.25, role: workstation }
+  - { hostname: Exec_User_PC,      zone: User_Endpoint,     criticality: HIGH,     os: "Windows 11",          ip: 10.0.9.26, role: executive_workstation }
+  - { hostname: Dev_User_PC,       zone: User_Endpoint,     criticality: MEDIUM,   os: "Windows 11",          ip: 10.0.9.27, role: developer_workstation }
+  - { hostname: CORP-LAPTOP-0102,  zone: User_Endpoint,     criticality: MEDIUM,   os: "Windows 11",          ip: 10.0.9.40, role: laptop }
+  - { hostname: Helpdesk_PC,       zone: User_Endpoint,     criticality: HIGH,     os: "Windows 11",          ip: 10.0.9.28, role: admin_workstation }
+
+  # ── Cloud / SaaS ──────────────────────────────────────────────────────
+  - { hostname: AWS_Prod_Account,  zone: Cloud_SaaS,        criticality: CRITICAL, os: "Cloud",               ip: 0.0.0.0,   role: cloud_iaas }
+  - { hostname: Azure_Tenant,      zone: Cloud_SaaS,        criticality: CRITICAL, os: "Cloud",               ip: 0.0.0.0,   role: cloud_iam }
+  - { hostname: Okta_Tenant,       zone: Cloud_SaaS,        criticality: CRITICAL, os: "SaaS",                ip: 0.0.0.0,   role: idp }
+  - { hostname: GitHub_Org,        zone: Cloud_SaaS,        criticality: HIGH,     os: "SaaS",                ip: 0.0.0.0,   role: scm }

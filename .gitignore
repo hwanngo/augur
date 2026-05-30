@@ -1,0 +1,122 @@
+# ───────────────────────────── Data / DB ────────────────────────────
+data/
+*.db
+
+# ───────────────────────────── Python ─────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+sdist/
+wheels/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Test / coverage / type-check / lint caches
+.pytest_cache/
+.cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+.nox/
+.mypy_cache/
+.dmypy.json
+.pyre/
+.ruff_cache/
+
+# ──────────────────────── Environments / uv ───────────────────────
+# NOTE: uv.lock IS committed (reproducible installs); do not ignore it.
+.venv/
+venv/
+env/
+ENV/
+.python-version.local
+.env
+.env.*
+!.env.example
+
+# ───────────────────────────── Node ───────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+frontend/node_modules/
+frontend/dist/
+
+# ─────────────────────────── OS / editor ──────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ─────────────────────── AI coding tools ──────────────────────────
+# Local state/settings from AI assistants. The shared, intentionally
+# committed instruction files (CLAUDE.md, AGENTS.md) are NOT ignored;
+# only per-user local state and overrides are.
+.claude/
+CLAUDE.local.md
+.mcp.json
+.codex/
+.roo/
+.roomodes
+.cursor/
+.cursorrules
+.cursorignore
+.cline/
+.clinerules/
+.windsurf/
+.windsurfrules
+.aider*
+.continue/
+.gemini/
+.github/copilot-session*
+.specstory/
+.ai/
+.context/
+
+# ─────────────── Internal dev/audit artifacts (local only) ─────────
+docs/en/spec.md
+docs/en/plan.md
+docs/en/COVERAGE.md
+docs/vi/COVERAGE.md
+original_conversation.md
+
+# Hunt output directory (generated at runtime by make hunt / augur.hunt)
+out/
+
+# Go build artifacts (generated stubs ARE committed)
+services/collector-go/collector
+services/collector-go/collector-go
+
+# Internal superpowers planning artifacts (local-only)
+docs/superpowers/
+
+# TS build cache
+*.tsbuildinfo
+frontend/node_modules/
+frontend/dist/
+.gstack/
+
+# Real public attack datasets (fetched via scripts/fetch_real_datasets.py — NOT committed; large + licensed)
+datasets/real/*
+# ...except the committed OTRF-capture topology (operator-declared real hosts for the honest real run)
+!datasets/real/topology_otrf_theshire.yaml
+!datasets/real/topology_wave1.yaml

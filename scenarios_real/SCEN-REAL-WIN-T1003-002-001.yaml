@@ -1,0 +1,28 @@
+# HONESTY: single-step LOLBin command-line rule, validated on ONE real OTRF capture
+# (cmd_sam_copy_esentutl). esentutl /y /vss against config\SAM is a real SAM-hive theft primitive via
+# Volume Shadow Copy, but esentutl IS a legitimate ESE database/backup tool — a production deployment
+# MUST allowlist sanctioned backup service accounts + VSS tooling. Demo-clean on this capture !=
+# production-tuned. Lives in scenarios_real/ (NOT scenarios/), loaded explicitly, never auto-merged.
+scenario_metadata:
+  scenario_id: "SCEN-REAL-WIN-T1003-002-001"
+  name: "Real SAM Hive Theft via esentutl VSS (T1003.002)"
+  description: "esentutl copies the SAM registry hive out of a Volume Shadow Copy to exfiltrate local credential material. Validated end-to-end against a real OTRF Sysmon capture."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0006", technique: "T1003.002" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Esentutl_VSS_SAM_Copy"
+      matching_criteria:
+        Node_Type: "Process"
+        CommandLine: { regex: "(?i)esentutl(\\.exe)?\\s+.*/y.*/vss.*config[/\\\\]SAM" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'esentutl.exe' and ProcessCommandLine has_all ('/vss','SAM')"

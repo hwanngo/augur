@@ -1,0 +1,33 @@
+# HONESTY: single-step RegistrySetValue behavior rule, validated on ONE real capture
+# (OTRF empire_persistence_registry_modification_run_keys_elevated_user). The rule keys on powershell
+# writing a value under a CurrentVersion\Run autorun key (Sysmon EID 13) — the actual malicious
+# persistence in this dataset (HKLM\...\CurrentVersion\Run\Updater = a hidden encoded powershell
+# payload). It does NOT fire on benign EID-13 writes (W32Time/bam/service-enumeration keys), which are
+# not Run keys and whose writer is not powershell. A raw "any Run-key write" rule would be FP-prone
+# (installers/legit software write Run keys); production needs a process/value allowlist. The detection
+# is real and validated on one capture, not a general persistence detector. Lives in scenarios_real/.
+scenario_metadata:
+  scenario_id: "SCEN-REAL-WIN-T1547-001"
+  name: "Real Registry Run-Key Persistence (T1547.001 powershell autorun)"
+  description: "powershell.exe sets a value under HKLM\\...\\CurrentVersion\\Run (Sysmon EID 13) for boot persistence. Validated end-to-end against a real OTRF Empire Run-key persistence Sysmon capture."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0003", technique: "T1547.001" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server", "Active_Directory"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Powershell_Sets_Run_Key"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { regex: "(?i)powershell\\.exe" }
+        Behavior_Markers: ["RegistrySetValue"]
+        TargetProcess: { regex: "(?i)CurrentVersion\\\\Run" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceRegistryEvents | where ActionType == 'RegistryValueSet' and RegistryKey contains 'CurrentVersion\\\\Run' and InitiatingProcessFileName =~ 'powershell.exe'"

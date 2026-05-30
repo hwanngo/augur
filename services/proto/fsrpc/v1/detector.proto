@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+// Augur detection-engine RPC contract (ADR-0003: gRPC for internal request/response).
+// A polyglot boundary: a Go collector streams raw log events to the Python engine and
+// receives ranked detections back.
+package fsrpc.v1;
+
+option go_package = "augur/collector/gen/fsrpcv1;fsrpcv1";
+
+// A single raw log event, carried as its JSON-object string (one JSONL line).
+// Using an opaque JSON payload keeps the wire contract stable while the ECS event schema
+// evolves on the Python side — the collector never needs to model every field.
+message RawEvent {
+  string json = 1;
+}
+
+message AnalyzeRequest {
+  repeated RawEvent events = 1;
+  // Report threshold in [0,1]. NOTE: proto3's zero-value is 0.0 — if a client omits this
+  // field the server returns everything that matched (proximity > 0), unlike the REST
+  // API whose default is 0.30. Clients should set it explicitly (the Go collector does).
+  double min_proximity = 2;
+}
+
+message Detection {
+  string scenario_id = 1;
+  string name = 2;
+  string severity = 3;
+  double proximity = 4;
+  repeated string affected_hosts = 5;
+  int32 matched_steps = 6;
+  int32 total_steps = 7;
+}
+
+message AnalyzeResponse {
+  repeated Detection detections = 1;   // ranked: proximity -> severity -> recency
+}
+
+service Detector {
+  // Build a temporal graph from the events and match the scenario library against it.
+  rpc Analyze(AnalyzeRequest) returns (AnalyzeResponse);
+}

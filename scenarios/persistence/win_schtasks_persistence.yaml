@@ -1,0 +1,38 @@
+scenario_metadata:
+  scenario_id: "SCEN-WIN-016"
+  name: "Scheduled Task Persistence via schtasks.exe"
+  description: "Adversary creates a scheduled task via schtasks.exe that executes a PowerShell payload on a recurring schedule."
+  severity: "HIGH"
+  mitre_mappings:
+    - { tactic: "TA0003", technique: "T1053.005" }
+  os_family: "windows"
+spatial_constraints:
+  applicable_zones: ["User_Endpoint", "Internal_Server"]
+  critical_assets_only: false
+  required_log_sources: ["Windows_Sysmon"]
+attack_sequence_flow:
+  steps:
+    - step_id: 1
+      name: "Schtasks_Create"
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["schtasks.exe"] }
+        CommandLine: { regex: ".*/create.*" }
+    - step_id: 2
+      name: "PowerShell_Payload"
+      temporal_link: { previous_step: 1, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["powershell.exe"] }
+        CommandLine: { regex: ".*payload.*" }
+    - step_id: 3
+      name: "Schtasks_Verify"
+      temporal_link: { previous_step: 2, link_scope: same_host, min_time_delta_seconds: 0, max_time_delta_seconds: 300 }
+      matching_criteria:
+        Node_Type: "Process"
+        ProcessName: { in: ["schtasks.exe"] }
+        CommandLine: { regex: ".*/query.*" }
+actionable_hunting_outputs:
+  validation_queries:
+    - engine: "KQL"
+      query: "DeviceProcessEvents | where FileName == 'schtasks.exe' and ProcessCommandLine has '/create'"

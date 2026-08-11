@@ -3,8 +3,8 @@ name: CI
 # Minute-saving triggers:
 # - push only on main/tags (a PR from a branch no longer double-runs as push + pull_request)
 # - docs-only changes skip CI entirely (paths-ignore)
-# - weekly schedule keeps the dependency audit fresh even without pushes
-# - workflow_dispatch lets you run it on demand
+# - no scheduled/cron runs: nothing fires on its own, only on push/PR or on demand
+# - workflow_dispatch lets you run it on demand (incl. the full suite + coverage gate)
 on:
   push:
     branches: [main]
@@ -12,8 +12,6 @@ on:
     paths-ignore: ['**.md', 'docs/**', 'LICENSE']
   pull_request:
     paths-ignore: ['**.md', 'docs/**', 'LICENSE']
-  schedule:
-    - cron: '0 6 * * 1'   # Mondays 06:00 UTC
   workflow_dispatch:
 
 # Cancel an in-progress run for the same ref when you push again (no wasted minutes on stale runs).
@@ -45,18 +43,18 @@ jobs:
 
       # Per-push speed trim: skip the heaviest full-corpus sweeps (-m "not slow") and the coverage
       # gate. -n auto parallelizes across cores; --disable-warnings keeps the log compact. The FULL
-      # gated suite runs in the test-full job (weekly schedule + manual dispatch).
+      # gated suite runs in the test-full job (manual dispatch).
       - name: Run test suite (fast subset, parallel)
         run: uv run pytest -q -n auto -m "not slow" --disable-warnings
 
       - name: Engine smoke test
         run: uv run python -m augur.demo --no-serve
 
-  # Full suite + 85% coverage gate (incl. the `slow` corpus sweeps). Runs on the weekly schedule and
-  # on-demand (workflow_dispatch) — not on every push/PR — so day-to-day CI stays fast and cheap.
+  # Full suite + 85% coverage gate (incl. the `slow` corpus sweeps). On-demand only
+  # (workflow_dispatch) — not on every push/PR — so day-to-day CI stays fast and cheap.
   test-full:
     name: Test — full suite + coverage gate
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -112,9 +110,8 @@ jobs:
         working-directory: frontend
         run: pnpm build
 
-  # The heavy jobs (image build + audits) skip PRs and run on main pushes, the weekly
-  # schedule, and manual dispatch — they validate the merged result without costing minutes
-  # on every PR iteration.
+  # The heavy jobs (image build + audits) skip PRs and run on main pushes and manual
+  # dispatch — they validate the merged result without costing minutes on every PR iteration.
   dependency-audit:
     name: Dependency audit (Python + JS)
     if: github.event_name != 'pull_request'

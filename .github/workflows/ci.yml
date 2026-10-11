@@ -80,6 +80,8 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v6.1.0
+        with:
+          package_json_file: frontend/package.json  # version comes from "packageManager"
 
       - name: Set up Node 24
         uses: actions/setup-node@v7.1.0
@@ -132,6 +134,8 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v6.1.0
+        with:
+          package_json_file: frontend/package.json  # version comes from "packageManager"
 
       - name: Set up Node 24
         uses: actions/setup-node@v7.1.0

@@ -76,7 +76,7 @@ export default function Timeline() {
   };
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div className="flex items-start justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>
@@ -146,7 +146,7 @@ export default function Timeline() {
                       : r.label}
                   </span>
                   {!matched && (
-                    <span className="px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wide"
+                    <span className="px-1.5 py-0.5 rounded-sm text-[10px] uppercase tracking-wide"
                           style={{ background: 'var(--border)', color: 'var(--muted)' }}>{r.event_kind}</span>
                   )}
                 </div>

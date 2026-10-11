@@ -114,7 +114,7 @@ export default function HostRisk() {
   );
 
   const sorted = [...filtered].sort((a, b) => {
-    let cmp = 0;
+    let cmp: number;
     if (sortKey === 'criticality') cmp = CRIT_ORDER[a.criticality] - CRIT_ORDER[b.criticality];
     else if (sortKey === 'band') cmp = BAND_ORDER[a.band] - BAND_ORDER[b.band];
     else if (sortKey === 'score' || sortKey === 'detection_count') cmp = a[sortKey] - b[sortKey];
@@ -134,7 +134,7 @@ export default function HostRisk() {
   function Th({ col, label }: { col: SortKey; label: string }) {
     return (
       <th
-        className="px-3 py-2.5 text-left text-xs font-medium cursor-pointer select-none whitespace-nowrap transition-colors hover:text-[var(--fg)]"
+        className="px-3 py-2.5 text-left text-xs font-medium cursor-pointer select-none whitespace-nowrap transition-colors hover:text-(--fg)"
         style={{ color: 'var(--muted)' }}
         onClick={() => handleSort(col)}
         aria-sort={sortKey === col ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
@@ -147,7 +147,7 @@ export default function HostRisk() {
   }
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>
@@ -228,7 +228,7 @@ export default function HostRisk() {
                       onClick={() => selectHost(h.hostname)}
                       aria-current={selectedHost === h.hostname}
                       aria-label={t('hostRisk.detail.open', { name: h.hostname })}
-                      className="font-medium font-mono text-xs text-left cursor-pointer hover:underline focus:underline focus:outline-none"
+                      className="font-medium font-mono text-xs text-left cursor-pointer hover:underline focus:underline focus:outline-hidden"
                       style={{
                         color: 'var(--fg)',
                         boxShadow:

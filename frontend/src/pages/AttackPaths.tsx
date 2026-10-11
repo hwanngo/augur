@@ -184,7 +184,7 @@ export default function AttackPaths() {
   };
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div className="flex items-start justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>{t('attackPaths.title')}</h1>
@@ -219,7 +219,7 @@ export default function AttackPaths() {
                       setView(nextView);
                       radioRefs.current[nextIdx]?.focus();
                     }}
-                    className="py-1.5 px-3 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                    className="py-1.5 px-3 text-xs focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
                     style={{
                       background: active ? 'var(--accent)' : 'var(--panel)',
                       color: active ? '#0d1117' : 'var(--muted)',

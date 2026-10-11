@@ -97,7 +97,7 @@ function StatusChip({ status }: { status: HuntStatus }) {
   );
 }
 
-const ctl = 'px-2.5 py-1.5 text-xs rounded-lg border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]';
+const ctl = 'px-2.5 py-1.5 text-xs rounded-lg border transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)';
 const ctlStyle = { background: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--fg)' } as const;
 
 export default function Hunts() {
@@ -218,7 +218,7 @@ export default function Hunts() {
   };
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div>
         <h1 className="text-lg font-semibold flex items-center gap-2" style={{ color: 'var(--fg)' }}>
           <Telescope size={18} aria-hidden /> {t('hunts.title')}
@@ -387,7 +387,7 @@ function NewHuntForm(props: {
       <label className="flex flex-col gap-1 text-xs" style={{ color: 'var(--muted)' }}>
         {t('hunts.new.scenarios')}
         <select multiple value={scenarioIds} onChange={onScenarioChange}
-          aria-label={t('hunts.new.scenarios')} className={ctl + ' w-full min-h-[5rem]'} style={ctlStyle}>
+          aria-label={t('hunts.new.scenarios')} className={ctl + ' w-full min-h-20'} style={ctlStyle}>
           {scenarios.map((s) => <option key={s.scenario_id} value={s.scenario_id}>{s.scenario_id} · {s.name}</option>)}
         </select>
       </label>
@@ -434,7 +434,7 @@ function EvidenceCard({ row }: { row: EvidenceRow }) {
       )}
       {row.stall && (
         <p className="text-xs flex items-start gap-2" style={{ color: 'var(--muted)' }}>
-          <AlertTriangle size={12} className="mt-0.5 flex-shrink-0" aria-hidden />
+          <AlertTriangle size={12} className="mt-0.5 shrink-0" aria-hidden />
           <span>{t('dashboard.whyStalled', { reason: formatStall(row.stall) })}</span>
         </p>
       )}
@@ -490,7 +490,7 @@ function HuntDetailPanel({ detail, canEdit, currentUser, busy, onClose, onSave, 
       {detail.honesty_note && (
         <div className="flex items-start gap-2 rounded-lg border px-3 py-2 text-xs"
           style={{ background: '#1a2230', borderColor: '#3b5572', color: '#9fc3ff' }} role="note">
-          <Info size={14} className="mt-0.5 flex-shrink-0" aria-hidden />
+          <Info size={14} className="mt-0.5 shrink-0" aria-hidden />
           <span>{detail.honesty_note}</span>
         </div>
       )}

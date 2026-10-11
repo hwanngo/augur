@@ -160,7 +160,7 @@ export default function Scenarios() {
   });
 
   const sorted = [...filtered].sort((a, b) => {
-    let cmp = 0;
+    let cmp: number;
     if (sortKey === 'severity') {
       cmp = SEV_ORDER[a.severity] - SEV_ORDER[b.severity];
     } else if (sortKey === 'steps') {
@@ -183,7 +183,7 @@ export default function Scenarios() {
   function Th({ col, label }: { col: SortKey; label: string }) {
     return (
       <th
-        className="px-3 py-2.5 text-left text-xs font-medium cursor-pointer select-none whitespace-nowrap transition-colors hover:text-[var(--fg)]"
+        className="px-3 py-2.5 text-left text-xs font-medium cursor-pointer select-none whitespace-nowrap transition-colors hover:text-(--fg)"
         style={{ color: 'var(--muted)' }}
         onClick={() => handleSort(col)}
         aria-sort={sortKey === col ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
@@ -196,7 +196,7 @@ export default function Scenarios() {
   }
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <h1 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>
           {t('scenarios.title')}
@@ -283,7 +283,7 @@ export default function Scenarios() {
                         onClick={() => selectScenario(s.scenario_id)}
                         aria-current={selectedId === s.scenario_id}
                         aria-label={t('scenarios.detail.open', { name: s.name })}
-                        className="text-xs font-mono tabular-nums text-left cursor-pointer hover:underline focus:underline focus:outline-none"
+                        className="text-xs font-mono tabular-nums text-left cursor-pointer hover:underline focus:underline focus:outline-hidden"
                         style={{
                           color: 'var(--muted)',
                           boxShadow:
@@ -312,7 +312,7 @@ export default function Scenarios() {
                         {s.mitre.map((m, i) => (
                           <span
                             key={i}
-                            className="px-1.5 py-0.5 rounded text-[10px] font-mono border"
+                            className="px-1.5 py-0.5 rounded-sm text-[10px] font-mono border"
                             style={{ background: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--muted)' }}
                             title={`${m.tactic} — ${m.technique}`}
                           >
@@ -324,7 +324,7 @@ export default function Scenarios() {
                     <td className="px-3 py-2.5 text-right whitespace-nowrap">
                       <Link
                         to={`/drill?scenario_id=${encodeURIComponent(s.scenario_id)}`}
-                        className="inline-flex items-center gap-1 text-xs font-medium transition-colors hover:text-[var(--accent)]"
+                        className="inline-flex items-center gap-1 text-xs font-medium transition-colors hover:text-(--accent)"
                         style={{ color: 'var(--muted)' }}
                       >
                         <Crosshair size={12} aria-hidden />
@@ -391,7 +391,7 @@ export default function Scenarios() {
               <div className="uppercase tracking-wide mb-1" style={{ color: 'var(--muted)' }}>{t('scenarios.detail.applicableZones')}</div>
               <div className="flex flex-wrap gap-1">
                 {selectedMeta.applicable_zones.map((z) => (
-                  <span key={z} className="px-1.5 py-0.5 rounded text-[10px] font-mono border"
+                  <span key={z} className="px-1.5 py-0.5 rounded-sm text-[10px] font-mono border"
                     style={{ background: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--muted)' }}>{z}</span>
                 ))}
               </div>
@@ -401,7 +401,7 @@ export default function Scenarios() {
               <div className="uppercase tracking-wide mb-1" style={{ color: 'var(--muted)' }}>{t('scenarios.detail.mitre')}</div>
               <div className="flex flex-wrap gap-1">
                 {selectedMeta.mitre.map((m, i) => (
-                  <span key={i} className="px-1.5 py-0.5 rounded text-[10px] font-mono border"
+                  <span key={i} className="px-1.5 py-0.5 rounded-sm text-[10px] font-mono border"
                     style={{ background: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--muted)' }}
                     title={`${m.tactic} — ${m.technique}`}>{m.tactic} · {m.technique}</span>
                 ))}
@@ -439,7 +439,7 @@ export default function Scenarios() {
                       )}
                       <div className="mt-1">
                         <div className="uppercase tracking-wide" style={{ color: 'var(--muted)' }}>{t('scenarios.detail.criteria')}</div>
-                        <pre className="mt-0.5 whitespace-pre-wrap break-words font-mono text-[10px]" style={{ color: 'var(--fg)' }}>
+                        <pre className="mt-0.5 whitespace-pre-wrap wrap-break-word font-mono text-[10px]" style={{ color: 'var(--fg)' }}>
                           {JSON.stringify(st.matching_criteria, null, 2)}
                         </pre>
                       </div>

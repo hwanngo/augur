@@ -30,10 +30,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.1.0
+        uses: astral-sh/setup-uv@v10.3.0
         with:
           python-version: "3.14"
           enable-cache: true
@@ -58,9 +58,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.1.0
+        uses: astral-sh/setup-uv@v10.3.0
         with:
           python-version: "3.14"
           enable-cache: true
@@ -72,21 +72,19 @@ jobs:
         run: uv run python -m augur.demo --no-serve
 
   frontend:
-    name: Frontend (Node 22, pnpm)
+    name: Frontend (Node 24, pnpm)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: "10"
+        uses: pnpm/action-setup@v6.1.0
 
-      - name: Set up Node 22
-        uses: actions/setup-node@v6
+      - name: Set up Node 24
+        uses: actions/setup-node@v7.1.0
         with:
-          node-version: "22"
+          node-version: "24"
           cache: pnpm
           cache-dependency-path: frontend/pnpm-lock.yaml
 
@@ -118,10 +116,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.1.0
+        uses: astral-sh/setup-uv@v10.3.0
         with:
           python-version: "3.14"
           enable-cache: true
@@ -133,14 +131,12 @@ jobs:
         run: uvx pip-audit --requirement requirements.txt
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: "10"
+        uses: pnpm/action-setup@v6.1.0
 
-      - name: Set up Node 22
-        uses: actions/setup-node@v6
+      - name: Set up Node 24
+        uses: actions/setup-node@v7.1.0
         with:
-          node-version: "22"
+          node-version: "24"
 
       - name: Audit JS dependencies (pnpm)
         working-directory: frontend
@@ -152,7 +148,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
 
       - name: Build image
         run: docker build -t augur:ci .

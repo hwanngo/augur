@@ -49,7 +49,7 @@ function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
       {...props}
-      className="w-full px-3 py-2 text-sm rounded-lg border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+      className="w-full px-3 py-2 text-sm rounded-lg border transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
       style={{ background: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--fg)' }}
     />
   );
@@ -173,14 +173,14 @@ export default function CandidatesPage() {
   const FILTERS: StatusFilter[] = ['all', 'pending', 'approved', 'rejected'];
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>{t('candidates.title')}</h1>
           <p className="text-xs mt-1 max-w-2xl" style={{ color: 'var(--muted)' }}>{t('candidates.subtitle')}</p>
         </div>
         {isAdmin && (
-          <button type="button" className="btn-primary flex-shrink-0" onClick={() => setGenOpen(true)}>
+          <button type="button" className="btn-primary shrink-0" onClick={() => setGenOpen(true)}>
             <Sparkles size={14} aria-hidden />
             {t('candidates.generate')}
           </button>

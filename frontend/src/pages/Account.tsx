@@ -47,7 +47,7 @@ function PasswordInput({
         placeholder={placeholder}
         disabled={disabled}
         autoComplete="new-password"
-        className="w-full px-3 py-2 text-sm rounded-lg border pr-9 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+        className="w-full px-3 py-2 text-sm rounded-lg border pr-9 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
         style={{ background: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--fg)' }}
       />
       <button
@@ -131,7 +131,7 @@ export default function Account() {
         style={{ background: 'var(--panel)', borderColor: 'var(--border)' }}
       >
         <div
-          className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold uppercase flex-shrink-0"
+          className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold uppercase shrink-0"
           style={{ background: 'var(--accent)', color: '#0d1117' }}
           aria-hidden
         >

@@ -221,7 +221,7 @@ export default function Incidents() {
                             onClick={() => toggle(inc.incident_id)}
                             aria-expanded={open}
                             aria-label={t('incidents.expand', { id: inc.incident_id })}
-                            className="w-full text-left px-3 py-2.5 flex flex-wrap items-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]">
+                            className="w-full text-left px-3 py-2.5 flex flex-wrap items-center gap-2 cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)">
                       <span className="font-mono font-semibold" style={{ color: 'var(--fg)' }}>{inc.incident_id}</span>
                       <SevChip sev={inc.top_severity} />
                       <span className="text-xs tabular-nums" style={{ color: 'var(--muted)' }}>
@@ -283,7 +283,7 @@ export default function Incidents() {
                                         setDrawerMember(m);
                                       }
                                     }}
-                                    className="cursor-pointer hover:bg-[#161b22] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                                    className="cursor-pointer hover:bg-panel focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
                                     style={{ borderBottom: '1px solid var(--border)' }}>
                                   <td className="px-2 py-1.5">
                                     <span className="font-mono" style={{ color: 'var(--fg)' }}>{m.scenario_id}</span>
@@ -303,13 +303,13 @@ export default function Incidents() {
                         )}
                         <button type="button"
                                 onClick={() => setResponseIncidentId(inc.incident_id)}
-                                className="mt-1 px-2.5 py-1 rounded-lg border text-xs font-medium cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                                className="mt-1 px-2.5 py-1 rounded-lg border text-xs font-medium cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
                                 style={{ borderColor: 'var(--border)', background: 'var(--bg)', color: 'var(--fg)' }}>
                           {t('incidentResponse.open')}
                         </button>
                         <button type="button"
                                 onClick={() => setReportIncidentId(inc.incident_id)}
-                                className="mt-1 ml-2 px-2.5 py-1 rounded-lg border text-xs font-medium cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                                className="mt-1 ml-2 px-2.5 py-1 rounded-lg border text-xs font-medium cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
                                 style={{ borderColor: 'var(--border)', background: 'var(--bg)', color: 'var(--fg)' }}>
                           {t('incidentReport.open')}
                         </button>
@@ -436,7 +436,7 @@ export default function Incidents() {
             )}
             <button type="button"
                     onClick={() => exportResponseCsv(selectedResponse)}
-                    className="px-2.5 py-1 rounded-lg border text-xs font-medium cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                    className="px-2.5 py-1 rounded-lg border text-xs font-medium cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
                     style={{ borderColor: 'var(--border)', background: 'var(--bg)', color: 'var(--fg)' }}>
               {t('incidentResponse.csv.export')}
             </button>
@@ -533,7 +533,7 @@ export default function Incidents() {
             <button type="button"
                     onClick={() => downloadText(
                       `augur-incident-${report.incident_id}.md`, report.markdown, 'text/markdown')}
-                    className="px-2.5 py-1 rounded-lg border text-xs font-medium cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                    className="px-2.5 py-1 rounded-lg border text-xs font-medium cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
                     style={{ borderColor: 'var(--border)', background: 'var(--bg)', color: 'var(--fg)' }}>
               {t('incidentReport.download')}
             </button>

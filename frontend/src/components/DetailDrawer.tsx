@@ -1,4 +1,4 @@
-import { useEffect, useRef, useId } from 'react';
+import { useEffect, useRef, useId, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -39,8 +39,9 @@ export default function DetailDrawer({
     };
   }, [open]);
 
-  // Esc → close; Tab → trapped within the panel.
-  useEffect(() => {
+  // Esc → close; Tab → trapped within the panel. Layout effect so the listener is live as soon
+  // as the drawer is committed (a passive effect leaves a window where Esc is dropped).
+  useLayoutEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -85,7 +86,7 @@ export default function DetailDrawer({
         style={{ background: 'var(--panel)', borderColor: 'var(--border)' }}
       >
         <div
-          className="flex items-center justify-between p-4 border-b flex-shrink-0 sticky top-0 z-10"
+          className="flex items-center justify-between p-4 border-b shrink-0 sticky top-0 z-10"
           style={{ background: 'var(--panel)', borderColor: 'var(--border)' }}
         >
           <h2 id={titleId} className="text-sm font-semibold truncate pr-2" style={{ color: 'var(--fg)' }}>
@@ -94,7 +95,7 @@ export default function DetailDrawer({
           <button
             type="button"
             onClick={onClose}
-            className="btn-ghost py-1.5 px-1.5 text-xs flex-shrink-0"
+            className="btn-ghost py-1.5 px-1.5 text-xs shrink-0"
             aria-label={t('common.closeDialog')}
           >
             <X size={14} aria-hidden />
@@ -105,7 +106,7 @@ export default function DetailDrawer({
 
         {footer && (
           <div
-            className="flex flex-wrap gap-2 p-4 border-t flex-shrink-0"
+            className="flex flex-wrap gap-2 p-4 border-t shrink-0"
             style={{ borderColor: 'var(--border)' }}
           >
             {footer}

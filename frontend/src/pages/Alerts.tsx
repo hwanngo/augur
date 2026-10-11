@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef, useMemo } from 'react';
+import { useEffect, useState, useCallback, useRef, useMemo, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Eye, Check, AlertTriangle, Loader2, Minus, Copy, X, Keyboard, Filter } from 'lucide-react';
@@ -306,7 +306,9 @@ export default function AlertsPage() {
     finally { setBusy(false); }
   }, [show, t, fetchAlerts]);
 
-  useEffect(() => {
+  // Layout effect: the document listener must match the committed rows, so a key pressed
+  // right after a render never hits the previous render's stale closure.
+  useLayoutEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const el = e.target as HTMLElement | null;
       const tag = el?.tagName;
@@ -370,7 +372,7 @@ export default function AlertsPage() {
   const SEVS = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW'];
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div>
         <h1 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>{t('alerts.title')}</h1>
         <p className="text-xs mt-1 max-w-2xl" style={{ color: 'var(--muted)' }}>{t('alerts.subtitle')}</p>
@@ -414,7 +416,7 @@ export default function AlertsPage() {
           />
           <ExportCsvButton onExport={handleExport} disabled={items.length === 0} label={t('common.exportCsv')} />
           <button ref={helpTriggerRef} type="button" onClick={() => setHelpOpen(true)}
-            className="btn-ghost text-xs flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+            className="btn-ghost text-xs flex items-center gap-1.5 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
             aria-label={t('shortcuts.hint')}>
             <Keyboard size={12} aria-hidden />
             {t('shortcuts.hint')}
@@ -432,7 +434,7 @@ export default function AlertsPage() {
           <button
             type="button"
             onClick={clearDeepLink}
-            className="btn-ghost px-2 py-1 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+            className="btn-ghost px-2 py-1 flex items-center gap-1 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
           >
             <X size={12} aria-hidden />
             {t('alerts.deepLink.clear')}
@@ -458,7 +460,7 @@ export default function AlertsPage() {
             // eslint-disable-next-line jsx-a11y/no-autofocus
             <input type="text" value={bulkNote} autoFocus onChange={(e) => setBulkNote(e.target.value)}
               aria-label={t('alerts.bulk.notePlaceholder')} placeholder={t('alerts.bulk.notePlaceholder')}
-              className="px-2.5 py-1.5 text-xs rounded-lg border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+              className="px-2.5 py-1.5 text-xs rounded-lg border focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
               style={{ background: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--fg)' }} />
           )}
           <button type="button" className="btn-secondary text-xs" disabled={busy} onClick={bulkResolve}>
@@ -485,7 +487,7 @@ export default function AlertsPage() {
                     <input ref={selectAllRef} type="checkbox"
                       checked={items.length > 0 && selected.size === items.length}
                       onChange={toggleAll} aria-label={t('alerts.bulk.selectAll')}
-                      className="accent-[var(--accent)] cursor-pointer" />
+                      className="accent-(--accent) cursor-pointer" />
                   </th>
                 )}
                 {['severity', 'scenario', 'band', 'proximity', 'hosts', 'state', 'assignee', 'age', 'lastSeen', 'count'].map((c) => (
@@ -507,7 +509,7 @@ export default function AlertsPage() {
                       <input type="checkbox" checked={selected.has(a.id)}
                         onChange={() => toggleRow(a.id)}
                         aria-label={t('alerts.bulk.selectRow', { id: a.scenario_id })}
-                        className="accent-[var(--accent)] cursor-pointer" />
+                        className="accent-(--accent) cursor-pointer" />
                     </td>
                   )}
                   <td className="px-3 py-2.5"><SeverityBadge severity={a.severity} /></td>
@@ -570,7 +572,7 @@ function SummaryCards({ summary, onSelect }:
       {cards.map((c) => (
         <button key={c.key} type="button"
           onClick={() => { if (c.status) onSelect(c.status); }}
-          className="rounded-xl border p-3 text-left transition-colors hover:bg-[#1e242c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+          className="rounded-xl border p-3 text-left transition-colors hover:bg-[#1e242c] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
           style={{ background: 'var(--panel)', borderColor: 'var(--border)' }}>
           <div className="text-2xl font-semibold tabular-nums" style={{ color: 'var(--fg)' }}>{c.count}</div>
           <div className="text-xs" style={{ color: 'var(--muted)' }}>{c.label}</div>
@@ -647,7 +649,7 @@ function AlertDrawer({ detail, canAck, isAdmin, currentUser, busy, onClose, onAc
           )}
           {d.stall && (
             <p className="text-xs flex items-start gap-2" style={{ color: 'var(--muted)' }}>
-              <AlertTriangle size={12} className="mt-0.5 flex-shrink-0" aria-hidden />
+              <AlertTriangle size={12} className="mt-0.5 shrink-0" aria-hidden />
               <span>{t('dashboard.whyStalled', { reason: formatStall(d.stall) })}</span>
             </p>
           )}
@@ -722,7 +724,7 @@ function TriageActions({ detail, isAdmin, currentUser, busy, onAssign, onSetStat
     setComment('');
   };
 
-  const ctl = 'px-2.5 py-1.5 text-xs rounded-lg border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]';
+  const ctl = 'px-2.5 py-1.5 text-xs rounded-lg border transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)';
   const ctlStyle = { background: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--fg)' } as const;
 
   return (

@@ -107,7 +107,7 @@ export default function Dialog({
         className={`relative z-10 w-full ${wide ? 'max-w-3xl' : 'max-w-md'} rounded-xl border shadow-xl flex flex-col max-h-[90vh]`}
         style={{ background: 'var(--panel)', borderColor: 'var(--border)' }}
       >
-        <div className="flex items-center justify-between p-4 border-b flex-shrink-0" style={{ borderColor: 'var(--border)' }}>
+        <div className="flex items-center justify-between p-4 border-b shrink-0" style={{ borderColor: 'var(--border)' }}>
           <h2 id={titleId} className="text-sm font-semibold" style={{ color: 'var(--fg)' }}>
             {title}
           </h2>
@@ -121,7 +121,7 @@ export default function Dialog({
           {children}
         </div>
 
-        <div className="flex gap-3 justify-end p-4 border-t flex-shrink-0" style={{ borderColor: 'var(--border)' }}>
+        <div className="flex gap-3 justify-end p-4 border-t shrink-0" style={{ borderColor: 'var(--border)' }}>
           <button type="button" className="btn-secondary" onClick={onClose} disabled={loading}>
             {cancelLabel ?? t('common.cancel')}
           </button>

@@ -111,7 +111,6 @@ class ClaudeScenarioGenerator:
         response = self._client.messages.create(
             model=self._cfg.model,
             max_tokens=self._cfg.max_tokens,
-            temperature=self._cfg.temperature,
             system=[
                 {
                     "type": "text",

@@ -8,7 +8,7 @@ export default function RequireAuth({ children }: { children: React.ReactNode })
   if (status === 'loading') {
     return (
       <div className="flex items-center justify-center min-h-screen" style={{ color: 'var(--muted)' }}>
-        <div className="w-6 h-6 rounded-full border-2 border-[var(--border)] border-t-[var(--accent)] animate-spin" />
+        <div className="w-6 h-6 rounded-full border-2 border-(--border) border-t-(--accent) animate-spin" />
       </div>
     );
   }

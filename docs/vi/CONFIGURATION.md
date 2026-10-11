@@ -72,7 +72,6 @@ có mặc định an toàn.
 | `AUGUR_AI_GENERATOR` | `fake` | `generative/config.py` | No — `fake` (stub tất định, mặc định) hoặc `claude` (LLM thật). |
 | `ANTHROPIC_API_KEY` | *(không có)* | `generative/config.py` | Chỉ khi `AUGUR_AI_GENERATOR=claude` — credential egress tính phí; chỉ đọc từ env, không bao giờ lưu. |
 | `AUGUR_AI_MODEL` | `claude-opus-4-8` | `generative/config.py` | No — model id mà generator `claude` dùng. |
-| `AUGUR_AI_TEMPERATURE` | `0.7` | `generative/config.py` | No — temperature sampling (float). |
 | `AUGUR_AI_MAX_N` | `10` | `generative/config.py` | No — số scenario candidate tối đa yêu cầu mỗi lần generate. |
 | `AUGUR_AI_MAX_TOKENS` | `4096` | `generative/config.py` | No — số output token tối đa mỗi lần gọi LLM. |
 | `AUGUR_AI_MAX_CALLS` | `30` | `generative/config.py` | No — số lần generate mỗi cửa sổ trước khi lockout theo từng admin. |

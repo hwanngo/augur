@@ -149,7 +149,7 @@ export default function DetectionHealth() {
                             setDrawerRow(r);
                           }
                         }}
-                        className="cursor-pointer hover:bg-[#161b22] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                        className="cursor-pointer hover:bg-panel focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
                         style={{ borderBottom: '1px solid var(--border)' }}>
                       <td className="px-3 py-1.5">
                         <div className="font-mono" style={{ color: 'var(--fg)' }}>{r.scenario_id}</div>

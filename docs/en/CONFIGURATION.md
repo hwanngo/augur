@@ -80,7 +80,6 @@
 | `AUGUR_AI_GENERATOR` | `fake` | `generative/config.py` | No — `fake` (deterministic stub, default) or `claude` (live LLM). |
 | `ANTHROPIC_API_KEY` | *(none)* | `generative/config.py` | Only if `AUGUR_AI_GENERATOR=claude` — billable egress credential; read from env only, never persisted. |
 | `AUGUR_AI_MODEL` | `claude-opus-4-8` | `generative/config.py` | No — model id used by the `claude` generator. |
-| `AUGUR_AI_TEMPERATURE` | `0.7` | `generative/config.py` | No — sampling temperature (float). |
 | `AUGUR_AI_MAX_N` | `10` | `generative/config.py` | No — max candidate scenarios requested per generation. |
 | `AUGUR_AI_MAX_TOKENS` | `4096` | `generative/config.py` | No — max output tokens per LLM call. |
 | `AUGUR_AI_MAX_CALLS` | `30` | `generative/config.py` | No — generation calls per window before a per-admin lockout. |

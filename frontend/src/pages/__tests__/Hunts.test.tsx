@@ -39,7 +39,7 @@ const DETAIL: HuntDetail = {
 };
 
 beforeEach(() => {
-  server.listen({ onUnhandledRequest: 'error' });
+  server.listen({ onUnhandledFrame: 'error' });
   server.use(
     http.get('/api/scenarios', () => HttpResponse.json([])),
     http.get('/api/topology', () => HttpResponse.json({ zones: ['DMZ'], assets: [{ hostname: 'HR_PC', os: 'Windows', zone: 'DMZ' }] })),

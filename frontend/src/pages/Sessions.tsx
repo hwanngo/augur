@@ -68,7 +68,7 @@ export default function Sessions() {
   }
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <h1 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>
         {t('sessions.title')}
       </h1>

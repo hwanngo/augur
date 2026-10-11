@@ -13,7 +13,7 @@ interface Props {
 const BTN =
   'inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium border transition-colors ' +
   'cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ' +
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]';
+  'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)';
 
 /** Accessible prev/next pager. Renders nothing when everything fits on one page. */
 export default function Pagination({ page, pageCount, total, start, end, onPage }: Props) {

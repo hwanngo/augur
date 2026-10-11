@@ -160,7 +160,7 @@ export default function Topology() {
   });
 
   const sorted = [...filtered].sort((a, b) => {
-    let cmp = 0;
+    let cmp: number;
     if (sortKey === 'criticality') {
       cmp = CRIT_ORDER[a.criticality] - CRIT_ORDER[b.criticality];
     } else {
@@ -186,7 +186,7 @@ export default function Topology() {
   function Th({ col, label }: { col: SortKey; label: string }) {
     return (
       <th
-        className="px-3 py-2.5 text-left text-xs font-medium cursor-pointer select-none whitespace-nowrap transition-colors hover:text-[var(--fg)]"
+        className="px-3 py-2.5 text-left text-xs font-medium cursor-pointer select-none whitespace-nowrap transition-colors hover:text-(--fg)"
         style={{ color: 'var(--muted)' }}
         onClick={() => handleSort(col)}
         aria-sort={sortKey === col ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
@@ -199,7 +199,7 @@ export default function Topology() {
   }
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>
@@ -246,7 +246,7 @@ export default function Topology() {
                       setView(VIEW_OPTIONS[nextIdx]);
                       radioRefs.current[nextIdx]?.focus();
                     }}
-                    className="py-1.5 px-3 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                    className="py-1.5 px-3 text-xs focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
                     style={{ background: active ? 'var(--accent)' : 'var(--panel)', color: active ? '#0d1117' : 'var(--muted)' }}
                   >
                     {t(`topology.view.${v}`)}
@@ -367,7 +367,7 @@ export default function Topology() {
                       onClick={() => selectAsset(asset.hostname)}
                       aria-current={selectedHost === asset.hostname}
                       aria-label={t('topology.detail.open', { name: asset.hostname })}
-                      className="font-medium font-mono text-xs text-left cursor-pointer hover:underline focus:underline focus:outline-none"
+                      className="font-medium font-mono text-xs text-left cursor-pointer hover:underline focus:underline focus:outline-hidden"
                       style={{
                         color: 'var(--fg)',
                         boxShadow:

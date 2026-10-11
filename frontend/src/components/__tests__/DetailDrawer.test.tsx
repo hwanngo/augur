@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { useState } from 'react';
 import DetailDrawer from '../DetailDrawer';
 
 function renderDrawer(props: Partial<React.ComponentProps<typeof DetailDrawer>> = {}) {
@@ -99,7 +100,7 @@ describe('DetailDrawer', () => {
   it('restores focus to the opener on close', () => {
     const onClose = vi.fn();
     function Harness() {
-      const [open, setOpen] = (require('react') as typeof import('react')).useState(false);
+      const [open, setOpen] = useState(false);
       return (
         <>
           <button type="button" onClick={() => setOpen(true)}>opener</button>

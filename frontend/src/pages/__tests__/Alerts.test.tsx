@@ -33,7 +33,7 @@ const SUMMARY = {
 };
 
 beforeEach(() => {
-  server.listen({ onUnhandledRequest: 'error' });
+  server.listen({ onUnhandledFrame: 'error' });
   // Baseline summary handler so tests that don't care about cards don't 'error' on the fetch.
   // Test-specific server.use(...) for /api/alerts/summary takes precedence (msw: last match wins).
   server.use(http.get('/api/alerts/summary', () => HttpResponse.json(SUMMARY)));

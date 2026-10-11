@@ -70,7 +70,7 @@ export function SevChip({ level }: { level: Detection['severity'] }) {
   const { bg, fg } = SEV_STYLE[level];
   return (
     <span
-      className="px-2 py-0.5 rounded-full text-xs font-bold tabular-nums uppercase tracking-wide flex-shrink-0"
+      className="px-2 py-0.5 rounded-full text-xs font-bold tabular-nums uppercase tracking-wide shrink-0"
       style={{ background: bg, color: fg }}
       aria-label={`Severity: ${level}`}
     >
@@ -204,11 +204,11 @@ export default function DetectionCard({
         <span className="font-semibold text-sm flex-1 min-w-0 truncate" style={{ color: 'var(--fg)' }}>
           {d.name}
         </span>
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           {d.momentum && <MomentumBadge m={d.momentum} />}
           {/* Proximity bar */}
           <div
-            className="w-32 h-2 rounded-full overflow-hidden flex-shrink-0"
+            className="w-32 h-2 rounded-full overflow-hidden shrink-0"
             style={{ background: 'var(--border)' }}
             role="progressbar"
             aria-valuenow={pct}
@@ -227,7 +227,7 @@ export default function DetectionCard({
           <button
             type="button"
             onClick={() => onOpenCase(d)}
-            className="btn-ghost px-2 py-1 text-xs flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+            className="btn-ghost px-2 py-1 text-xs flex items-center gap-1 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
             aria-label={t('dashboard.openCase')}
           >
             <ExternalLink size={12} aria-hidden />
@@ -236,7 +236,7 @@ export default function DetectionCard({
           <button
             type="button"
             onClick={() => onPivot?.(d)}
-            className="btn-ghost px-2 py-1 text-xs flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+            className="btn-ghost px-2 py-1 text-xs flex items-center gap-1 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
             aria-label={t('dashboard.pivot')}
           >
             <GitFork size={12} aria-hidden />
@@ -257,7 +257,7 @@ export default function DetectionCard({
       {/* F3 — "why it stalled" near-miss line (partial detections only) */}
       {d.stall && (
         <div className="flex items-start gap-2 text-xs" style={{ color: 'var(--muted)' }}>
-          <AlertTriangle size={12} className="mt-0.5 flex-shrink-0" aria-hidden />
+          <AlertTriangle size={12} className="mt-0.5 shrink-0" aria-hidden />
           <span>{t('dashboard.whyStalled', { reason: formatStall(d.stall) })}</span>
         </div>
       )}
@@ -280,7 +280,7 @@ export default function DetectionCard({
           <ul className="space-y-1 text-xs">
             {d.matched_steps.map((s) => (
               <li key={s.step_id} className="flex items-start gap-2" style={{ color: 'var(--accent)' }}>
-                <Check size={12} className="mt-0.5 flex-shrink-0" aria-hidden />
+                <Check size={12} className="mt-0.5 shrink-0" aria-hidden />
                 <span>
                   <span className="font-medium tabular-nums">{s.step_id}.</span> {s.name}
                   {s.host && (
@@ -297,7 +297,7 @@ export default function DetectionCard({
               const hasGuidance = criteria !== '' || temporal !== null;
               return (
                 <li key={s.step_id} className="flex items-start gap-2" style={{ color: 'var(--muted)' }}>
-                  <Circle size={12} className="mt-0.5 flex-shrink-0" aria-hidden />
+                  <Circle size={12} className="mt-0.5 shrink-0" aria-hidden />
                   <span>
                     <span className="font-medium tabular-nums">{s.step_id}.</span> {s.name}
                     {hasGuidance && (
@@ -326,7 +326,7 @@ export default function DetectionCard({
           <button
             type="button"
             onClick={togglePlaybook}
-            className="flex items-center gap-1 text-xs transition-colors duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+            className="flex items-center gap-1 text-xs transition-colors duration-150 cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
             style={{ color: 'var(--muted)' }}
             aria-expanded={pbOpen}
           >
@@ -380,7 +380,7 @@ export default function DetectionCard({
               <button
                 type="button"
                 onClick={dispatch}
-                className="btn-ghost px-2 py-1 text-xs flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                className="btn-ghost px-2 py-1 text-xs flex items-center gap-1 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
                 aria-label={t('dashboard.playbook.dispatch')}
               >
                 <Send size={12} aria-hidden />
@@ -424,7 +424,7 @@ export default function DetectionCard({
               <button
                 type="button"
                 onClick={() => setDispatched(null)}
-                className="btn-ghost px-2 py-1 text-xs flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                className="btn-ghost px-2 py-1 text-xs flex items-center gap-1 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
                 aria-label={t('common.closeDialog')}
               >
                 <X size={12} aria-hidden />

@@ -75,7 +75,7 @@ const DETECTIONS: Detection[] = [
 ];
 
 beforeEach(() => {
-  server.listen({ onUnhandledRequest: 'error' });
+  server.listen({ onUnhandledFrame: 'error' });
   server.use(http.get('/api/health', () => HttpResponse.json({ status: 'ok', real_data: false })));
   useAuthStore.setState({ user: 'alice', role: 'analyst', csrf: 'tok', status: 'authed' });
   configureApi({ onUnauthorized: vi.fn(), getCsrf: () => 'tok' });

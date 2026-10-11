@@ -24,7 +24,7 @@ const ASSETS: Asset[] = [
 const TOPOLOGY_RESPONSE = { zones: ['corp', 'dmz'], assets: ASSETS };
 
 beforeEach(() => {
-  server.listen({ onUnhandledRequest: 'error' });
+  server.listen({ onUnhandledFrame: 'error' });
   useAuthStore.setState({ user: 'alice', role: 'analyst', csrf: 'tok', status: 'authed' });
   configureApi({ onUnauthorized: vi.fn(), getCsrf: () => 'tok' });
 });

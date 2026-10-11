@@ -107,7 +107,7 @@ export default function Tuning() {
   }, [ledger]);
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div className="flex items-start justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-lg font-semibold flex items-center gap-2" style={{ color: 'var(--fg)' }}>
@@ -127,7 +127,7 @@ export default function Tuning() {
       {ledger && (
         <div className="rounded-xl border px-3 py-2 flex items-start gap-2 text-xs"
              style={{ background: '#1a2230', borderColor: '#3b5572', color: '#9fc3ff' }} role="note">
-          <Info size={14} aria-hidden className="flex-shrink-0 mt-0.5" /> <span>{ledger.honesty_note}</span>
+          <Info size={14} aria-hidden className="shrink-0 mt-0.5" /> <span>{ledger.honesty_note}</span>
         </div>
       )}
 
@@ -203,7 +203,7 @@ export default function Tuning() {
           {entries.map((e) => (
             <li key={e.id} className="rounded-lg border px-3 py-2 flex items-center gap-3 text-xs"
                 style={{ borderColor: 'var(--border)', background: 'var(--panel)', opacity: e.enabled ? 1 : 0.55 }}>
-              <span className="px-2 py-0.5 rounded-full font-bold uppercase tracking-wide flex-shrink-0"
+              <span className="px-2 py-0.5 rounded-full font-bold uppercase tracking-wide shrink-0"
                     style={{ background: e.action === 'SUPPRESS' ? '#71221c' : '#7a4a00',
                              color: e.action === 'SUPPRESS' ? '#ffb4ab' : '#ffd28a' }}>
                 {e.action === 'SUPPRESS' ? t('tuning.suppress') : `${t('tuning.downgrade')}→${e.downgrade_to}`}
@@ -216,19 +216,19 @@ export default function Tuning() {
                   {' · '}{t('tuning.by', { author: e.author })}
                 </span>
               </span>
-              <span className="tabular-nums flex-shrink-0" style={{ color: 'var(--muted)' }}
+              <span className="tabular-nums shrink-0" style={{ color: 'var(--muted)' }}
                     title={t('tuning.hitCountTitle')}>
                 {t('tuning.hits', { count: e.hit_count ?? 0 })}
               </span>
               {canEdit && (
                 <>
                   <button type="button" onClick={() => toggle(e)}
-                          className="px-2 py-1 rounded border flex-shrink-0"
+                          className="px-2 py-1 rounded-sm border shrink-0"
                           style={{ borderColor: 'var(--border)', color: 'var(--muted)' }}>
                     {e.enabled ? t('tuning.disable') : t('tuning.enable')}
                   </button>
                   <button type="button" onClick={() => remove(e)} aria-label={t('tuning.delete')}
-                          className="p-1 rounded flex-shrink-0" style={{ color: '#ff8a80' }}>
+                          className="p-1 rounded-sm shrink-0" style={{ color: '#ff8a80' }}>
                     <Trash2 size={14} />
                   </button>
                 </>
@@ -258,7 +258,7 @@ export default function Tuning() {
                   {s.scenario_id} · {s.name}
                   {s.kind === 'DOWNGRADE' && ` (${s.from_band}→${s.to_band})`}
                 </span>
-                <span className="truncate flex-shrink-0" style={{ color: 'var(--muted)', maxWidth: '40%' }}
+                <span className="truncate shrink-0" style={{ color: 'var(--muted)', maxWidth: '40%' }}
                       title={s.reason}>{s.reason}</span>
               </li>
             ))}

@@ -18,7 +18,7 @@ export default function ExportCsvButton({ onExport, disabled = false, label }: P
       onClick={onExport}
       disabled={disabled}
       aria-label={label}
-      className="btn-secondary text-xs flex items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+      className="btn-secondary text-xs flex items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
     >
       <Download size={12} aria-hidden />
       {label}

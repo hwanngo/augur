@@ -131,7 +131,7 @@ export default function Campaign() {
   const noHost = agg?.no_eligible_host_scenarios ?? [];
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div className="flex items-start justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-lg font-semibold flex items-center gap-2" style={{ color: 'var(--fg)' }}>
@@ -248,7 +248,7 @@ export default function Campaign() {
             className="rounded-xl border p-3 flex items-start gap-2 text-xs italic"
             style={{ background: 'var(--panel)', borderColor: 'var(--border)', color: 'var(--muted)' }}
           >
-            <Info size={14} aria-hidden className="mt-0.5 flex-shrink-0" />
+            <Info size={14} aria-hidden className="mt-0.5 shrink-0" />
             <span>{data.honesty}</span>
           </div>
 
@@ -286,7 +286,7 @@ export default function Campaign() {
                           onClick={() => selectScenario(r.scenario_id)}
                           aria-current={selectedId === r.scenario_id}
                           aria-label={t('campaign.detail.open', { name: r.name })}
-                          className="text-xs font-mono text-left cursor-pointer hover:underline focus:underline focus:outline-none"
+                          className="text-xs font-mono text-left cursor-pointer hover:underline focus:underline focus:outline-hidden"
                           style={{
                             color: 'var(--fg)',
                             boxShadow:

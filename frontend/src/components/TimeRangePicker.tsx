@@ -18,7 +18,7 @@ const PRESET_MS: Record<'24h' | '7d' | '30d', number> = {
 
 const INPUT =
   'px-2.5 py-1.5 text-xs rounded-lg border transition-colors ' +
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]';
+  'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)';
 
 /** Convert an absolute ISO string into the `datetime-local` input value (local wall-clock, no seconds). */
 function isoToLocalInput(iso: string | null): string {

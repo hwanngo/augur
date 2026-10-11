@@ -35,7 +35,7 @@ const RESP = { hosts: HOSTS };
 const HOST_RISK_RESPONSE = RESP;
 
 beforeEach(() => {
-  server.listen({ onUnhandledRequest: 'error' });
+  server.listen({ onUnhandledFrame: 'error' });
   useAuthStore.setState({ user: 'alice', role: 'viewer', csrf: 'tok', status: 'authed' });
   configureApi({ onUnauthorized: vi.fn(), getCsrf: () => 'tok' });
 });

@@ -250,7 +250,7 @@ function PivotPicker() {
                     {d.scenario_id} · {Math.round(d.proximity * 100)}% · {d.affected_hosts.join(', ') || '—'}
                   </span>
                 </span>
-                <ChevronRight size={16} aria-hidden style={{ color: 'var(--muted)' }} className="flex-shrink-0" />
+                <ChevronRight size={16} aria-hidden style={{ color: 'var(--muted)' }} className="shrink-0" />
               </button>
             </li>
           ))}
@@ -317,7 +317,7 @@ export default function Pivot() {
   if (!detection) return <PivotPicker />;
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-4">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-4">
       <div className="flex items-start justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>

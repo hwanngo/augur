@@ -16,7 +16,7 @@ vi.mock('react-router-dom', async () => {
 const server = setupServer();
 
 beforeEach(() => {
-  server.listen({ onUnhandledRequest: 'error' });   // every fetched endpoint must be mocked
+  server.listen({ onUnhandledFrame: 'error' });   // every fetched endpoint must be mocked
   useAuthStore.setState({ user: 'alice', role: 'analyst', csrf: 'tok', status: 'authed' });
   configureApi({ onUnauthorized: vi.fn(), getCsrf: () => 'tok' });
   localStorage.clear();

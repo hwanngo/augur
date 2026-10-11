@@ -36,7 +36,7 @@ function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
       {...props}
-      className="w-full px-3 py-2 text-sm rounded-lg border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+      className="w-full px-3 py-2 text-sm rounded-lg border transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
       style={{ background: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--fg)' }}
     />
   );
@@ -195,7 +195,7 @@ export default function UsersPage() {
   function Th({ col, label }: { col: SortKey; label: string }) {
     return (
       <th
-        className="px-3 py-2.5 text-left text-xs font-medium cursor-pointer select-none whitespace-nowrap transition-colors hover:text-[var(--fg)]"
+        className="px-3 py-2.5 text-left text-xs font-medium cursor-pointer select-none whitespace-nowrap transition-colors hover:text-(--fg)"
         style={{ color: 'var(--muted)' }}
         onClick={() => handleSort(col)}
         aria-sort={sortKey === col ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
@@ -208,7 +208,7 @@ export default function UsersPage() {
   }
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>
           {t('users.title')}

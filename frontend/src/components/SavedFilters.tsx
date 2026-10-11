@@ -41,7 +41,7 @@ export default function SavedFilters<F>({ scope, user, current, onApply, show }:
   }, [scope, user]);
 
   const ctl =
-    'px-2.5 py-1.5 text-xs rounded-lg border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]';
+    'px-2.5 py-1.5 text-xs rounded-lg border transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)';
   const ctlStyle = { background: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--fg)' } as const;
 
   const handleRecall = (id: string) => {

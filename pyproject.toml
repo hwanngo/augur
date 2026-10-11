@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=82"]
+requires = ["setuptools>=84"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -11,25 +11,25 @@ requires-python = ">=3.14,<3.15"
 # committed uv.lock pins exact versions (build with `--frozen`). Bump bounds
 # deliberately, not implicitly.
 dependencies = [
-    "pydantic>=2.13.4,<3",
+    "pydantic>=2.14.0,<3",
     "PyYAML>=6.0.3,<7",
-    "networkx>=3.6.1,<4",
-    "fastapi>=0.138.0,<1",     # >=0.138 pulls starlette>=1.3.1 (GHSA form()/hostname DoS fixes)
-    "uvicorn>=0.49.0,<1",
+    "networkx>=3.7,<4",
+    "fastapi>=0.143.0,<1",     # >=0.138 pulls starlette>=1.3.1 (GHSA form()/hostname DoS fixes)
+    "uvicorn>=0.54.0,<1",
     "argon2-cffi>=25.1",       # Argon2id password hashing (auth)
-    "python-multipart>=0.0.31,<1", # OAuth2 form login parsing (auth); >=0.0.31 fixes quadratic-time DoS + smuggling CVEs
+    "python-multipart>=0.0.32,<1", # OAuth2 form login parsing (auth); >=0.0.31 fixes quadratic-time DoS + smuggling CVEs
 ]
 
 # Opt-in feature extras (NOT required by the test suite).
 [project.optional-dependencies]
-neo4j = ["neo4j>=6.2.0,<7"]
+neo4j = ["neo4j>=6.4.0,<7"]
 # Polyglot microservice slice: the Python gRPC detection-engine server (see services/).
-grpc = ["grpcio>=1.60,<2", "grpcio-tools>=1.60,<2"]
-ai = ["anthropic>=0.50,<1"]
+grpc = ["grpcio>=1.84,<2", "grpcio-tools>=1.84,<2"]
+ai = ["anthropic>=1.13,<2"]
 
 # Dev tooling lives in a dependency-group, which `uv run`/`uv sync` install by default.
 [dependency-groups]
-dev = ["pytest>=9.0.3", "httpx2", "pytest-cov>=5", "pytest-xdist>=3"]
+dev = ["pytest>=9.1.1", "httpx2>=2.13.1", "pytest-cov>=7.1", "pytest-xdist>=3.8"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

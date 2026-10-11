@@ -38,7 +38,7 @@ function EventTag({ event }: { event: string }) {
   const { bg, fg } = eventStyle(event);
   return (
     <span
-      className="px-2 py-0.5 rounded text-[11px] font-mono uppercase tracking-wide whitespace-nowrap"
+      className="px-2 py-0.5 rounded-sm text-[11px] font-mono uppercase tracking-wide whitespace-nowrap"
       style={{ background: bg, color: fg }}
     >
       {event}
@@ -114,7 +114,7 @@ export default function Audit() {
   function Th({ col, label }: { col: SortKey; label: string }) {
     return (
       <th
-        className="px-3 py-2.5 text-left text-xs font-medium cursor-pointer select-none whitespace-nowrap transition-colors hover:text-[var(--fg)]"
+        className="px-3 py-2.5 text-left text-xs font-medium cursor-pointer select-none whitespace-nowrap transition-colors hover:text-(--fg)"
         style={{ color: 'var(--muted)' }}
         onClick={() => handleSort(col)}
         aria-sort={sortKey === col ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
@@ -127,7 +127,7 @@ export default function Audit() {
   }
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <h1 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>
           {t('audit.title')}

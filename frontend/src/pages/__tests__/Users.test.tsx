@@ -17,7 +17,7 @@ const USERS: User[] = [
 ];
 
 beforeEach(() => {
-  server.listen({ onUnhandledRequest: 'error' });
+  server.listen({ onUnhandledFrame: 'error' });
   useAuthStore.setState({ user: 'admin', role: 'admin', csrf: 'tok', status: 'authed' });
   configureApi({ onUnauthorized: vi.fn(), getCsrf: () => 'tok' });
 });

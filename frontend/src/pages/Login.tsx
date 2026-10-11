@@ -136,7 +136,7 @@ export default function Login() {
           <div
             role="alert"
             aria-live="polite"
-            className="min-h-[1.25rem]"
+            className="min-h-5"
           >
             {error && (
               <p className="text-xs" style={{ color: '#ffb4ab' }}>

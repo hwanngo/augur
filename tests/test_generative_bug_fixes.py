@@ -7,7 +7,7 @@ C2 — _next_gen_id collides across a batch
 I1 — batch-sibling dedup missing
 N1 — fingerprint is value-blind
 N2 — _parse_yaml_candidates glues leading prose onto first doc
-N3 — claude.py messages.create never passes temperature
+N3 — claude.py messages.create must not pass temperature (anthropic>=1 removed it; Opus 4.7+ 400s on it)
 N4 — dead by_cat/cat="unknown" code in eval.main
 """
 
@@ -231,34 +231,33 @@ def test_n2_no_fence_single_doc():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# N3 — claude.py messages.create never passes temperature
-# This is a code-inspection test (no live API call required).
+# N3 — claude.py messages.create must not pass temperature
+# anthropic>=1 removed the sampling kwargs (TypeError) and Opus 4.7+ rejects them
+# with a 400. This is a code-inspection test (no live API call required).
 # ─────────────────────────────────────────────────────────────────────────────
 
-def test_n3_messages_create_passes_temperature():
-    """ClaudeScenarioGenerator.generate must call messages.create with temperature kwarg."""
-    import ast, textwrap
+def test_n3_messages_create_omits_sampling_params():
+    """ClaudeScenarioGenerator.generate must call messages.create without sampling kwargs."""
+    import ast
     from pathlib import Path
 
     src = (Path(__file__).resolve().parents[1] /
            "src" / "augur" / "generative" / "claude.py").read_text()
     tree = ast.parse(src)
 
-    # Find all calls to messages.create (or self._client.messages.create)
-    found_temp = False
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Call):
-            # Check if this is a .create(...) call
-            func = node.func
-            if isinstance(func, ast.Attribute) and func.attr == "create":
-                kw_names = {kw.arg for kw in node.keywords}
-                if "temperature" in kw_names:
-                    found_temp = True
-                    break
-
-    assert found_temp, (
-        "messages.create() call in claude.py does not pass the 'temperature' keyword argument."
-    )
+    create_calls = [
+        node for node in ast.walk(tree)
+        if isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Attribute)
+        and node.func.attr == "create"
+    ]
+    assert create_calls, "no messages.create() call found in claude.py"
+    for call in create_calls:
+        kw_names = {kw.arg for kw in call.keywords}
+        assert {"model", "max_tokens", "system", "messages"} <= kw_names
+        assert not kw_names & {"temperature", "top_p", "top_k"}, (
+            "messages.create() in claude.py passes a sampling parameter removed in anthropic>=1."
+        )
 
 
 # ─────────────────────────────────────────────────────────────────────────────

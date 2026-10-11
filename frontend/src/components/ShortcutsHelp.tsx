@@ -76,7 +76,7 @@ export default function ShortcutsHelp({ open, onClose, returnFocusRef }: Props) 
             // Focus-on-open: dialog pattern moves initial focus into the modal (the close button) on mount.
             // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
-            className="btn-ghost p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+            className="btn-ghost p-1 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
             aria-label={t('common.closeDialog')}
           >
             <X size={14} aria-hidden />
@@ -90,7 +90,7 @@ export default function ShortcutsHelp({ open, onClose, returnFocusRef }: Props) 
               </dd>
               <dt>
                 <kbd
-                  className="px-2 py-0.5 rounded border text-xs font-mono"
+                  className="px-2 py-0.5 rounded-sm border text-xs font-mono"
                   style={{ background: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--fg)' }}
                 >
                   {b.key}

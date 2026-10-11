@@ -57,7 +57,7 @@ export default function CoverageGaps() {
   };
 
   return (
-    <div className="w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
+    <div className="w-full max-w-(--breakpoint-2xl) mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
           <h1 className="text-lg font-semibold" style={{ color: 'var(--fg)' }}>
@@ -149,7 +149,7 @@ export default function CoverageGaps() {
                           {cell.covered ? (
                             <Link
                               to="/drill"
-                              className="inline-block px-2 py-0.5 rounded-full text-xs font-bold tabular-nums transition-shadow hover:ring-2 hover:ring-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                              className="inline-block px-2 py-0.5 rounded-full text-xs font-bold tabular-nums transition-shadow hover:ring-2 hover:ring-(--accent) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
                               style={{ background: '#1d3a2a', color: '#7ee2a8' }}
                               title={t('drill.proveScenario')}
                               aria-label={t('drill.proveScenario')}
@@ -179,7 +179,7 @@ export default function CoverageGaps() {
             className="rounded-xl border p-3 flex items-start gap-2 text-xs"
             style={{ background: 'var(--panel)', borderColor: 'var(--border)', color: 'var(--muted)' }}
           >
-            <Info size={14} aria-hidden className="mt-0.5 flex-shrink-0" />
+            <Info size={14} aria-hidden className="mt-0.5 shrink-0" />
             <span>{t('coverageGaps.cloudNote')}</span>
           </div>
         </>

@@ -6,7 +6,7 @@ import { useAlertSummary } from '../useAlertSummary';
 import { configureApi } from '../api';
 
 const server = setupServer();
-beforeEach(() => { server.listen({ onUnhandledRequest: 'error' }); configureApi({ onUnauthorized: vi.fn(), getCsrf: () => 'tok' }); });
+beforeEach(() => { server.listen({ onUnhandledFrame: 'error' }); configureApi({ onUnauthorized: vi.fn(), getCsrf: () => 'tok' }); });
 afterEach(() => { server.resetHandlers(); server.close(); });
 
 it('reports openCount and seeds without a newCount on first poll', async () => {

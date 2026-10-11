@@ -32,13 +32,13 @@ function Fallback({ error, onReload }: { error: Error; onReload: () => void }) {
       {error.message ? (
         <details className="text-xs max-w-md w-full text-left" style={{ color: 'var(--muted)' }}>
           <summary className="cursor-pointer">{t('errorBoundary.details')}</summary>
-          <pre className="mt-2 overflow-auto whitespace-pre-wrap break-words">{error.message}</pre>
+          <pre className="mt-2 overflow-auto whitespace-pre-wrap wrap-break-word">{error.message}</pre>
         </details>
       ) : null}
       <button
         type="button"
         onClick={onReload}
-        className="px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+        className="px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
         style={{ background: 'var(--accent)', color: '#0d1117' }}
       >
         {t('errorBoundary.reload')}

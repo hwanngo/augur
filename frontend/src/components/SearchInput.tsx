@@ -26,7 +26,7 @@ export default function SearchInput({ value, onChange, label, placeholder }: Pro
         placeholder={placeholder}
         aria-label={label}
         className="w-56 max-w-full pl-8 pr-8 py-1.5 text-xs rounded-lg border transition-colors
-                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                   focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
         style={{ background: 'var(--bg)', borderColor: 'var(--border)', color: 'var(--fg)' }}
       />
       {value && (
@@ -35,7 +35,7 @@ export default function SearchInput({ value, onChange, label, placeholder }: Pro
           onClick={() => onChange('')}
           aria-label={t('common.clearSearch')}
           className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1 rounded transition-colors
-                     hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                     hover:text-(--fg) focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
           style={{ color: 'var(--muted)' }}
         >
           <X size={12} aria-hidden />

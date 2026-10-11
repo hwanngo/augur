@@ -41,7 +41,7 @@ export default function Toaster() {
     <div
       role="status"
       aria-live="polite"
-      className="fixed bottom-5 right-5 z-[1000] flex items-center gap-3 px-4 py-3 rounded-lg border text-sm shadow-lg max-w-sm"
+      className="fixed bottom-5 right-5 z-1000 flex items-center gap-3 px-4 py-3 rounded-lg border text-sm shadow-lg max-w-sm"
       style={{ background: 'var(--panel)', borderColor: 'var(--border)', color: 'var(--fg)' }}
     >
       <Icon size={16} aria-hidden style={{ color: accent, flexShrink: 0 }} />

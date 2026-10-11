@@ -1,13 +1,13 @@
 # ── Stage 1: Build the React SPA ─────────────────────────────────────────────
-FROM node:22-slim AS frontend
+FROM node:24-slim AS frontend
 
 WORKDIR /app/frontend
 
-# Install pnpm
-RUN npm install -g pnpm
+# Install pnpm (matches frontend/package.json "packageManager")
+RUN npm install -g pnpm@12.9.1
 
 # Copy lockfile + manifest first for layer caching
-COPY frontend/package.json frontend/pnpm-lock.yaml ./
+COPY frontend/package.json frontend/pnpm-lock.yaml frontend/pnpm-workspace.yaml ./
 
 RUN pnpm install --frozen-lockfile
 
@@ -20,7 +20,7 @@ RUN pnpm build
 FROM python:3.14-slim AS runtime
 
 # uv binary (pinned to a specific version for reproducible builds)
-COPY --from=ghcr.io/astral-sh/uv:0.11.17 /uv /uvx /bin/
+COPY --from=ghcr.io/astral-sh/uv:0.13.0 /uv /uvx /bin/
 
 ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \

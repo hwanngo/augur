@@ -5,7 +5,7 @@ import { configureApi, apiGet, apiPost, ApiError } from '../api';
 
 const server = setupServer();
 
-beforeEach(() => server.listen({ onUnhandledRequest: 'error' }));
+beforeEach(() => server.listen({ onUnhandledFrame: 'error' }));
 afterEach(() => { server.resetHandlers(); server.close(); });
 
 describe('apiGet', () => {

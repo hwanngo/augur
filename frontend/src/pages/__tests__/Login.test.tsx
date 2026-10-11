@@ -10,7 +10,7 @@ import useAuthStore from '../../store/auth';
 const server = setupServer();
 
 beforeEach(() => {
-  server.listen({ onUnhandledRequest: 'error' });
+  server.listen({ onUnhandledFrame: 'error' });
   useAuthStore.setState({ user: null, role: null, csrf: null, status: 'anon', error: null });
 });
 afterEach(() => {

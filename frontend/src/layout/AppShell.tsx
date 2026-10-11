@@ -155,7 +155,7 @@ export default function AppShell() {
           <button
             type="button"
             onClick={() => setDrawerOpen(false)}
-            className="lg:hidden ml-auto p-2 -mr-1 rounded-md transition-colors hover:bg-[#21262d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+            className="lg:hidden ml-auto p-2 -mr-1 rounded-md transition-colors hover:bg-[#21262d] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
             style={{ color: 'var(--muted)' }}
             aria-label={t('nav.closeMenu')}
           >
@@ -198,8 +198,8 @@ export default function AppShell() {
                       className={({ isActive }) =>
                         `flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150 ` +
                         (isActive
-                          ? 'bg-[#21262d] text-[var(--accent)]'
-                          : 'text-[var(--muted)] hover:bg-[#21262d] hover:text-[var(--fg)]')
+                          ? 'bg-[#21262d] text-(--accent)'
+                          : 'text-(--muted) hover:bg-[#21262d] hover:text-(--fg)')
                       }
                     >
                       <item.icon size={16} aria-hidden />
@@ -218,11 +218,11 @@ export default function AppShell() {
           })}
         </nav>
 
-        {/* User / logout — flex-shrink-0 so a long nav can never squeeze/clip it. */}
-        <div className="px-3 py-3 border-t flex-shrink-0" style={{ borderColor: 'var(--border)' }}>
+        {/* User / logout — shrink-0 so a long nav can never squeeze/clip it. */}
+        <div className="px-3 py-3 border-t shrink-0" style={{ borderColor: 'var(--border)' }}>
           <div className="flex items-center gap-2 mb-2">
             <div
-              className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold uppercase flex-shrink-0"
+              className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold uppercase shrink-0"
               style={{ background: 'var(--accent)', color: '#0d1117' }}
               aria-hidden
             >
@@ -240,7 +240,7 @@ export default function AppShell() {
           <button
             type="button"
             onClick={() => void logout()}
-            className="flex items-center gap-2 w-full px-2 py-2 rounded-md text-xs transition-colors duration-150 cursor-pointer hover:bg-[#21262d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+            className="flex items-center gap-2 w-full px-2 py-2 rounded-md text-xs transition-colors duration-150 cursor-pointer hover:bg-[#21262d] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
             style={{ color: 'var(--muted)' }}
             aria-label={t('nav.logout')}
           >
@@ -261,7 +261,7 @@ export default function AppShell() {
                 key={code}
                 type="button"
                 onClick={() => void i18n.changeLanguage(code)}
-                className="px-2.5 py-1 rounded text-[11px] font-medium transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+                className="px-2.5 py-1 rounded-sm text-[11px] font-medium transition-colors cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
                 style={{
                   background: currentLang === code ? 'var(--accent)' : 'transparent',
                   color: currentLang === code ? '#0d1117' : 'var(--muted)',
@@ -280,13 +280,13 @@ export default function AppShell() {
       <div className="flex-1 min-w-0 flex flex-col">
         {/* Mobile top bar (hidden on lg+) */}
         <header
-          className="lg:hidden flex items-center gap-3 px-4 h-14 border-b flex-shrink-0"
+          className="lg:hidden flex items-center gap-3 px-4 h-14 border-b shrink-0"
           style={{ background: 'var(--panel)', borderColor: 'var(--border)' }}
         >
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="p-2 -ml-2 rounded-md transition-colors hover:bg-[#21262d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+            className="p-2 -ml-2 rounded-md transition-colors hover:bg-[#21262d] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
             style={{ color: 'var(--fg)' }}
             aria-label={t('nav.openMenu')}
             aria-expanded={drawerOpen}
@@ -311,7 +311,7 @@ export default function AppShell() {
       {newCount > 0 && (
         <div role="alert" aria-live="polite" className="fixed bottom-5 right-5 z-50">
           <button type="button"
-             className="flex items-center gap-2 px-4 py-3 rounded-lg border text-sm shadow-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)]"
+             className="flex items-center gap-2 px-4 py-3 rounded-lg border text-sm shadow-lg cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus)"
              style={{ background: '#3a2600', borderColor: '#ffae57', color: '#ffae57' }}
              onClick={() => { clearNew(); navigate('/alerts'); }}>
             <Bell size={14} aria-hidden /> {t('alerts.newAlerts', { count: newCount })}

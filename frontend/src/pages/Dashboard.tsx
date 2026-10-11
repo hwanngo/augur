@@ -208,7 +208,7 @@ export default function Dashboard() {
         {!loading && !fetchError && (
           <SearchInput value={query} onChange={setQuery} label={t('common.search')} placeholder={t('dashboard.search')} />
         )}
-        <label className="flex items-center gap-3 flex-shrink-0" htmlFor="min-proximity">
+        <label className="flex items-center gap-3 shrink-0" htmlFor="min-proximity">
           <span className="text-xs" style={{ color: 'var(--muted)' }}>
             {t('dashboard.minProximity')}
           </span>
@@ -249,7 +249,7 @@ export default function Dashboard() {
       {loading && (
         <div className="flex items-center gap-3 py-12 justify-center">
           <div
-            className="w-6 h-6 rounded-full border-2 border-t-[var(--accent)] animate-spin"
+            className="w-6 h-6 rounded-full border-2 border-t-(--accent) animate-spin"
             style={{ borderColor: 'var(--border)', borderTopColor: 'var(--accent)' }}
             aria-label={t('dashboard.loading')}
           />

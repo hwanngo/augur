@@ -30,6 +30,13 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      // react-hooks v7 folded the React Compiler rules into `recommended`. These four flag
+      // pre-existing patterns (inline sub-components, setState-in-effect data loading, ref reads
+      // during render, Date.now() in render) that need a dedicated refactor; they stay off until then.
+      'react-hooks/static-components': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+      'react-hooks/refs': 'off',
+      'react-hooks/purity': 'off',
       ...jsxA11y.configs.recommended.rules,
       // `role` is also a legitimate prop on our custom components (e.g. <RequireRole role="admin">).
       // Restrict the ARIA-role check to real DOM elements so custom components are not flagged.

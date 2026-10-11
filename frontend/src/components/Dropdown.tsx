@@ -202,7 +202,7 @@ export default function Dropdown({
           disabled={disabled}
           onClick={() => !disabled && setOpen(!open)}
           onKeyDown={handleKeyDown}
-          className="w-full px-3 py-1.5 text-xs rounded-lg border text-left flex items-center justify-between gap-2 transition-colors cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-3 py-1.5 text-xs rounded-lg border text-left flex items-center justify-between gap-2 transition-colors cursor-pointer select-none focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-(--focus) disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
             background: 'var(--bg)',
             borderColor: error ? '#a02020' : open ? 'var(--focus)' : 'var(--border)',
@@ -213,7 +213,7 @@ export default function Dropdown({
           <ChevronDown
             size={14}
             aria-hidden
-            className={`flex-shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+            className={`shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
             style={{ color: 'var(--muted)' }}
           />
         </button>
